@@ -7,7 +7,7 @@ USING_NS_CC;
 #define NS_YIEYO_END                       }
 #define USING_NS_YIEYO                     using namespace yieyo
 #define GAME_SCREEN_WIDTH 960
-#define GAME_SCREEN_HEIGHT 576
+#define GAME_SCREEN_HEIGHT 640
 
 const double PI = 3.1415;
 
