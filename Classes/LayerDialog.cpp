@@ -51,19 +51,29 @@ bool LayerDialog::initUI()
 	this->addChild(__vertical_drawing, 2);
 
 	//Ãû×Ö
-	CCLabelTTF * ttf_name = CCLabelTTF::create("xiaorou", "", 36);
+	CCLabelTTF * ttf_name = CCLabelTTF::create("xiaorou", "fonts/arial.ttf", 36);
 	ttf_name->setPosition(ccp(bg_name_size.width / 2.0f, bg_name_size.height / 2.0f));
 	__bg_name->addChild(ttf_name, 0, 0);
 
 	//¶Ô»°
-	CCLabelTTF * ttf_dialog = CCLabelTTF::create("xiaorounihaoa????", "", 34, bg_dialog_size - CCSizeMake(80.0f, 40.0f), kCCTextAlignmentLeft);
-	ttf_dialog->setPosition(ccp(bg_dialog_size.width / 2.0f, bg_dialog_size.height / 2.0f));
-	__bg_dialog->addChild(ttf_dialog, 0, 0);
+	TopwoLabelTTF* lbl_dialog = TopwoLabelTTF::create("fonts/arial.ttf", 32);
+	lbl_dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
+	//lbl_dialog->setAlignment(kCCTextAlignmentLeft);
+	lbl_dialog->setAnchorPoint(ccp(0, 1.0f));
+	lbl_dialog->setTypeString(Topwo::getInstance()->getTopwoTools()->getXmlString("GameName"), bg_dialog_size.width - 80.0f, 0.2f);
+	lbl_dialog->setPosition(ccp(bg_dialog_size.width / 2.0f - (bg_dialog_size.width - 80.0f) / 2.0f, bg_dialog_size.height / 2.0f + (bg_dialog_size.height - 40.0f) / 2.0f));
+	__bg_dialog->addChild(lbl_dialog, 0, 0);
 
 	return true;
 }
+void LayerDialog::onExit()
+{
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+}
 bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
+	TopwoLabelTTF* lbl_dialog = static_cast<TopwoLabelTTF*>(__bg_dialog->getChildByTag(0));
+	lbl_dialog->showAll();
 	return true;
 }
 void LayerDialog::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)

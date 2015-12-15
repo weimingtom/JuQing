@@ -14,6 +14,12 @@ public:
 	virtual bool init();
 	CREATE_FUNC(TopwoTools);
 
+
+	// 计算str字符数目
+	int getUtf8Length(char *str);
+	//get子串
+	CCString* subUtfString(char *str, unsigned int start, unsigned int end);
+
 	//获取对应key的字符串
 	CCString *getXmlString(char *key);
 	//获取对应Index的字符串

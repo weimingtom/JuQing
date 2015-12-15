@@ -13,6 +13,8 @@ public:
 	//≥ı ºªØUI
 	bool initUI();
 
+	virtual void onExit() override;
+
 	virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) override;

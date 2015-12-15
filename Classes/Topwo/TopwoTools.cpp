@@ -1,5 +1,35 @@
 #include "TopwoTools.h"
 
+//utf8字符长度1-6，可以根据每个字符第一个字节判断整个字符长度
+//0xxxxxxx
+//110xxxxx 10xxxxxx
+//1110xxxx 10xxxxxx 10xxxxxx
+//11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+//111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+//1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+//
+//定义查找表，长度256，表中的数值表示以此为起始字节的utf8字符长度
+unsigned char utf8_look_for_table[] =
+{
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 1, 1
+};
+#define UTFLEN(x)  utf8_look_for_table[(x)]
+
 TopwoTools::TopwoTools()
 {
 
@@ -20,6 +50,44 @@ bool TopwoTools::init()
 	}
 
 	return true;
+}
+// 计算str字符数目
+int TopwoTools::getUtf8Length(char *str)
+{
+	int clen = strlen(str);
+	int len = 0;
+
+	for (char *ptr = str; *ptr != 0 && len<clen; len++, ptr += UTFLEN((unsigned char)*ptr));
+
+	return len;
+}
+//get子串
+CCString* TopwoTools::subUtfString(char *str, unsigned int start, unsigned int end)
+{
+	int len = getUtf8Length(str);
+
+	if (start >= len) return NULL;
+	if (end > len) end = len;
+
+	char *sptr = str;
+	for (int i = 0; i < start; ++i, sptr += UTFLEN((unsigned char)*sptr));
+
+	char *eptr = sptr;
+	for (int i = start; i < end; ++i, eptr += UTFLEN((unsigned char)*eptr));
+
+	int retLen = eptr - sptr;
+	char *retStr = (char*)malloc(retLen + 1);
+	memcpy(retStr, sptr, retLen);
+	retStr[retLen] = 0;
+
+	CCString* retccstr = NULL;
+	if (retStr)
+	{
+		retccstr = CCString::create(retStr);
+		free(retStr);
+	}
+
+	return retccstr;
 }
 CCString *TopwoTools::getXmlString(char *key)
 {
