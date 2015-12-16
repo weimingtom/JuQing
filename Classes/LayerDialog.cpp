@@ -60,7 +60,13 @@ bool LayerDialog::initUI()
 	lbl_dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
 	//lbl_dialog->setAlignment(kCCTextAlignmentLeft);
 	lbl_dialog->setAnchorPoint(ccp(0, 1.0f));
-	lbl_dialog->setTypeString(Topwo::getInstance()->getTopwoTools()->getXmlString("GameName"), bg_dialog_size.width - 80.0f, 0.2f);
+
+	//rapidjson::Value& v = Topwo::getInstance()->getTopwoData()->getJsonValue(1);
+	lbl_dialog->setTypeSize(bg_dialog_size - CCSizeMake(80.0f, 10.0f));
+	lbl_dialog->setTypeInterval(0.2f);
+	lbl_dialog->setTypeFinishCallback(this, callfunc_selector(LayerDialog::labelCallBack));
+	//lbl_dialog->setTypeString(CCString::createWithFormat("%s", v["对话"].GetString()));
+	lbl_dialog->setTypeString(Topwo::getInstance()->getTopwoTools()->getXmlString("GameName"));
 	lbl_dialog->setPosition(ccp(bg_dialog_size.width / 2.0f - (bg_dialog_size.width - 80.0f) / 2.0f, bg_dialog_size.height / 2.0f + (bg_dialog_size.height - 40.0f) / 2.0f));
 	__bg_dialog->addChild(lbl_dialog, 0, 0);
 
@@ -73,7 +79,7 @@ void LayerDialog::onExit()
 bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
 	TopwoLabelTTF* lbl_dialog = static_cast<TopwoLabelTTF*>(__bg_dialog->getChildByTag(0));
-	lbl_dialog->showAll();
+	lbl_dialog->typeAll();
 	return true;
 }
 void LayerDialog::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
@@ -92,4 +98,11 @@ void LayerDialog::menuCloseCallback(CCObject* pSender)
 
 void LayerDialog::menuBeginCallback(CCObject* pSender)
 {
+}
+void LayerDialog::labelCallBack()
+{
+	/*TopwoLabelTTF* lbl_dialog = static_cast<TopwoLabelTTF*>(__bg_dialog->getChildByTag(0));
+	CCSize bg_dialog_size = __bg_dialog->getContentSize();
+	rapidjson::Value& v = Topwo::getInstance()->getTopwoData()->getJsonValue(2);
+	lbl_dialog->setTypeString(CCString::createWithFormat("%s", v["对话"].GetString()));*/
 }

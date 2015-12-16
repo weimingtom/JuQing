@@ -24,6 +24,8 @@ public:
 	void menuCloseCallback(CCObject* pSender);
 
 	void menuBeginCallback(CCObject* pSender);
+
+	void labelCallBack();
 private:
 	CCSprite* __bg;
 	CCSprite* __bg_name;

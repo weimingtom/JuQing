@@ -119,7 +119,6 @@ bool SceneAction::initUI()
 	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_set, item_help, item_about, item_close, NULL);
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
-	CCTextureCache::sharedTextureCache()->addImage("fonts/common_32.png");
 
 	return true;
 }
