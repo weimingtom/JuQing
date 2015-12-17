@@ -37,7 +37,7 @@ bool SceneMain::initUI()
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 
 	//±³¾°
-	CCSprite* bg = CCSprite::create("bg_SceneMain_1.jpg");
+	CCSprite* bg = CCSprite::create("SceneMain_bg_1.jpg");
 	bg->setPosition(ccp(vs.width / 2 + vo.x, vs.height / 2 + vo.y));
 	this->addChild(bg, 0);
 

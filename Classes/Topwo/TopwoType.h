@@ -1,5 +1,5 @@
-#ifndef __TOPWO_LABEL_H__
-#define __TOPWO_LABEL_H__
+#ifndef __TOPWO_TYPE_H__
+#define __TOPWO_TYPE_H__
 #include "cocos2d.h"
 #include "TopwoDefine.h"
 #include "TopwoTools.h"
@@ -16,6 +16,11 @@ public:
 	void setTypeInterval(twfloat interval);
 	//设置打完一句话后的回调函数
 	void setTypeFinishCallback(CCObject* target, SEL_CallFunc callfun);
+
+	//设置打字的字符串
+	virtual void setTypeString(CCString *str);
+	//直接全部显示出来
+	virtual void typeAll() = 0;
 protected:
 
 	CCSize __type_size;//内容区域大小
@@ -28,14 +33,14 @@ protected:
 	CCObject* __callbackListener;
 	SEL_CallFunc __callbackfunc;
 };
-class TopwoLabelBMFont : public CCLabelBMFont, public TopwoType
+class TopwoTypeBMFont : public CCLabelBMFont, public TopwoType
 {
 public:
-	TopwoLabelBMFont();
-	virtual ~TopwoLabelBMFont();
+	TopwoTypeBMFont();
+	virtual ~TopwoTypeBMFont();
 
 	//创造函数
-	static TopwoLabelBMFont* create(const char* fntfile);
+	static TopwoTypeBMFont* create(const char* fntfile);
 
 	//初始函数
 	virtual bool init(const char* fntfile);
@@ -45,19 +50,19 @@ public:
 
 	//直接全部显示出来
 	virtual void typeAll();
+protected:
 	//打字回调
 	virtual void typing(float f);
-protected:
 };
 
-class TopwoLabelTTF :public CCLabelTTF, public TopwoType
+class TopwoTypeTTF :public CCLabelTTF, public TopwoType
 {
 public:
-	TopwoLabelTTF();
-	virtual ~TopwoLabelTTF();
+	TopwoTypeTTF();
+	virtual ~TopwoTypeTTF();
 
 	//创造函数
-	static TopwoLabelTTF* create(const char* fntfile, float fontSize);
+	static TopwoTypeTTF* create(const char* fntfile, float fontSize);
 
 	//初始函数
 	virtual bool init(const char* fntfile, float fontSize);
@@ -67,9 +72,8 @@ public:
 
 	//直接全部显示出来
 	virtual void typeAll();
-
+protected:
 	//打字回调
 	virtual void typing(float f);
-protected:
 };
-#endif  //__TOPWO_LABEL_H__
+#endif  //__TOPWO_TYPE_H__

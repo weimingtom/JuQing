@@ -1,4 +1,4 @@
-#include "TopwoLabel.h"
+#include "TopwoType.h"
 #include "Topwo.h"
 
 //TopwoLabel
@@ -6,12 +6,14 @@ TopwoType::TopwoType()
 :__type_str(NULL)
 , __type_size(CCSizeZero)
 , __type_interval(0.0f)
+, __callbackListener(NULL)
+, __callbackfunc(NULL)
 , __type_char_sum(0)
 , __type_char_num(0)
 , __is_type_all(false)
-, __callbackListener(NULL)
-, __callbackfunc(NULL)
 {
+	__type_str = CCString::create("");
+	__type_str->retain();
 }
 
 TopwoType::~TopwoType()
@@ -35,29 +37,39 @@ void TopwoType::setTypeFinishCallback(CCObject* target, SEL_CallFunc callfun)
 	__callbackListener = target;
 	__callbackfunc = callfun;
 }
+void TopwoType::setTypeString(CCString *str)
+{
+	TopwoTools* topwo_tools = Topwo::getInstance()->getTopwoTools();
+	//存储要打印的那段话
+	*__type_str = *str;
+	//这段话总字符数
+	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
 
-//TopwoLabelBMFont
-TopwoLabelBMFont::TopwoLabelBMFont()
+	__type_char_num = 0;
+
+	__is_type_all = false;
+}
+
+//TopwoTypeBMFont
+TopwoTypeBMFont::TopwoTypeBMFont()
 {
 }
 
-TopwoLabelBMFont::~TopwoLabelBMFont()
+TopwoTypeBMFont::~TopwoTypeBMFont()
 {
 }
 
-bool TopwoLabelBMFont::init(const char* fntfile)
+bool TopwoTypeBMFont::init(const char* fntfile)
 {
 	if (!CCLabelBMFont::initWithString("", fntfile))
 	{
 		return false;
 	}
-	__type_str = CCString::create("");
-	__type_str->retain();
 	return true;
 }
-TopwoLabelBMFont* TopwoLabelBMFont::create(const char* fntfile)
+TopwoTypeBMFont* TopwoTypeBMFont::create(const char* fntfile)
 {
-	TopwoLabelBMFont *pRet = new TopwoLabelBMFont();
+	TopwoTypeBMFont *pRet = new TopwoTypeBMFont();
 	if (pRet && pRet->init(fntfile))
 	{
 		pRet->autorelease();
@@ -70,21 +82,19 @@ TopwoLabelBMFont* TopwoLabelBMFont::create(const char* fntfile)
 		return NULL;
 	}
 }
-void TopwoLabelBMFont::setTypeString(CCString *str)
+void TopwoTypeBMFont::setTypeString(CCString *str)
 {
 	TopwoTools* topwo_tools = Topwo::getInstance()->getTopwoTools();
-	//存储要打印的那段话
-	*__type_str = *str;
-	//这段话总字符数
-	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
+
+	this->TopwoType::setTypeString(str);
 
 	//一行字符串最小个数
-	twint min_char_count = (twint)(__type_size.width / this->getConfiguration()->m_nInfoSize);
+	twuint min_char_count = (twuint)(__type_size.width / this->getConfiguration()->m_nInfoSize);
 
 	CCString *sub = NULL;//存储裁剪的一段话
 	twint sub_start = 0;//裁剪的开始位置
 	twint line_break_count = 0;//裁剪的次数
-	twint i = min_char_count;//裁剪的结束位置
+	twuint i = min_char_count;//裁剪的结束位置
 	while ((i <= __type_char_sum) && (sub = topwo_tools->subUtfString(const_cast<char*>(str->getCString()), sub_start, i + 1)))
 	{
 		this->setString(sub->getCString());
@@ -114,12 +124,12 @@ void TopwoLabelBMFont::setTypeString(CCString *str)
 	}
 	else
 	{
-		this->schedule(schedule_selector(TopwoLabelBMFont::typing), __type_interval, __type_char_sum, 0);
+		this->schedule(schedule_selector(TopwoTypeBMFont::typing), __type_interval, __type_char_sum, 0);
 	}
 }
 
 //直接全部显示出来
-void TopwoLabelBMFont::typeAll()
+void TopwoTypeBMFont::typeAll()
 {
 	if (__is_type_all)
 	{
@@ -129,12 +139,12 @@ void TopwoLabelBMFont::typeAll()
 	this->setString(__type_str->getCString());
 }
 
-void TopwoLabelBMFont::typing(float f)
+void TopwoTypeBMFont::typing(float f)
 {
 	//已经全部显示，取消计划
 	if (__is_type_all)
 	{
-		this->unschedule(schedule_selector(TopwoLabelBMFont::typing));
+		this->unschedule(schedule_selector(TopwoTypeBMFont::typing));
 		//回调
 		if (__callbackListener&&__callbackfunc)
 			(__callbackListener->*__callbackfunc)();
@@ -165,28 +175,25 @@ void TopwoLabelBMFont::typing(float f)
 }
 
 //LabelTTF
-TopwoLabelTTF::TopwoLabelTTF()
+TopwoTypeTTF::TopwoTypeTTF()
 {
 }
 
-TopwoLabelTTF::~TopwoLabelTTF()
+TopwoTypeTTF::~TopwoTypeTTF()
 {
-	__type_str->release();
 }
 
-bool TopwoLabelTTF::init(const char* fntfile, float fontSize)
+bool TopwoTypeTTF::init(const char* fntfile, float fontSize)
 {
-	if (!TopwoLabelTTF::initWithString("", fntfile, fontSize))
+	if (!TopwoTypeTTF::initWithString("", fntfile, fontSize))
 	{
 		return false;
 	}
-	__type_str = CCString::create("");
-	__type_str->retain();
 	return true;
 }
-TopwoLabelTTF* TopwoLabelTTF::create(const char* fntfile, float fontSize)
+TopwoTypeTTF* TopwoTypeTTF::create(const char* fntfile, float fontSize)
 {
-	TopwoLabelTTF *pRet = new TopwoLabelTTF();
+	TopwoTypeTTF *pRet = new TopwoTypeTTF();
 	if (pRet && pRet->init(fntfile, fontSize))
 	{
 		pRet->autorelease();
@@ -199,21 +206,19 @@ TopwoLabelTTF* TopwoLabelTTF::create(const char* fntfile, float fontSize)
 		return NULL;
 	}
 }
-void TopwoLabelTTF::setTypeString(CCString *str)
+void TopwoTypeTTF::setTypeString(CCString *str)
 {
 	TopwoTools* topwo_tools = Topwo::getInstance()->getTopwoTools();
-	//存储要打印的那段话
-	*__type_str = *str;
-	//这段话总字符数
-	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
+
+	this->TopwoType::setTypeString(str);
 
 	//一行字符串最小个数
-	twint min_char_count = (twint)(__type_size.width / this->getFontSize());
+	twuint min_char_count = (twuint)(__type_size.width / this->getFontSize());
 
 	CCString *sub = NULL;//存储裁剪的一段话
 	twint sub_start = 0;//裁剪的开始位置
 	twint line_break_count = 0;//裁剪的次数
-	twint i = min_char_count;//裁剪的结束位置
+	twuint i = min_char_count;//裁剪的结束位置
 	while ((i <= __type_char_sum) && (sub = topwo_tools->subUtfString(const_cast<char*>(str->getCString()), sub_start, i + 1)))
 	{
 		this->setString(sub->getCString());
@@ -243,12 +248,12 @@ void TopwoLabelTTF::setTypeString(CCString *str)
 	}
 	else
 	{
-		this->schedule(schedule_selector(TopwoLabelTTF::typing), __type_interval, __type_char_sum, 0);
+		this->schedule(schedule_selector(TopwoTypeTTF::typing), __type_interval, __type_char_sum, 0);
 	}
 }
 
 //直接全部显示出来
-void TopwoLabelTTF::typeAll()
+void TopwoTypeTTF::typeAll()
 {
 	if (__is_type_all)
 	{
@@ -258,12 +263,12 @@ void TopwoLabelTTF::typeAll()
 	this->setString(__type_str->getCString());
 }
 
-void TopwoLabelTTF::typing(float f)
+void TopwoTypeTTF::typing(float f)
 {
 	//已经全部显示，取消计划
 	if (__is_type_all)
 	{
-		this->unschedule(schedule_selector(TopwoLabelTTF::typing));
+		this->unschedule(schedule_selector(TopwoTypeTTF::typing));
 		//回调
 		if (__callbackListener&&__callbackfunc)
 			(__callbackListener->*__callbackfunc)();

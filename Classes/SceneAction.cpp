@@ -38,7 +38,7 @@ bool SceneAction::initUI()
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 
 	//±³¾°
-	CCSprite* bg = CCSprite::create("bg_SceneAction.jpg");
+	CCSprite* bg = CCSprite::create("SceneAction_bg.jpg");
 	bg->setPosition(ccp(vs.width / 2 + vo.x, vs.height / 2 + vo.y));
 	this->addChild(bg, 0);
 
@@ -128,7 +128,7 @@ bool SceneAction::initUI()
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
-	this->addChild(LayerDialog::create());
+	this->addChild(LayerDialog::createWith(0,5), 10);
 }
 //¾ÉµÄ»ØÒä
 void SceneAction::menuOldCallback(CCObject* pSender)

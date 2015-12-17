@@ -5,7 +5,7 @@
 #include "Topwo/TopwoTools.h"
 #include "Topwo/TopwoPlatform.h"
 #include "Topwo/TopwoData.h"
-#include "Topwo/TopwoLabel.h"
+#include "Topwo/TopwoType.h"
 
 class Topwo{
 public:

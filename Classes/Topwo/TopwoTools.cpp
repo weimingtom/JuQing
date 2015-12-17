@@ -184,6 +184,8 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 		CC_SAFE_DELETE_ARRAY(file_data);
 		doc->Parse<rapidjson::kParseDefaultFlags>(file_str.c_str());
 		CC_BREAK_IF(doc->HasParseError());
+		CCLOG("doc Is Object : %d", doc->IsObject());
+		CCLOG("doc Is Array : %d", doc->IsArray());
 		break;
 	} while (0);
 
@@ -191,9 +193,7 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 		/*if (!m_doc.IsObject())
 		{
 			return;
-		}*/
-
-		/*
+		}
 		for (unsigned int i = 1; i<doc->Size(); i++)
 		{
 			//逐个提取数组元素（声明的变量必须为引用） 

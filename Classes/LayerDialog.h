@@ -2,6 +2,7 @@
 #define __LAYER_DIALOG_H__
 
 #include "cocos2d.h"
+#include "Topwo.h"
 USING_NS_CC;
 
 class LayerDialog : public cocos2d::CCLayer
@@ -9,6 +10,7 @@ class LayerDialog : public cocos2d::CCLayer
 public:
 	virtual bool init();
 	CREATE_FUNC(LayerDialog);
+	static LayerDialog* createWith(int start_id, int end_id);
 
 	//初始化UI
 	bool initUI();
@@ -20,17 +22,23 @@ public:
 	virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
     
-    // a selector callback
+    //回调
 	void menuCloseCallback(CCObject* pSender);
-
 	void menuBeginCallback(CCObject* pSender);
 
-	void labelCallBack();
+	//解析一句对话
+	void analyzeDialog(int index);
+	//打字结束回调
+	void typedCallBack();
 private:
 	CCSprite* __bg;
-	CCSprite* __bg_name;
-	CCSprite* __bg_dialog;
 	CCSprite* __vertical_drawing;
+	CCLabelTTF* __name;
+	TopwoTypeTTF* __dialog;
+	bool __is_typed_all;
+	int __start_id;
+	int __end_id;
+	int __current_id;
 };
 
 #endif // __SCENE_DIALOG_H__
