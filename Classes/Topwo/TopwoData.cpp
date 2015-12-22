@@ -13,7 +13,7 @@ TopwoData::~TopwoData()
 //负责初始到原始0状态
 twbool TopwoData::init()
 {
-	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&__doc, "fonts/plot.json");
+	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&__doc_plot, "fonts/plot.json");
 	return true;
 }
 
@@ -51,5 +51,14 @@ int TopwoData::readData(const char* key)
 
 rapidjson::Value& TopwoData::getJsonValue(int index)
 {
-	return __doc[index];
+	int size = __doc_plot.Size();
+	if (index < 0)
+	{
+		index = 0;
+	}
+	else if (index > size)
+	{
+		index = size;
+	}
+	return __doc_plot[index];
 }

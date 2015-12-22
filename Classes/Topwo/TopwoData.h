@@ -28,7 +28,7 @@ public:
 
 	rapidjson::Value& getJsonValue(int index);
 private:
-	rapidjson::Document __doc;
+	rapidjson::Document __doc_plot;
 };
 
 #endif  //__TOPWO_DATA_H__

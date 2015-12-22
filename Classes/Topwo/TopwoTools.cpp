@@ -1,5 +1,4 @@
 #include "TopwoTools.h"
-
 //utf8字符长度1-6，可以根据每个字符第一个字节判断整个字符长度
 //0xxxxxxx
 //110xxxxx 10xxxxxx
@@ -70,10 +69,10 @@ CCString* TopwoTools::subUtfString(char *str, unsigned int start, unsigned int e
 	if (end > len) end = len;
 
 	char *sptr = str;
-	for (int i = 0; i < start; ++i, sptr += UTFLEN((unsigned char)*sptr));
+	for (unsigned int i = 0; i < start; ++i, sptr += UTFLEN((unsigned char)*sptr));
 
 	char *eptr = sptr;
-	for (int i = start; i < end; ++i, eptr += UTFLEN((unsigned char)*eptr));
+	for (unsigned int i = start; i < end; ++i, eptr += UTFLEN((unsigned char)*eptr));
 
 	int retLen = eptr - sptr;
 	char *retStr = (char*)malloc(retLen + 1);
@@ -176,13 +175,17 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 {
 	unsigned long file_data_size = 0;
 	do {
+		//CCData *data = new CCData(pBytes, size);
+		//DictionaryHelper::shareHelper()->getStringValue_json(rapidJsonData[i], "name");
 		CC_BREAK_IF(doc == NULL || !CCFileUtils::sharedFileUtils()->isFileExist(file_name));
-		unsigned char* file_data = CCFileUtils::sharedFileUtils()->getFileData(CCFileUtils::sharedFileUtils()->fullPathForFilename(file_name).c_str(), "r", &file_data_size);
-		CC_BREAK_IF(file_data == NULL || strcmp((char*)file_data, "") == 0);
-		CCLOG("%s", file_data);
-		std::string file_str((const char*)file_data, file_data_size);
-		CC_SAFE_DELETE_ARRAY(file_data);
+		const char* file_data = (char*)CCFileUtils::sharedFileUtils()->getFileData(file_name, "rt", &file_data_size);
+		CC_BREAK_IF(file_data == NULL || file_data_size == 0);
+		const char* file_data_skip_bom = skipBOM(file_data);
+		std::string file_str(file_data_skip_bom, file_data_size + file_data - file_data_skip_bom);
 		doc->Parse<rapidjson::kParseDefaultFlags>(file_str.c_str());
+		file_data_skip_bom = NULL;
+		CC_SAFE_DELETE_ARRAY(file_data);
+		CCLOG("doc HasParseError : %d", doc->HasParseError());
 		CC_BREAK_IF(doc->HasParseError());
 		CCLOG("doc Is Object : %d", doc->IsObject());
 		CCLOG("doc Is Array : %d", doc->IsArray());
@@ -245,4 +248,17 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 		//	const rapidjson::Value& val = v["stuAge"];
 		//	CCLOG("val.GetString() = %s", val.GetString());
 		//}
+}
+
+const char* TopwoTools::skipBOM(const char* p)
+{
+	const unsigned char* pu = reinterpret_cast<const unsigned char*>(p);
+	// Check for BOM:
+	if (*(pu + 0) == BYTE_ORDER_MARK_UTF8_1
+		&& *(pu + 1) == BYTE_ORDER_MARK_UTF8_2
+		&& *(pu + 2) == BYTE_ORDER_MARK_UTF8_3) 
+	{
+		p += 3;
+	}
+	return p;
 }

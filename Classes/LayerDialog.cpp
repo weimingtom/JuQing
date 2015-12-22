@@ -1,5 +1,18 @@
 #include "LayerDialog.h"
 
+LayerDialog::LayerDialog()
+:__fork_arr(NULL)
+{
+
+}
+LayerDialog::~LayerDialog()
+{
+	if (__fork_arr)
+	{
+		__fork_arr->release();
+		__fork_arr = NULL;
+	}
+}
 bool LayerDialog::init()
 {
     // 1. super init first
@@ -13,6 +26,9 @@ bool LayerDialog::init()
 	__current_id = 0;
 
 	__is_typed_all = false;
+
+	__fork_arr = CCArray::create();
+	__fork_arr->retain();
 
 	initUI();
 
@@ -41,6 +57,10 @@ bool LayerDialog::initUI()
 {
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
+
+	__fork_menu = CCMenu::create();
+	this->addChild(__fork_menu,10);
+	__fork_menu->setPosition(CCPointZero);
 
 	//±³¾°
 	__bg = CCSprite::create("bg_black.png");
@@ -121,8 +141,9 @@ void LayerDialog::menuCloseCallback(CCObject* pSender)
 {
 }
 
-void LayerDialog::menuBeginCallback(CCObject* pSender)
+void LayerDialog::menuForkCallback(CCObject* pSender)
 {
+	__fork_menu->removeAllChildren();
 }
 void LayerDialog::typedCallBack()
 {
@@ -137,22 +158,22 @@ void LayerDialog::analyzeDialog(int index)
 	CCTexture2D* texture2d_bg = NULL;
 
 	rapidjson::Value& v = Topwo::getInstance()->getTopwoData()->getJsonValue(index);
-	if (v.HasMember("CG") && v["CG"].IsInt())
+	if (v.HasMember("CG") && v["CG"].IsNumber())
 	{
-		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("CG_%d.jpg", v["CG"].GetInt())->getCString());
+		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("CG_%d.jpg", (int)v["CG"].GetDouble())->getCString());
 	}
 	else
 	{
-		if (v.HasMember("VE") && v["VE"].IsInt())
+		if (v.HasMember("VE") && v["VE"].IsNumber())
 		{
 			__vertical_drawing->setVisible(true);
-			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("VE_1_%d.png", v["VE"].GetInt())->getCString());
+			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("VE_1_%d.png", (int)v["VE"].GetDouble())->getCString());
 			__vertical_drawing->initWithTexture(texture2d_ve);
 			__vertical_drawing->setAnchorPoint(ccp(0.5f, 1.0f));
 		}
-		if (v.HasMember("BG") && v["BG"].IsInt())
+		if (v.HasMember("BG") && v["BG"].IsNumber())
 		{
-			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("BG_%d.jpg", v["BG"].GetInt())->getCString());
+			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("BG_%d.jpg", (int)v["BG"].GetDouble())->getCString());
 		}
 	}
 	if (!texture2d_bg)
@@ -168,5 +189,47 @@ void LayerDialog::analyzeDialog(int index)
 	if (v.HasMember("DG") && v["DG"].IsString())
 	{
 		__dialog->setTypeString(CCString::createWithFormat("%s", v["DG"].GetString()));
+	}
+
+	if (v.HasMember("FO") && v["FO"].IsString())
+	{
+		__fork_menu->removeAllChildren();
+		do {
+			rapidjson::Document doc;
+			doc.Parse<rapidjson::kParseDefaultFlags>(v["FO"].GetString());
+			CCLOG("doc HasParseError : %d", doc.HasParseError());
+			CC_BREAK_IF(doc.HasParseError());
+			if (doc.IsArray())
+			{
+				int doc_size = doc.Size();
+				int need = doc_size - __fork_arr->count();
+				CCTexture2D* texture = CCTextureCache::sharedTextureCache()->addImage("btn_fork_0.png");
+				CCSize fork_size = texture->getContentSize();
+				while (need > 0)
+				{
+					CCMenuItemImage* fork = CCMenuItemImage::create("btn_fork_0.png", "btn_fork_1.png", this, menu_selector(LayerDialog::menuForkCallback));
+					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/arial.ttf", 28);
+					fork->addChild(fork_content);
+					fork_content->setTag(0);
+					fork_content->setPosition(ccp(fork_size.width / 2.0f, fork_size.height / 2.0f));
+					__fork_arr->addObject(fork);
+					need--;
+				}
+				float top_fork_pos = 350.0f + doc_size / 2.0f * fork_size.height;
+				for (int i = 0; i < doc_size; i++)
+				{
+					if (doc[i].IsString())
+					{
+						CCMenuItemImage* fork = static_cast<CCMenuItemImage*>(__fork_arr->objectAtIndex(i));
+						fork->setTag(i);
+						static_cast<CCLabelTTF*>(fork->getChildByTag(0))->setString(doc[i].GetString());
+						__fork_menu->addChild(fork);
+						fork->setPosition(ccp(fork_size.width, top_fork_pos - i * fork_size.height * 1.1f));
+						CCLOG("String%d : %s", i, doc[i].GetString());
+					}
+				}
+			}
+			break;
+		} while (0);
 	}
 }

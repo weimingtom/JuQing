@@ -10,6 +10,9 @@ USING_NS_CC;
 #define GAME_SCREEN_HEIGHT 640
 
 const double PI = 3.1415;
+static const unsigned char BYTE_ORDER_MARK_UTF8_1 = 0xefU;
+static const unsigned char BYTE_ORDER_MARK_UTF8_2 = 0xbbU;
+static const unsigned char BYTE_ORDER_MARK_UTF8_3 = 0xbfU;
 
 
 typedef int					twint;

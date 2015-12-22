@@ -28,6 +28,7 @@ public:
 	CCString *getXmlArrayString(char *key, twlong index);
 
 	void readRapidJSON(rapidjson::Document* doc, const char *file_name);
+	const char* skipBOM(const char* p);
 
 
 	//获取随机数
