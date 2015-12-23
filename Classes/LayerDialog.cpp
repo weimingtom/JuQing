@@ -61,6 +61,7 @@ bool LayerDialog::initUI()
 	__fork_menu = CCMenu::create();
 	this->addChild(__fork_menu,10);
 	__fork_menu->setPosition(CCPointZero);
+	__fork_menu->setVisible(false);
 
 	//背景
 	__bg = CCSprite::create("bg_black.png");
@@ -114,6 +115,10 @@ bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 	}
 	else
 	{
+		if (__fork_menu->getChildrenCount() > 0 && __fork_menu->isVisible())
+		{
+			return true;
+		}
 		if (__current_id < __end_id)
 		{
 			__current_id++;
@@ -143,11 +148,19 @@ void LayerDialog::menuCloseCallback(CCObject* pSender)
 
 void LayerDialog::menuForkCallback(CCObject* pSender)
 {
+	__fork_menu->setVisible(false);
 	__fork_menu->removeAllChildren();
+	int fork_pos = static_cast<CCMenuItemImage*>(pSender)->getZOrder();
+	__current_id += fork_pos;
+	analyzeDialog(__current_id);
 }
 void LayerDialog::typedCallBack()
 {
 	__is_typed_all = true;
+	if (__fork_menu->getChildrenCount() > 0)
+	{
+		__fork_menu->setVisible(true);
+	}
 }
 //解析一句对话
 void LayerDialog::analyzeDialog(int index)
@@ -186,11 +199,6 @@ void LayerDialog::analyzeDialog(int index)
 		__name->setString(v["NM"].GetString());
 	}
 
-	if (v.HasMember("DG") && v["DG"].IsString())
-	{
-		__dialog->setTypeString(CCString::createWithFormat("%s", v["DG"].GetString()));
-	}
-
 	if (v.HasMember("FO") && v["FO"].IsString())
 	{
 		__fork_menu->removeAllChildren();
@@ -218,18 +226,29 @@ void LayerDialog::analyzeDialog(int index)
 				float top_fork_pos = 350.0f + doc_size / 2.0f * fork_size.height;
 				for (int i = 0; i < doc_size; i++)
 				{
-					if (doc[i].IsString())
+					if (doc[i].IsObject())
 					{
-						CCMenuItemImage* fork = static_cast<CCMenuItemImage*>(__fork_arr->objectAtIndex(i));
-						fork->setTag(i);
-						static_cast<CCLabelTTF*>(fork->getChildByTag(0))->setString(doc[i].GetString());
-						__fork_menu->addChild(fork);
-						fork->setPosition(ccp(fork_size.width, top_fork_pos - i * fork_size.height * 1.1f));
-						CCLOG("String%d : %s", i, doc[i].GetString());
+						if (doc[i]["fork_item"].IsString())
+						{
+							CCMenuItemImage* fork = static_cast<CCMenuItemImage*>(__fork_arr->objectAtIndex(i));
+							fork->setTag(i);
+							if (doc[i]["fork_pos"].IsNumber())
+							{
+								fork->setZOrder((int)doc[i]["fork_pos"].GetDouble());
+							}
+							static_cast<CCLabelTTF*>(fork->getChildByTag(0))->setString(doc[i]["fork_item"].GetString());
+							__fork_menu->addChild(fork);
+							fork->setPosition(ccp(fork_size.width, top_fork_pos - i * fork_size.height * 1.1f));
+						}
 					}
 				}
 			}
 			break;
 		} while (0);
+	}
+
+	if (v.HasMember("DG") && v["DG"].IsString())
+	{
+		__dialog->setTypeString(CCString::createWithFormat("%s", v["DG"].GetString()));
 	}
 }

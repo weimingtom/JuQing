@@ -242,7 +242,7 @@ void TopwoTypeTTF::setTypeString(CCString *str)
 	//重新获取这段话总字符数
 	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
 
-	if (__type_interval > -0.00001f && __type_interval < 0.00001f)
+	if ((__type_interval > -0.00001f && __type_interval < 0.00001f) || (!__type_char_sum))
 	{
 		typeAll();
 	}
@@ -261,17 +261,18 @@ void TopwoTypeTTF::typeAll()
 	}
 	__is_type_all = true;
 	this->setString(__type_str->getCString());
+	//回调
+	if (__callbackListener&&__callbackfunc)
+		(__callbackListener->*__callbackfunc)();
 }
 
 void TopwoTypeTTF::typing(float f)
 {
 	//已经全部显示，取消计划
-	if (__is_type_all)
+	if (__is_type_all || __type_char_num >= __type_char_sum - 1)
 	{
 		this->unschedule(schedule_selector(TopwoTypeTTF::typing));
-		//回调
-		if (__callbackListener&&__callbackfunc)
-			(__callbackListener->*__callbackfunc)();
+		typeAll();
 		return;
 	}
 
@@ -289,11 +290,5 @@ void TopwoTypeTTF::typing(float f)
 			this->setString(sub->getCString());
 			break;
 		}
-	}
-
-	//所有字符全部打完
-	if (__type_char_num >= __type_char_sum)
-	{
-		__is_type_all = true;
 	}
 }
