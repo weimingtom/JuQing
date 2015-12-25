@@ -36,13 +36,14 @@ private:
 	CCSprite* __bg;
 	CCSprite* __vertical_drawing;
 	CCLabelTTF* __name;
-	TopwoTypeTTF* __dialog;
+	TopwoType* __dialog;
 	CCArray* __fork_arr;
 	CCMenu* __fork_menu;
 	bool __is_typed_all;
 	int __start_id;
 	int __end_id;
 	int __current_id;
+	int __offset;
 };
 
 #endif // __SCENE_DIALOG_H__

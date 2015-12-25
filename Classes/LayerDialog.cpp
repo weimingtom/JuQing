@@ -24,6 +24,7 @@ bool LayerDialog::init()
 	__start_id = 0;
 	__end_id = 0;
 	__current_id = 0;
+	__offset = 1;
 
 	__is_typed_all = false;
 
@@ -91,10 +92,11 @@ bool LayerDialog::initUI()
 	bg_name->addChild(__name, 0, 0);
 
 	//对话
-	__dialog = TopwoTypeTTF::create("fonts/arial.ttf", 32);
-	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
+	__dialog = TopwoType::create();
+	CCLabelTTF* ttf = static_cast<CCLabelTTF*>(__dialog->createTypedLabel(TopwoType::TypeLabelStyle::LABEL_TTF, "fonts/arial.ttf", 32));
+	ttf->setHorizontalAlignment(kCCTextAlignmentLeft);
 	//lbl_dialog->setAlignment(kCCTextAlignmentLeft);
-	__dialog->setAnchorPoint(ccp(0, 1.0f));
+	ttf->setAnchorPoint(ccp(0, 1.0f));
 
 	__dialog->setTypeSize(bg_dialog_size - CCSizeMake(80.0f, 10.0f));
 	__dialog->setTypeInterval(0.2f);
@@ -121,7 +123,7 @@ bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 		}
 		if (__current_id < __end_id)
 		{
-			__current_id++;
+			__current_id += __offset;
 			analyzeDialog(__current_id);
 		}
 		else
@@ -194,10 +196,6 @@ void LayerDialog::analyzeDialog(int index)
 		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage("bg_black.png");
 	}
 	__bg->setTexture(texture2d_bg);
-	if (v.HasMember("NM") && v["NM"].IsString())
-	{
-		__name->setString(v["NM"].GetString());
-	}
 
 	if (v.HasMember("FO") && v["FO"].IsString())
 	{
@@ -247,8 +245,38 @@ void LayerDialog::analyzeDialog(int index)
 		} while (0);
 	}
 
+
+	//对话
 	if (v.HasMember("DG") && v["DG"].IsString())
 	{
+		if (v.HasMember("NA") && v["NA"].IsString())
+		{
+			__name->setString(v["NA"].GetString());
+			if (!__name->getParent()->isVisible())
+			{
+				__name->getParent()->setVisible(true);
+			}
+		}
+		else
+		{
+			__name->getParent()->setVisible(false);
+		}
 		__dialog->setTypeString(CCString::createWithFormat("%s", v["DG"].GetString()));
+		if (!__dialog->getParent()->isVisible())
+		{
+			__dialog->getParent()->setVisible(true);
+		}
+	}
+	else
+	{
+		__dialog->setTypeString(CCString::create(""));
+		__dialog->getParent()->setVisible(false);
+		__name->getParent()->setVisible(false);
+	}
+
+	__offset = 1;
+	if (v.HasMember("NE") && v["NE"].IsNumber())
+	{
+		__offset = (int)v["NE"].GetDouble();
 	}
 }
