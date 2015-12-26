@@ -92,11 +92,10 @@ bool LayerDialog::initUI()
 	bg_name->addChild(__name, 0, 0);
 
 	//¶Ô»°
-	__dialog = TopwoType::create();
-	CCLabelTTF* ttf = static_cast<CCLabelTTF*>(__dialog->createTypedLabel(TopwoType::TypeLabelStyle::LABEL_TTF, "fonts/arial.ttf", 32));
-	ttf->setHorizontalAlignment(kCCTextAlignmentLeft);
+	__dialog = TopwoTypeTTF::create("fonts/arial.ttf", 32);
+	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
 	//lbl_dialog->setAlignment(kCCTextAlignmentLeft);
-	ttf->setAnchorPoint(ccp(0, 1.0f));
+	__dialog->setAnchorPoint(ccp(0, 1.0f));
 
 	__dialog->setTypeSize(bg_dialog_size - CCSizeMake(80.0f, 10.0f));
 	__dialog->setTypeInterval(0.2f);

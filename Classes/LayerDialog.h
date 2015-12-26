@@ -36,7 +36,7 @@ private:
 	CCSprite* __bg;
 	CCSprite* __vertical_drawing;
 	CCLabelTTF* __name;
-	TopwoType* __dialog;
+	TopwoTypeTTF* __dialog;
 	CCArray* __fork_arr;
 	CCMenu* __fork_menu;
 	bool __is_typed_all;
