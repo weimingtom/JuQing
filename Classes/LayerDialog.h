@@ -39,11 +39,12 @@ private:
 	TopwoTypeTTF* __dialog;
 	CCArray* __fork_arr;
 	CCMenu* __fork_menu;
+	rapidjson::Value __json_value_cur;//本句的json值
 	bool __is_typed_all;
 	int __start_id;
 	int __end_id;
 	int __current_id;
-	int __offset;
+	int __offset;//下一句的偏移量
 };
 
 #endif // __SCENE_DIALOG_H__

@@ -23,6 +23,7 @@ public:
 	//直接全部打出来
 	virtual void typeAll();
 
+protected:
 	//设置打出来的字符串
 	virtual void setTypedString(const char* typed_string) = 0;
 	//获取打出来的字符串内容的大小
@@ -35,7 +36,6 @@ public:
 	virtual void closeTypeLoop() = 0;
 	//获取字体的大小
 	virtual float getTypedFontSize() = 0;
-protected:
 	//解析要进行打字的字符串
 	virtual void analyzeTypeString(float f);
 	//打字回调
@@ -62,6 +62,7 @@ public:
 	//创造函数
 	static TopwoTypeBMFont* create(const char* fntfile);
 
+protected:
 	//设置打出来的字符串
 	virtual void setTypedString(const char* typed_string) override;
 	//获取打出来的字符串内容的大小
@@ -74,7 +75,6 @@ public:
 	virtual void closeTypeLoop() override;
 	//获取字体的大小
 	virtual float getTypedFontSize() override;
-protected:
 	//解析要进行打字的字符串
 	virtual void analyzeTypeStringSelf(float f);
 	//打字回调
@@ -92,6 +92,7 @@ public:
 	//创造函数
 	static TopwoTypeTTF* create(const char* fntfile, float fontSize);
 
+protected:
 	//设置打出来的字符串
 	virtual void setTypedString(const char* typed_string) override;
 	//获取打出来的字符串内容的大小
@@ -104,7 +105,6 @@ public:
 	virtual void closeTypeLoop() override;
 	//获取字体的大小
 	virtual float getTypedFontSize() override;
-protected:
 	//解析要进行打字的字符串
 	virtual void analyzeTypeStringSelf(float f);
 	//打字回调

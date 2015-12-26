@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "TopwoDefine.h"
 #include "TopwoTools.h"
+#include "UserInfo.h"
 
 USING_NS_CC;
 
@@ -26,9 +27,13 @@ public:
 	twbool writeData(const char* key, int value);
 	int readData(const char* key);
 
-	rapidjson::Value& getJsonValue(int index);
+	rapidjson::Value& getPlotDataFromJson(int index);
+
+	void analyzeNpcData(rapidjson::Document& doc);
 private:
 	rapidjson::Document __doc_plot;
+	//用户数据
+	CC_SYNTHESIZE_READONLY(UserInfo*, __user_info, UserInfo);
 };
 
 #endif  //__TOPWO_DATA_H__

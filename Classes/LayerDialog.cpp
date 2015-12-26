@@ -1,4 +1,5 @@
 #include "LayerDialog.h"
+#include "Topwo.h"
 
 LayerDialog::LayerDialog()
 :__fork_arr(NULL)
@@ -92,15 +93,15 @@ bool LayerDialog::initUI()
 	bg_name->addChild(__name, 0, 0);
 
 	//对话
+	CCSize type_size = bg_dialog_size - CCSizeMake(80.0f, 40.0f);
 	__dialog = TopwoTypeTTF::create("fonts/arial.ttf", 32);
-	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
-	//lbl_dialog->setAlignment(kCCTextAlignmentLeft);
-	__dialog->setAnchorPoint(ccp(0, 1.0f));
-
-	__dialog->setTypeSize(bg_dialog_size - CCSizeMake(80.0f, 10.0f));
+	__dialog->setTypeSize(type_size);
 	__dialog->setTypeInterval(0.2f);
 	__dialog->setTypeFinishCallback(this, callfunc_selector(LayerDialog::typedCallBack));
-	__dialog->setPosition(ccp(bg_dialog_size.width / 2.0f - (bg_dialog_size.width - 80.0f) / 2.0f, bg_dialog_size.height / 2.0f + (bg_dialog_size.height - 40.0f) / 2.0f));
+
+	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
+	__dialog->setAnchorPoint(ccp(0, 1.0f));
+	__dialog->setPosition(ccp(bg_dialog_size.width / 2.0f - type_size.width / 2.0f, bg_dialog_size.height / 2.0f + type_size.height / 2.0f));
 	bg_dialog->addChild(__dialog, 0, 0);
 
 	return true;
@@ -162,6 +163,29 @@ void LayerDialog::typedCallBack()
 	{
 		__fork_menu->setVisible(true);
 	}
+	if (__json_value_cur.HasMember("FA") && __json_value_cur["FA"].IsString())
+	{
+		do
+		{
+			rapidjson::Document doc;
+			doc.Parse<rapidjson::kParseDefaultFlags>(__json_value_cur["FA"].GetString());
+			CCLOG("doc HasParseError : %d", doc.HasParseError());
+			CC_BREAK_IF(doc.HasParseError()); 
+			for (int i = 0; i < doc.Size(); i++)
+			{
+				if (doc[i].IsObject())
+				{
+					if (doc[i].HasMember("npc") && doc[i]["npc"].IsNumber() && doc[i].HasMember("favor") && doc[i]["favor"].IsNumber())
+					{
+						NpcData* npc_data = Topwo::getInstance()->getTopwoData()->getUserInfo()->getNpcDataFromArray((int)doc[i]["npc"].GetDouble());
+						npc_data->setFavorCur(npc_data->getFavorCur() + (int)doc[i]["favor"].GetDouble());
+						CCLOG("getFavorCur:%d", npc_data->getFavorCur());
+						CCLOG("getFavorMax:%d", npc_data->getFavorMax());
+					}
+				}
+			}
+		} while (0);
+	}
 }
 //解析一句对话
 void LayerDialog::analyzeDialog(int index)
@@ -171,23 +195,23 @@ void LayerDialog::analyzeDialog(int index)
 
 	CCTexture2D* texture2d_bg = NULL;
 
-	rapidjson::Value& v = Topwo::getInstance()->getTopwoData()->getJsonValue(index);
-	if (v.HasMember("CG") && v["CG"].IsNumber())
+	__json_value_cur = Topwo::getInstance()->getTopwoData()->getPlotDataFromJson(index);
+	if (__json_value_cur.HasMember("CG") && __json_value_cur["CG"].IsNumber())
 	{
-		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("CG_%d.jpg", (int)v["CG"].GetDouble())->getCString());
+		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("CG_%d.jpg", (int)__json_value_cur["CG"].GetDouble())->getCString());
 	}
 	else
 	{
-		if (v.HasMember("VE") && v["VE"].IsNumber())
+		if (__json_value_cur.HasMember("VE") && __json_value_cur["VE"].IsNumber())
 		{
 			__vertical_drawing->setVisible(true);
-			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("VE_1_%d.png", (int)v["VE"].GetDouble())->getCString());
+			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("VE_1_%d.png", (int)__json_value_cur["VE"].GetDouble())->getCString());
 			__vertical_drawing->initWithTexture(texture2d_ve);
 			__vertical_drawing->setAnchorPoint(ccp(0.5f, 1.0f));
 		}
-		if (v.HasMember("BG") && v["BG"].IsNumber())
+		if (__json_value_cur.HasMember("BG") && __json_value_cur["BG"].IsNumber())
 		{
-			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("BG_%d.jpg", (int)v["BG"].GetDouble())->getCString());
+			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("BG_%d.jpg", (int)__json_value_cur["BG"].GetDouble())->getCString());
 		}
 	}
 	if (!texture2d_bg)
@@ -196,12 +220,13 @@ void LayerDialog::analyzeDialog(int index)
 	}
 	__bg->setTexture(texture2d_bg);
 
-	if (v.HasMember("FO") && v["FO"].IsString())
+	if (__json_value_cur.HasMember("FO") && __json_value_cur["FO"].IsString())
 	{
 		__fork_menu->removeAllChildren();
-		do {
+		do
+		{
 			rapidjson::Document doc;
-			doc.Parse<rapidjson::kParseDefaultFlags>(v["FO"].GetString());
+			doc.Parse<rapidjson::kParseDefaultFlags>(__json_value_cur["FO"].GetString());
 			CCLOG("doc HasParseError : %d", doc.HasParseError());
 			CC_BREAK_IF(doc.HasParseError());
 			if (doc.IsArray())
@@ -246,11 +271,11 @@ void LayerDialog::analyzeDialog(int index)
 
 
 	//对话
-	if (v.HasMember("DG") && v["DG"].IsString())
+	if (__json_value_cur.HasMember("DG") && __json_value_cur["DG"].IsString())
 	{
-		if (v.HasMember("NA") && v["NA"].IsString())
+		if (__json_value_cur.HasMember("NA") && __json_value_cur["NA"].IsString())
 		{
-			__name->setString(v["NA"].GetString());
+			__name->setString(__json_value_cur["NA"].GetString());
 			if (!__name->getParent()->isVisible())
 			{
 				__name->getParent()->setVisible(true);
@@ -260,7 +285,7 @@ void LayerDialog::analyzeDialog(int index)
 		{
 			__name->getParent()->setVisible(false);
 		}
-		__dialog->setTypeString(CCString::createWithFormat("%s", v["DG"].GetString()));
+		__dialog->setTypeString(CCString::createWithFormat("%s", __json_value_cur["DG"].GetString()));
 		if (!__dialog->getParent()->isVisible())
 		{
 			__dialog->getParent()->setVisible(true);
@@ -274,8 +299,8 @@ void LayerDialog::analyzeDialog(int index)
 	}
 
 	__offset = 1;
-	if (v.HasMember("NE") && v["NE"].IsNumber())
+	if (__json_value_cur.HasMember("NE") && __json_value_cur["NE"].IsNumber())
 	{
-		__offset = (int)v["NE"].GetDouble();
+		__offset = (int)__json_value_cur["NE"].GetDouble();
 	}
 }

@@ -174,7 +174,8 @@ twbool TopwoTools::isInNode(CCPoint touch_point, CCNode* node)
 void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 {
 	unsigned long file_data_size = 0;
-	do {
+	do
+	{
 		//CCData *data = new CCData(pBytes, size);
 		//DictionaryHelper::shareHelper()->getStringValue_json(rapidJsonData[i], "name");
 		CC_BREAK_IF(doc == NULL || !CCFileUtils::sharedFileUtils()->isFileExist(file_name));
