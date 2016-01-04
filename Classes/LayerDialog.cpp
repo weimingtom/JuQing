@@ -66,7 +66,7 @@ bool LayerDialog::initUI()
 	__fork_menu->setVisible(false);
 
 	//背景
-	__bg = CCSprite::create("bg_black.png");
+	__bg = CCSprite::create("images/bg_black.png");
 	__bg->setPosition(ccp(vs.width / 2.0f + vo.x, vs.height / 2.0f + vo.y));
 	this->addChild(__bg, 0);
 
@@ -76,25 +76,25 @@ bool LayerDialog::initUI()
 	this->addChild(__vertical_drawing, 2);
 
 	//对话框背景
-	CCSprite* bg_dialog = CCSprite::create("LayerDialog_bg_dialog.png");
+	CCSprite* bg_dialog = CCSprite::create("images/LayerDialog_bg_dialog.png");
 	CCSize bg_dialog_size = bg_dialog->getContentSize();
 	bg_dialog->setPosition(ccp(vs.width / 2.0f + vo.x, bg_dialog_size.height / 2.0f + vo.y));
 	this->addChild(bg_dialog, 5);
 
 	//人物名字背景
-	CCSprite* bg_name = CCSprite::create("LayerDialog_bg_name.png");
+	CCSprite* bg_name = CCSprite::create("images/LayerDialog_bg_name.png");
 	CCSize bg_name_size = bg_name->getContentSize();
 	bg_name->setPosition(ccp(vo.x + bg_dialog->getPositionX() - bg_dialog_size.width / 2.0f + bg_name_size.width / 2.0f, vo.y + bg_dialog_size.height + bg_name_size.height / 2.0f + 5.0f));
 	this->addChild(bg_name, 5);
 
 	//名字
-	__name = CCLabelTTF::create("Name", "fonts/arial.ttf", 36);
+	__name = CCLabelTTF::create("Name", "fonts/ttfs/arial.ttf", 36);
 	__name->setPosition(ccp(bg_name_size.width / 2.0f, bg_name_size.height / 2.0f));
 	bg_name->addChild(__name, 0, 0);
 
 	//对话
 	CCSize type_size = bg_dialog_size - CCSizeMake(80.0f, 40.0f);
-	__dialog = TopwoTypeTTF::create("fonts/arial.ttf", 32);
+	__dialog = TopwoTypeTTF::create("fonts/ttfs/arial.ttf", 32);
 	__dialog->setTypeSize(type_size);
 	__dialog->setTypeInterval(0.2f);
 	__dialog->setTypeFinishCallback(this, callfunc_selector(LayerDialog::typedCallBack));
@@ -198,25 +198,25 @@ void LayerDialog::analyzeDialog(int index)
 	__json_value_cur = Topwo::getInstance()->getTopwoData()->getPlotDataFromJson(index);
 	if (__json_value_cur.HasMember("CG") && __json_value_cur["CG"].IsNumber())
 	{
-		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("CG_%d.jpg", (int)__json_value_cur["CG"].GetDouble())->getCString());
+		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("images/CG_%d.jpg", (int)__json_value_cur["CG"].GetDouble())->getCString());
 	}
 	else
 	{
 		if (__json_value_cur.HasMember("VE") && __json_value_cur["VE"].IsNumber())
 		{
 			__vertical_drawing->setVisible(true);
-			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("VE_1_%d.png", (int)__json_value_cur["VE"].GetDouble())->getCString());
+			CCTexture2D* texture2d_ve = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("images/VE_1_%d.png", (int)__json_value_cur["VE"].GetDouble())->getCString());
 			__vertical_drawing->initWithTexture(texture2d_ve);
 			__vertical_drawing->setAnchorPoint(ccp(0.5f, 1.0f));
 		}
 		if (__json_value_cur.HasMember("BG") && __json_value_cur["BG"].IsNumber())
 		{
-			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("BG_%d.jpg", (int)__json_value_cur["BG"].GetDouble())->getCString());
+			texture2d_bg = CCTextureCache::sharedTextureCache()->addImage(CCString::createWithFormat("images/BG_%d.jpg", (int)__json_value_cur["BG"].GetDouble())->getCString());
 		}
 	}
 	if (!texture2d_bg)
 	{
-		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage("bg_black.png");
+		texture2d_bg = CCTextureCache::sharedTextureCache()->addImage("images/bg_black.png");
 	}
 	__bg->setTexture(texture2d_bg);
 
@@ -233,12 +233,12 @@ void LayerDialog::analyzeDialog(int index)
 			{
 				int doc_size = doc.Size();
 				int need = doc_size - __fork_arr->count();
-				CCTexture2D* texture = CCTextureCache::sharedTextureCache()->addImage("btn_fork_0.png");
+				CCTexture2D* texture = CCTextureCache::sharedTextureCache()->addImage("images/btn_fork_0.png");
 				CCSize fork_size = texture->getContentSize();
 				while (need > 0)
 				{
-					CCMenuItemImage* fork = CCMenuItemImage::create("btn_fork_0.png", "btn_fork_1.png", this, menu_selector(LayerDialog::menuForkCallback));
-					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/arial.ttf", 28);
+					CCMenuItemImage* fork = CCMenuItemImage::create("images/btn_fork_0.png", "images/btn_fork_1.png", this, menu_selector(LayerDialog::menuForkCallback));
+					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/atlas/arial.ttf", 28);
 					fork->addChild(fork_content);
 					fork_content->setTag(0);
 					fork_content->setPosition(ccp(fork_size.width / 2.0f, fork_size.height / 2.0f));

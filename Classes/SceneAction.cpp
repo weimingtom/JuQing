@@ -38,81 +38,81 @@ bool SceneAction::initUI()
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 
 	//背景
-	CCSprite* bg = CCSprite::create("SceneAction_bg.jpg");
+	CCSprite* bg = CCSprite::create("images/SceneAction_bg.jpg");
 	bg->setPosition(ccp(vs.width / 2 + vo.x, vs.height / 2 + vo.y));
 	this->addChild(bg, 0);
 
 	//新的开始项
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuNewCallback));
 	CCSize size = item_new->getContentSize();
 	item_new->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 5.0f / 2.0f + 25.0f));
 
-	CCLabelTTF* lbl = CCLabelTTF::create("begin", "Arial", 36);
+	CCLabelTTF* lbl = CCLabelTTF::create("begin", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_new->addChild(lbl, 1);
 
 	//旧的回忆项
 	CCMenuItemImage *item_old = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuOldCallback));
 	item_old->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 3.0f / 2.0f + 15.0f));
 
-	lbl = CCLabelTTF::create("old", "Arial", 36);
+	lbl = CCLabelTTF::create("old", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_old->addChild(lbl, 1);
 
 	//设置项
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuSetCallback));
 	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
 
-	lbl = CCLabelTTF::create("set", "Arial", 36);
+	lbl = CCLabelTTF::create("set", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_set->addChild(lbl, 1);
 
 	//帮助项
 	CCMenuItemImage *item_help = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuHelpCallback));
 	item_help->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height / 2.0f - 5.0f));
 
-	lbl = CCLabelTTF::create("help", "Arial", 36);
+	lbl = CCLabelTTF::create("help", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_help->addChild(lbl, 1);
 
 	//关于项
 	CCMenuItemImage *item_about = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuAboutCallback));
 	item_about->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 3.0f / 2.0f - 15.0f));
 
-	lbl = CCLabelTTF::create("about", "Arial", 36);
+	lbl = CCLabelTTF::create("about", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
 	//退出项
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"btn_up.png",
-		"btn_down.png",
+		"images/btn_up.png",
+		"images/btn_down.png",
 		this,
 		menu_selector(SceneAction::menuCloseCallback));
 
 	item_close->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 5.0f / 2.0f - 25.0f));
 
-	lbl = CCLabelTTF::create("close", "Arial", 36);
+	lbl = CCLabelTTF::create("close", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_close->addChild(lbl, 1);
 

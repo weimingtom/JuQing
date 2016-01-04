@@ -3,11 +3,9 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-#define NS_YIEYO_BEGIN                     namespace yieyo{
-#define NS_YIEYO_END                       }
-#define USING_NS_YIEYO                     using namespace yieyo
-#define GAME_SCREEN_WIDTH 960
-#define GAME_SCREEN_HEIGHT 640
+#define NS_TOPWO_BEGIN                     namespace yieyo{
+#define NS_TOPWO_END                       }
+#define USING_NS_TOPWO                     using namespace yieyo
 
 const double PI = 3.1415;
 static const unsigned char BYTE_ORDER_MARK_UTF8_1 = 0xefU;

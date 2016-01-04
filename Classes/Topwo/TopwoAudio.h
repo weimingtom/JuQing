@@ -11,7 +11,7 @@ using namespace CocosDenshion;
 #define AUDIO_EFFECT_WRONG "audio/wrong.mp3"
 #define AUDIO_MUSIC_GAME_BJ "audio/bj.mp3"
 
-//¥Ú◊÷¿‡
+//“Ù∆µ¿‡
 class TopwoAudio : public CCObject
 {
 public:
