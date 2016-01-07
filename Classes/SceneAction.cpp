@@ -128,7 +128,12 @@ bool SceneAction::initUI()
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
-	this->addChild(LayerDialog::createWith(0,5), 10);
+	TopwoData* td = Topwo::getInstance()->getTopwoData();
+	int chapter_id = td->getCurrentChapterId();
+	int begin_id = td->getUserInfo()->getDataChapterFromArray(chapter_id)->getBeginId();
+	int end_id = td->getUserInfo()->getDataChapterFromArray(chapter_id)->getEndId();
+	this->addChild(LayerDialog::createWith(begin_id, end_id), 10);
+	td->setCurrentChapterId(chapter_id + 1);
 }
 //¾ÉµÄ»ØÒä
 void SceneAction::menuOldCallback(CCObject* pSender)

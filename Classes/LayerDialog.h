@@ -39,7 +39,6 @@ private:
 	TopwoTypeTTF* __dialog;
 	CCArray* __fork_arr;
 	CCMenu* __fork_menu;
-	rapidjson::Value __json_value_cur;//±¾¾äµÄjsonÖµ
 	bool __is_typed_all;
 	int __start_id;
 	int __end_id;

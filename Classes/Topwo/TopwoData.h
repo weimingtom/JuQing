@@ -29,11 +29,16 @@ public:
 
 	rapidjson::Value& getPlotDataFromJson(int index);
 
-	void analyzeNpcData(rapidjson::Document& doc);
+	void analyzeDataNpc(rapidjson::Document& doc);
+	void analyzeDataChapter(rapidjson::Document& doc);
 private:
 	rapidjson::Document __doc_plot;
 	//用户数据
 	CC_SYNTHESIZE_READONLY(UserInfo*, __user_info, UserInfo);
+	//当前剧情ID
+	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
+	//当前章节ID
+	CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
 };
 
 #endif  //__TOPWO_DATA_H__
