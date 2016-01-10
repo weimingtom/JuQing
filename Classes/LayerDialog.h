@@ -12,10 +12,11 @@ public:
 	~LayerDialog();
 	virtual bool init();
 	CREATE_FUNC(LayerDialog);
-	static LayerDialog* createWith(int start_id, int end_id);
+	static LayerDialog* createWith(int start_id, int end_id, CCObject* target, SEL_CallFunc selector);
 
 	//初始化UI
 	bool initUI();
+	virtual void removeFromParent() override;
 
 	virtual void onExit() override;
 
@@ -25,8 +26,7 @@ public:
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
     
     //回调
-	void menuCloseCallback(CCObject* pSender);
-	void menuForkCallback(CCObject* pSender);
+	void menuCallbackFork(CCObject* pSender);
 
 	//解析一句对话
 	void analyzeDialog(int index);
@@ -44,6 +44,9 @@ private:
 	int __end_id;
 	int __current_id;
 	int __offset;//下一句的偏移量
+
+	CCObject*       __pListener;
+	SEL_CallFunc    __pSelector;
 };
 
-#endif // __SCENE_DIALOG_H__
+#endif // __LAYER_DIALOG_H__

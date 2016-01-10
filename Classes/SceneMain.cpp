@@ -1,5 +1,6 @@
 #include "SceneMain.h"
 #include "SceneAction.h"
+#include "LayerMission.h"
 
 CCScene* SceneMain::creatScene()
 {
@@ -36,6 +37,8 @@ bool SceneMain::initUI()
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 
+	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+
 	//背景
 	CCSprite* bg = CCSprite::create("images/SceneMain_bg_1.jpg");
 	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
@@ -61,13 +64,13 @@ bool SceneMain::initUI()
 	atlas->setPosition(ccp(size_date.width / 3.2f, size_date.height * 0.556f));
 
 	//体力数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_1.png", 20, 20, '0');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString(), "fonts/atlas/number_style_1.png", 20, 20, '0');
 	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 1.96f, size_date.height * 0.526f));
 
 	//金币数
-	atlas = CCLabelAtlas::create("1000", "fonts/atlas/number_style_1.png", 20, 20, '0');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString(), "fonts/atlas/number_style_1.png", 20, 20, '0');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width * 0.77f, size_date.height * 0.526f));
@@ -80,31 +83,31 @@ bool SceneMain::initUI()
 	CCSize size_attribute = sprite->getContentSize();
 
 	//体魄数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.625f));
 
 	//魅力数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.5f));
 
 	//智力数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.375f));
 
 	//情商数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.248f));
 
 	//感性数
-	atlas = CCLabelAtlas::create("10", "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.122f));
@@ -156,10 +159,10 @@ bool SceneMain::initUI()
 
 	//任务项
 	CCMenuItemImage *item_task = CCMenuItemImage::create(
-		"images/btn_task_0.png",
-		"images/btn_task_1.png",
+		"images/btn_mission_0.png",
+		"images/btn_mission_1.png",
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuMissionCallback));
 	CCSize size_item_task = item_task->getContentSize();
 	item_task->setPosition(ccp(vs.width - size_item_task.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height));
 
@@ -219,14 +222,7 @@ void SceneMain::menuBackCallback(CCObject* pSender)
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneAction::creatScene()));
 }
 
-void SceneMain::menuBeginCallback(CCObject* pSender)
+void SceneMain::menuMissionCallback(CCObject* pSender)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
-#else
-	CCDirector::sharedDirector()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
-#endif
+	this->addChild(LayerMission::create(), 10);
 }

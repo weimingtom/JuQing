@@ -17,7 +17,7 @@ public:
     // a selector callback
 	void menuBackCallback(CCObject* pSender);
 
-	void menuBeginCallback(CCObject* pSender);
+	void menuMissionCallback(CCObject* pSender);
 };
 
 #endif // __SCENE_MAIN_H__

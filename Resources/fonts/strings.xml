@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>GameName</key>
-		<string>好了啦，别发呆了，快一起去上课吧，要迟到了。。。好了啦，别发呆了，快一起去上课吧，要迟到了。。。好了啦，别发呆了，快一起去上课吧，要迟到了。。。</string>
-	<key>Best</key>
-		<string>最高分</string>
-	<key>Score</key>
-		<string>分数</string>
+		<string>剧情类</string>
+	<key>Target</key>
+		<string>完成目标：</string>
+	<key>Reward</key>
+		<string>任务奖励：</string>
+	<key>Gold</key>
+		<string>金币</string>
 	<key>More</key>
 		<string>更多
 		游戏</string>

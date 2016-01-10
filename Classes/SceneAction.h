@@ -31,6 +31,9 @@ public:
 	void menuAboutCallback(CCObject* pSender);
     //退出
 	void menuCloseCallback(CCObject* pSender);
+
+	//对话结束回调
+	void callbackDialogOver();
 };
 
 #endif // __SCENE_ACTION_H__

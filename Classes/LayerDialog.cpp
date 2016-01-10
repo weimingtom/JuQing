@@ -3,6 +3,8 @@
 
 LayerDialog::LayerDialog()
 :__fork_arr(NULL)
+, __pListener(NULL)
+, __pSelector(NULL)
 {
 
 }
@@ -38,7 +40,7 @@ bool LayerDialog::init()
 
     return true;
 }
-LayerDialog* LayerDialog::createWith(int start_id, int end_id)
+LayerDialog* LayerDialog::createWith(int start_id, int end_id, CCObject* target, SEL_CallFunc selector)
 {
 	LayerDialog* me = create();
 	if (!me)
@@ -47,6 +49,9 @@ LayerDialog* LayerDialog::createWith(int start_id, int end_id)
 	}
 	me->__start_id = start_id;
 	me->__end_id = end_id;
+
+	me->__pListener = target;
+	me->__pSelector = selector;
 
 	me->analyzeDialog(start_id);
 
@@ -105,6 +110,15 @@ bool LayerDialog::initUI()
 
 	return true;
 }
+void LayerDialog::removeFromParent()
+{
+	if (__pListener && __pSelector)
+	{
+		(__pListener->*__pSelector)();
+	}
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+	CCLayer::removeFromParent();
+}
 void LayerDialog::onExit()
 {
 }
@@ -126,8 +140,8 @@ bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 		}
 		else
 		{
-			CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-			this->removeFromParent();
+			CCFadeOut* action_fade_out = CCFadeOut::create(0.5f);
+			this->runAction(CCSequence::createWithTwoActions(action_fade_out, CCCallFunc::create(this, callfunc_selector(LayerDialog::removeFromParent))));
 		}
 	}
 	return true;
@@ -142,11 +156,8 @@ void LayerDialog::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
 }
 
-void LayerDialog::menuCloseCallback(CCObject* pSender)
-{
-}
 
-void LayerDialog::menuForkCallback(CCObject* pSender)
+void LayerDialog::menuCallbackFork(CCObject* pSender)
 {
 	__fork_menu->setVisible(false);
 	__fork_menu->removeAllChildren();
@@ -170,7 +181,7 @@ void LayerDialog::typedCallBack()
 			doc.Parse<rapidjson::kParseDefaultFlags>(json_value["FA"].GetString());
 			CCLOG("doc HasParseError : %d", doc.HasParseError());
 			CC_BREAK_IF(doc.HasParseError()); 
-			for (int i = 0; i < doc.Size(); i++)
+			for (int i = 0; i < (int)doc.Size(); i++)
 			{
 				if (doc[i].IsObject())
 				{
@@ -249,7 +260,7 @@ void LayerDialog::analyzeDialog(int index)
 				CCSize fork_size = texture->getContentSize();
 				while (need > 0)
 				{
-					CCMenuItemImage* fork = CCMenuItemImage::create("images/btn_fork_0.png", "images/btn_fork_1.png", this, menu_selector(LayerDialog::menuForkCallback));
+					CCMenuItemImage* fork = CCMenuItemImage::create("images/btn_fork_0.png", "images/btn_fork_1.png", this, menu_selector(LayerDialog::menuCallbackFork));
 					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/atlas/arial.ttf", 28);
 					fork->addChild(fork_content);
 					fork_content->setTag(0);

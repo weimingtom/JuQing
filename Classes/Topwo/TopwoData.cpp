@@ -2,9 +2,7 @@
 #include "Topwo.h"
 
 TopwoData::TopwoData()
-: __user_info(nullptr)
-, __cur_plot_id(0)
-, __cur_chapter_id(0)
+: __user_info(NULL)
 {
 	__user_info = UserInfo::create();
 	__user_info->retain();
@@ -21,23 +19,24 @@ twbool TopwoData::init()
 {
 	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&__doc_plot, "fonts/plot.json");
 
-	rapidjson::Document doc_npc;
+	rapidjson::Document doc_json;
 
-	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_npc, "fonts/npc.json");
-	analyzeDataNpc(doc_npc);
+	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/npc.json");
+	analyzeDataNpc(doc_json);
 
-	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_npc, "fonts/chapter.json");
-	analyzeDataChapter(doc_npc);
+	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/chapter.json");
+	analyzeDataChapter(doc_json);
 
-	__cur_chapter_id = 1;
+	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/mission.json");
+	analyzeDataMission(doc_json);
 
 	return true;
 }
 
 void TopwoData::analyzeDataNpc(rapidjson::Document& doc)
 {
-	DataNpc* npc_data = nullptr;
-	for (int i = 0; i < doc.Size(); i++)
+	DataNpc* npc_data = NULL;
+	for (int i = 0; i < (int)doc.Size(); i++)
 	{
 		npc_data = DataNpc::create();
 		if (doc[i].HasMember("ID") && doc[i]["ID"].IsDouble())
@@ -54,8 +53,8 @@ void TopwoData::analyzeDataNpc(rapidjson::Document& doc)
 }
 void TopwoData::analyzeDataChapter(rapidjson::Document& doc)
 {
-	DataChapter* chapter_data = nullptr;
-	for (int i = 0; i < doc.Size(); i++)
+	DataChapter* chapter_data = NULL;
+	for (int i = 0; i < (int)doc.Size(); i++)
 	{
 		chapter_data = DataChapter::create();
 		if (doc[i].HasMember("ID") && doc[i]["ID"].IsDouble())
@@ -65,6 +64,27 @@ void TopwoData::analyzeDataChapter(rapidjson::Document& doc)
 		if (doc[i].HasMember("EN") && doc[i]["EN"].IsDouble())
 			chapter_data->setEndId((int)doc[i]["EN"].GetDouble());
 		__user_info->addDataChapterToArray(chapter_data);
+	}
+}
+void TopwoData::analyzeDataMission(rapidjson::Document& doc)
+{
+	DataMission* mission_data = NULL;
+	for (int i = 0; i < (int)doc.Size(); i++)
+	{
+		mission_data = DataMission::create();
+		if (doc[i].HasMember("ID") && doc[i]["ID"].IsDouble())
+			mission_data->setId((int)doc[i]["ID"].GetDouble());
+		if (doc[i].HasMember("TY") && doc[i]["TY"].IsDouble())
+			mission_data->setType((int)doc[i]["TY"].GetDouble());
+		if (doc[i].HasMember("RE") && doc[i]["RE"].IsDouble())
+			mission_data->setReward((int)doc[i]["RE"].GetDouble());
+		if (doc[i].HasMember("TI") && doc[i]["TI"].IsString())
+			mission_data->setTitle(CCString::create(doc[i]["TI"].GetString()));
+		if (doc[i].HasMember("CO") && doc[i]["CO"].IsString())
+			mission_data->setContent(CCString::create(doc[i]["CO"].GetString()));
+		if (doc[i].HasMember("TA") && doc[i]["TA"].IsString())
+			mission_data->setTarget(CCString::create(doc[i]["TA"].GetString()));
+		__user_info->addDataMissionToArray(mission_data);
 	}
 }
 twbool TopwoData::isExistData()

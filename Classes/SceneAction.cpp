@@ -1,6 +1,7 @@
 #include "SceneAction.h"
 #include "SceneMain.h"
 #include "LayerDialog.h"
+#include "UserInfo.h"
 
 CCScene* SceneAction::creatScene()
 {
@@ -37,15 +38,17 @@ bool SceneAction::initUI()
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+
 	//背景
 	CCSprite* bg = CCSprite::create("images/SceneAction_bg.jpg");
-	bg->setPosition(ccp(vs.width / 2 + vo.x, vs.height / 2 + vo.y));
+	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 	this->addChild(bg, 0);
 
 	//新的开始项
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuNewCallback));
 	CCSize size = item_new->getContentSize();
@@ -57,8 +60,8 @@ bool SceneAction::initUI()
 
 	//旧的回忆项
 	CCMenuItemImage *item_old = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuOldCallback));
 	item_old->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 3.0f / 2.0f + 15.0f));
@@ -69,8 +72,8 @@ bool SceneAction::initUI()
 
 	//设置项
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuSetCallback));
 	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
@@ -81,8 +84,8 @@ bool SceneAction::initUI()
 
 	//帮助项
 	CCMenuItemImage *item_help = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuHelpCallback));
 	item_help->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height / 2.0f - 5.0f));
@@ -93,8 +96,8 @@ bool SceneAction::initUI()
 
 	//关于项
 	CCMenuItemImage *item_about = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuAboutCallback));
 	item_about->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 3.0f / 2.0f - 15.0f));
@@ -105,11 +108,10 @@ bool SceneAction::initUI()
 
 	//退出项
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"images/btn_up.png",
-		"images/btn_down.png",
+		"images/btn_common_1_0.png",
+		"images/btn_common_1_1.png",
 		this,
 		menu_selector(SceneAction::menuCloseCallback));
-
 	item_close->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 5.0f / 2.0f - 25.0f));
 
 	lbl = CCLabelTTF::create("close", "fonts/ttfs/arial.ttf", 36);
@@ -120,6 +122,12 @@ bool SceneAction::initUI()
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
 
+	if (user_info->getCurrentSectionId() <= 1)
+	{
+		item_old->setEnabled(false);
+		item_old->setColor(ccc3(128,128,128));
+	}
+
 	return true;
 }
 
@@ -128,12 +136,12 @@ bool SceneAction::initUI()
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
-	TopwoData* td = Topwo::getInstance()->getTopwoData();
-	int chapter_id = td->getCurrentChapterId();
-	int begin_id = td->getUserInfo()->getDataChapterFromArray(chapter_id)->getBeginId();
-	int end_id = td->getUserInfo()->getDataChapterFromArray(chapter_id)->getEndId();
-	this->addChild(LayerDialog::createWith(begin_id, end_id), 10);
-	td->setCurrentChapterId(chapter_id + 1);
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	int section_id = 1;
+	int begin_id = user_info->getDataChapterFromArray(section_id)->getBeginId();
+	int end_id = user_info->getDataChapterFromArray(section_id)->getEndId();
+	this->addChild(LayerDialog::createWith(begin_id, end_id, this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
+	user_info->setCurrentSectionId(++section_id);
 }
 //旧的回忆
 void SceneAction::menuOldCallback(CCObject* pSender)
@@ -163,4 +171,9 @@ void SceneAction::menuCloseCallback(CCObject* pSender)
     exit(0);
 #endif
 #endif
+}
+//对话回调
+void SceneAction::callbackDialogOver()
+{
+	CCDirector::sharedDirector()->replaceScene(SceneMain::creatScene());
 }
