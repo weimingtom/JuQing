@@ -24,8 +24,8 @@ twbool TopwoData::init()
 	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/npc.json");
 	analyzeDataNpc(doc_json);
 
-	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/chapter.json");
-	analyzeDataChapter(doc_json);
+	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/section.json");
+	analyzeDataSection(doc_json);
 
 	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&doc_json, "fonts/mission.json");
 	analyzeDataMission(doc_json);
@@ -51,19 +51,19 @@ void TopwoData::analyzeDataNpc(rapidjson::Document& doc)
 		__user_info->addDataNpcToArray(npc_data);
 	}
 }
-void TopwoData::analyzeDataChapter(rapidjson::Document& doc)
+void TopwoData::analyzeDataSection(rapidjson::Document& doc)
 {
-	DataChapter* chapter_data = NULL;
+	DataSection* chapter_data = NULL;
 	for (int i = 0; i < (int)doc.Size(); i++)
 	{
-		chapter_data = DataChapter::create();
+		chapter_data = DataSection::create();
 		if (doc[i].HasMember("ID") && doc[i]["ID"].IsDouble())
 			chapter_data->setId((int)doc[i]["ID"].GetDouble());
 		if (doc[i].HasMember("BE") && doc[i]["BE"].IsDouble())
 			chapter_data->setBeginId((int)doc[i]["BE"].GetDouble());
 		if (doc[i].HasMember("EN") && doc[i]["EN"].IsDouble())
 			chapter_data->setEndId((int)doc[i]["EN"].GetDouble());
-		__user_info->addDataChapterToArray(chapter_data);
+		__user_info->addDataSectionToArray(chapter_data);
 	}
 }
 void TopwoData::analyzeDataMission(rapidjson::Document& doc)
@@ -82,8 +82,10 @@ void TopwoData::analyzeDataMission(rapidjson::Document& doc)
 			mission_data->setTitle(CCString::create(doc[i]["TI"].GetString()));
 		if (doc[i].HasMember("CO") && doc[i]["CO"].IsString())
 			mission_data->setContent(CCString::create(doc[i]["CO"].GetString()));
-		if (doc[i].HasMember("TA") && doc[i]["TA"].IsString())
-			mission_data->setTarget(CCString::create(doc[i]["TA"].GetString()));
+		if (doc[i].HasMember("MI") && doc[i]["MI"].IsString())
+			mission_data->setMission(CCString::create(doc[i]["MI"].GetString()));
+		if (doc[i].HasMember("TA") && doc[i]["TA"].IsDouble())
+			mission_data->setTarget(doc[i]["TA"].GetDouble());
 		__user_info->addDataMissionToArray(mission_data);
 	}
 }

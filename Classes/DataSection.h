@@ -1,16 +1,16 @@
-#ifndef __DATA_CHAPTER_H__
-#define __DATA_CHAPTER_H__
+#ifndef __DATA_SECTION_H__
+#define __DATA_SECTION_H__
 #include "cocos2d.h"
 
 USING_NS_CC;
 
-class DataChapter : public CCObject
+class DataSection : public CCObject
 {
 public:
-	DataChapter();
-	virtual ~DataChapter();
+	DataSection();
+	virtual ~DataSection();
 	bool init();
-	CREATE_FUNC(DataChapter);
+	CREATE_FUNC(DataSection);
 
 private:
 	CC_SYNTHESIZE(int, __id, Id);//Id
@@ -18,4 +18,4 @@ private:
 	CC_SYNTHESIZE(int, __end_id, EndId);//Ω· ¯ID
 };
 
-#endif  //__DATA_CHAPTER_H__
+#endif  //__DATA_SECTION_H__

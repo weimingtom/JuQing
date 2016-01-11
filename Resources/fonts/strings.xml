@@ -4,8 +4,8 @@
 <dict>
 	<key>GameName</key>
 		<string>剧情类</string>
-	<key>Target</key>
-		<string>完成目标：</string>
+	<key>Require</key>
+		<string>任务要求：</string>
 	<key>Reward</key>
 		<string>任务奖励：</string>
 	<key>Gold</key>
@@ -13,6 +13,8 @@
 	<key>More</key>
 		<string>更多
 		游戏</string>
+	<key>Font</key>
+		<string>迷你简粗圆.ttf</string>
 	<key>SquareName</key>
 		<array>
 		<string>方块名</string>

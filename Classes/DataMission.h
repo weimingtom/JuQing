@@ -17,7 +17,8 @@ private:
 	CC_SYNTHESIZE(int, __type, Type);//类型
 	CC_SYNTHESIZE_RETAIN(CCString*, __title, Title);//标题
 	CC_SYNTHESIZE_RETAIN(CCString*, __content, Content);//内容
-	CC_SYNTHESIZE_RETAIN(CCString*, __target, Target);//目标
+	CC_SYNTHESIZE_RETAIN(CCString*, __mission, Mission);//任务
+	CC_SYNTHESIZE(double, __target, Target);//目标
 	CC_SYNTHESIZE(int, __reward, Reward);//奖励
 };
 

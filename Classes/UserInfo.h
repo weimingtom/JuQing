@@ -2,7 +2,7 @@
 #define __USER_INFO_H__
 #include "cocos2d.h"
 #include "DataNpc.h"
-#include "DataChapter.h"
+#include "DataSection.h"
 #include "DataMission.h"
 
 USING_NS_CC;
@@ -17,14 +17,14 @@ public:
 
 	void addDataNpcToArray(DataNpc* npc_data);
 	DataNpc* getDataNpcFromArray(int id);
-	void addDataChapterToArray(DataChapter* chapter_data);
-	DataChapter* getDataChapterFromArray(int id);
+	void addDataSectionToArray(DataSection* chapter_data);
+	DataSection* getDataSectionFromArray(int id);
 	void addDataMissionToArray(DataMission* mission_data);
 	DataMission* getDataMissionFromArray(int id);
 
 private:
 	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_npc, ArrOfDataNpc);//npc的数据
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataChapter);//章节的数据
+	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataSection);//章节的数据
 	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_mission, ArrOfDataMission);//章节的数据
 	//玩过得天数
 	CC_SYNTHESIZE(int, __plaid_days, PlaidDays);
@@ -32,15 +32,15 @@ private:
 	CC_SYNTHESIZE(int, __cur_physical, CurrentPhysical);
 	//当前的金钱
 	CC_SYNTHESIZE(int, __cur_gold, CurrentGold);
-	//当前的体魄
+	//当前的体魄1
 	CC_SYNTHESIZE(int, __cur_tipo, CurrentTiPo);
-	//当前的魅力
+	//当前的魅力2
 	CC_SYNTHESIZE(int, __cur_meili, CurrentMeiLi);
-	//当前的智力
+	//当前的智力3
 	CC_SYNTHESIZE(int, __cur_zhili, CurrentZhiLi);
-	//当前的情商
+	//当前的情商4
 	CC_SYNTHESIZE(int, __cur_eq, CurrentEQ);
-	//当前的感性
+	//当前的感性5
 	CC_SYNTHESIZE(int, __cur_ganxing, CurrentGanXing);
 	//当前任务ID
 	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);

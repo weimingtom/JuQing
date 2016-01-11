@@ -54,7 +54,7 @@ bool SceneAction::initUI()
 	CCSize size = item_new->getContentSize();
 	item_new->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 5.0f / 2.0f + 25.0f));
 
-	CCLabelTTF* lbl = CCLabelTTF::create("begin", "fonts/ttfs/arial.ttf", 36);
+	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/arial.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_new->addChild(lbl, 1);
 
@@ -137,11 +137,9 @@ void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	int section_id = 1;
-	int begin_id = user_info->getDataChapterFromArray(section_id)->getBeginId();
-	int end_id = user_info->getDataChapterFromArray(section_id)->getEndId();
-	this->addChild(LayerDialog::createWith(begin_id, end_id, this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
-	user_info->setCurrentSectionId(++section_id);
+	DataSection *data_section = user_info->getDataSectionFromArray(1);
+	this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
+	user_info->setCurrentMissionId(1);
 }
 //¾ÉµÄ»ØÒä
 void SceneAction::menuOldCallback(CCObject* pSender)

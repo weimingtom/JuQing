@@ -25,17 +25,22 @@ public:
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
 
 	void menuCallbackMissionGuide(CCObject* pSender);
+	void menuCallbackGetReward(CCObject* pSender);
 	void menuCallbackClose(CCObject* pSender);
 
 	//对话结束回调
 	void callbackDialogOver();
+
+	void checkMissionIsFinish();
 private:
 	CCLabelAtlas* __atlas_total_physical;
 	CCLabelTTF*  __ttf_name;
 	CCLabelTTF* __ttf_title;
 	CCLabelTTF* __ttf_content;
-	CCLabelTTF* __ttf_target;
+	CCLabelTTF* __ttf_mission;
 	CCLabelTTF* __ttf_reward;
+	CCMenuItemImage *__item_mission_guide;
+	CCMenuItemImage *__item_get_reward;
 };
 
 #endif // __LAYER_MISSION_H__

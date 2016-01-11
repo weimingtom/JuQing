@@ -71,7 +71,7 @@ bool LayerDialog::initUI()
 
 	//背景
 	__bg = CCSprite::create("images/bg_black.png");
-	__bg->setPosition(ccp(vs.width / 2.0f + vo.x, vs.height / 2.0f + vo.y));
+	__bg->setPosition(ccp(vo.x + vs.width / 2.0f, vo.y + vs.height / 2.0f));
 	this->addChild(__bg, 0);
 
 	//立绘
@@ -82,7 +82,7 @@ bool LayerDialog::initUI()
 	//对话框背景
 	CCSprite* bg_dialog = CCSprite::create("images/LayerDialog_bg_dialog.png");
 	CCSize bg_dialog_size = bg_dialog->getContentSize();
-	bg_dialog->setPosition(ccp(vs.width / 2.0f + vo.x, bg_dialog_size.height / 2.0f + vo.y));
+	bg_dialog->setPosition(ccp(vo.x + vs.width / 2.0f, vo.y + bg_dialog_size.height / 2.0f));
 	this->addChild(bg_dialog, 5);
 
 	//人物名字背景
@@ -98,9 +98,9 @@ bool LayerDialog::initUI()
 
 	//对话
 	CCSize type_size = bg_dialog_size - CCSizeMake(80.0f, 40.0f);
-	__dialog = TopwoTypeTTF::create("fonts/ttfs/arial.ttf", 32);
+	__dialog = TopwoTypeTTF::create("fonts/ttfs/mnjcy.ttf", 32);
 	__dialog->setTypeSize(type_size);
-	__dialog->setTypeInterval(0.2f);
+	__dialog->setTypeInterval(0.1f);
 	__dialog->setTypeFinishCallback(this, callfunc_selector(LayerDialog::typedCallBack));
 
 	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);

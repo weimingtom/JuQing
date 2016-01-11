@@ -44,13 +44,13 @@ DataNpc* UserInfo::getDataNpcFromArray(int id)
 {
 	return static_cast<DataNpc*>(__arr_data_npc->objectAtIndex(id));
 }
-void UserInfo::addDataChapterToArray(DataChapter* chapter_data)
+void UserInfo::addDataSectionToArray(DataSection* chapter_data)
 {
 	__arr_data_chapter->addObject(chapter_data);
 }
-DataChapter* UserInfo::getDataChapterFromArray(int id)
+DataSection* UserInfo::getDataSectionFromArray(int id)
 {
-	return static_cast<DataChapter*>(__arr_data_chapter->objectAtIndex(id));
+	return static_cast<DataSection*>(__arr_data_chapter->objectAtIndex(id));
 }
 void UserInfo::addDataMissionToArray(DataMission* mission_data)
 {

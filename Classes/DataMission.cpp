@@ -5,7 +5,8 @@ DataMission::DataMission()
 , __type(0)
 , __title(NULL)
 , __content(NULL)
-, __target(NULL)
+, __mission(NULL)
+, __target(0.0)
 , __reward(0)
 {
 }

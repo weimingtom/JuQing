@@ -30,7 +30,7 @@ public:
 	rapidjson::Value& getPlotDataFromJson(int index);
 
 	void analyzeDataNpc(rapidjson::Document& doc);
-	void analyzeDataChapter(rapidjson::Document& doc);
+	void analyzeDataSection(rapidjson::Document& doc);
 	void analyzeDataMission(rapidjson::Document& doc);
 private:
 	rapidjson::Document __doc_plot;
