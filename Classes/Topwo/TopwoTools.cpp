@@ -170,6 +170,15 @@ twbool TopwoTools::isInNode(CCPoint touch_point, CCNode* node)
 		return false;
 	}
 }
+//判断浮点数是否相等
+bool TopwoTools::floatIsEquals(float f1, float f2)
+{
+	if (abs(f1 - f2) < 1e-6)
+	{
+		return true;
+	}
+	return false;
+}
 
 void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 {

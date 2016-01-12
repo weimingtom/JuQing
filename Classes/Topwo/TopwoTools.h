@@ -44,6 +44,9 @@ public:
 	//碰撞点是否在节点内
 	bool isInNode(CCPoint, CCNode* node);
 
+	//判断浮点数是否相等
+	bool floatIsEquals(float f1, float f2);
+
 private:
 	CCDictionary *__xml_dictionary;//xml在内存中的虚拟
 };

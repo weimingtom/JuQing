@@ -10,8 +10,8 @@ UserInfo::UserInfo()
 , __cur_eq(10)
 , __cur_ganxing(10)
 , __cur_mission_id(1)
+, __cur_section_id(1)
 , __cur_plot_id(0)
-, __cur_section_id(0)
 , __cur_wooer(3)
 {
 	__arr_data_npc = CCArray::create();
