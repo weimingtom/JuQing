@@ -14,10 +14,12 @@ public:
 	//初始化UI
 	bool initUI();
     
-    // a selector callback
+    //返回菜单项
 	void menuBackCallback(CCObject* pSender);
-
+	//任务菜单项
 	void menuMissionCallback(CCObject* pSender);
+	//锻炼菜单项
+	void menuExerciseCallback(CCObject* pSender);
 };
 
 #endif // __SCENE_MAIN_H__

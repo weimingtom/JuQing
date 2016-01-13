@@ -1,25 +1,17 @@
-#include "LayerMission.h"
-#include "Topwo.h"
-#include "UserInfo.h"
-#include "LayerDialog.h"
+#include "LayerExercise.h"
 
-LayerMission::LayerMission()
-:__atlas_total_physical(NULL)
-, __ttf_name(NULL)
-, __ttf_title(NULL)
-, __ttf_content(NULL)
-, __ttf_mission(NULL)
-, __ttf_reward(NULL)
+LayerExercise::LayerExercise()
+:__level(1)
 {
 
 }
-LayerMission::~LayerMission()
+LayerExercise::~LayerExercise()
 {
 }
-bool LayerMission::init()
+bool LayerExercise::init()
 {
     // 1. super init first
-    if ( !CCLayer::init() )
+    if (!CCLayer::init() )
     {
         return false;
 	}
@@ -31,330 +23,517 @@ bool LayerMission::init()
     return true;
 }
 //初始化UI
-bool LayerMission::initUI()
+bool LayerExercise::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 
-	//背景
-	CCSprite* mission_bg = CCSprite::create("images/LayerMission_bg.png");
-	this->addChild(mission_bg);
-	CCSize size_mission_bg = mission_bg->getContentSize();
-	mission_bg->setPosition(ccp(vo.x + vs.width * 0.5f, vo.y + vs.height * 0.5f));
-
-	//体力值
-	CCSprite* sp_physical = CCSprite::create("images/LayerMission_physical.png");
-	mission_bg->addChild(sp_physical);
-	CCSize size_sp_physical = sp_physical->getContentSize();
-	sp_physical->setPosition(ccp(size_mission_bg.width * 0.52f, size_mission_bg.height * 0.78f));
-
-	//消耗的体力值
-	CCLabelAtlas* atlas_need_physical = CCLabelAtlas::create("10", "fonts/atlas/number_style_1.png", 20, 20, '0');
-	sp_physical->addChild(atlas_need_physical);
-	atlas_need_physical->setAnchorPoint(ccp(0.5f, 0.5f));
-	CCSize size_atlas_need_physical = atlas_need_physical->getContentSize();
-	atlas_need_physical->setPosition(ccp(size_sp_physical.width * 0.28f, size_sp_physical.height * 0.45f));
-
-	//当前拥有的体力值
-	__atlas_total_physical = CCLabelAtlas::create("", "fonts/atlas/number_style_1.png", 20, 20, '0');
-	sp_physical->addChild(__atlas_total_physical);
-	__atlas_total_physical->setAnchorPoint(ccp(0, 0.5f));
-	CCSize size_atlas_total_physical = __atlas_total_physical->getContentSize();
-	__atlas_total_physical->setPosition(ccp(size_sp_physical.width * 0.95f, size_sp_physical.height * 0.45f));
-
-	//名字
-	__ttf_name = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 40.0f);
-	mission_bg->addChild(__ttf_name);
-	__ttf_name->setColor(ccc3(218, 69, 231));
-	CCSize size_ttf_name = __ttf_name->getContentSize();
-	__ttf_name->setPosition(ccp(size_mission_bg.width * 0.205f, size_mission_bg.height * 0.77f));
-
-	//标题
-	__ttf_title = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 36.0f);
-	mission_bg->addChild(__ttf_title);
-	__ttf_title->enableStroke(ccc3(0, 117, 146), 1.0f);
-	CCSize size_ttf_title = __ttf_title->getContentSize();
-	__ttf_title->setPosition(ccp(size_mission_bg.width * 0.5f, size_mission_bg.height - 32.0f));
-
-	//内容
-	__ttf_content = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeMake(460.0f, 110.0f), kCCTextAlignmentLeft);
-	mission_bg->addChild(__ttf_content);
-	__ttf_content->setAnchorPoint(ccp(0.5f, 1.0f));
-	CCSize size_ttf_content = __ttf_content->getContentSize();
-	__ttf_content->setPosition(ccp(size_mission_bg.width * 0.53f, size_mission_bg.height * 0.68f));
-
-	//目标
-	__ttf_mission = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
-	mission_bg->addChild(__ttf_mission);
-	__ttf_mission->setAnchorPoint(ccp(0, 0.5f));
-	__ttf_mission->enableStroke(ccc3(165, 51, 191), 1.0f);
-	CCSize size_ttf_target = __ttf_mission->getContentSize();
-	__ttf_mission->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.32f));
-
-	//奖励
-	__ttf_reward = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
-	mission_bg->addChild(__ttf_reward);
-	__ttf_reward->setAnchorPoint(ccp(0, 0.5f));
-	__ttf_reward->enableStroke(ccc3(214, 221, 179), 1.0f);
-	CCSize size_ttf_reward = __ttf_reward->getContentSize();
-	__ttf_reward->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.24f));
-
-	//任务指引选项
-	__item_mission_guide = CCMenuItemImage::create(
-		"images/btn_mission_guide_0.png",
-		"images/btn_mission_guide_1.png",
-		this,
-		menu_selector(LayerMission::menuCallbackMissionGuide));
-	CCSize size_item_mission_guide = __item_mission_guide->getContentSize();
-	__item_mission_guide->setPosition(ccp(size_mission_bg.width * 0.5f, size_item_mission_guide.height * 0.5f));
-
-	//获取奖励选项
-	__item_get_reward = CCMenuItemImage::create(
-		"images/btn_get_reward_0.png",
-		"images/btn_get_reward_1.png",
-		this,
-		menu_selector(LayerMission::menuCallbackGetReward));
-	CCSize size_item_get_reward = __item_get_reward->getContentSize();
-	__item_get_reward->setPosition(ccp(size_mission_bg.width * 0.5f, size_item_mission_guide.height * 0.5f));
-
-	//关闭选项
+	//关闭项
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
 		"images/btn_close_1_0.png",
 		"images/btn_close_1_0.png",
 		this,
-		menu_selector(LayerMission::menuCallbackClose));
+		menu_selector(LayerExercise::menuCallbackClose));
 	CCSize size_item_close = item_close->getContentSize();
-	item_close->setPosition(ccp(size_mission_bg.width - size_item_close.width * 0.5f, size_mission_bg.height - size_item_close.height * 0.5f));
+	item_close->setPosition(ccp(vs.width * 0.8f, vs.height * 0.8f));
 
-	CCMenu* pMenu = CCMenu::create(item_close, __item_mission_guide, __item_get_reward, NULL);
-	pMenu->setPosition(CCPointZero);
-	mission_bg->addChild(pMenu, 1);
+	//标题
+	__sp_title = CCSprite::create("images/LayerExercise_low_title.png");
+	this->addChild(__sp_title);
+	CCSize size_sp_title = __sp_title->getContentSize();
+	__sp_title->setPosition(ccp(vs.width * 0.5f, vs.height * 0.8f));
 
-	updataMissionContent();
+	//向左项
+	__item_to_left = CCMenuItemSprite::create(
+		CCSprite::create("images/btn_arrow_green_0.png"),
+		CCSprite::create("images/btn_arrow_green_0.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackToLeft));
+	__item_to_left->setPosition(ccp(vs.width * 0.5f - size_sp_title.width * 1.5f, vs.height * 0.8f));
 
+	//向右项
+	__item_to_right = CCMenuItemSprite::create(
+		CCSprite::create("images/btn_arrow_green_0.png"),
+		CCSprite::create("images/btn_arrow_green_0.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackToRight));
+	__item_to_right->setPosition(ccp(vs.width * 0.5f + size_sp_title.width* 1.5f, vs.height * 0.8f));
+
+	//体魄项
+	__item_tipo = CCMenuItemSprite::create(
+		CCSprite::create("images/LayerExercise_low_1_0.png"),
+		CCSprite::create("images/LayerExercise_low_1_1.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackTipo));
+	CCSize size_item_tipo = __item_tipo->getContentSize();
+	__item_tipo->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width * 2.2f, vs.height * 0.5f));
+
+	CCSprite* sp_gold = CCSprite::create("images/LayerExercise_gold.png");
+	__item_tipo->addChild(sp_gold, 10);
+	CCSize size_sp_gold = sp_gold->getContentSize();
+	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
+	CCLabelAtlas *la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_tipo->addChild(la_gold, 10, 100);
+	la_gold->setAnchorPoint(ccp(0, 0.5f));
+	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
+	CCSprite* sp_physical = CCSprite::create("images/LayerExercise_physical.png");
+	__item_tipo->addChild(sp_physical, 10);
+	CCSize size_sp_physical = sp_physical->getContentSize();
+	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
+	CCLabelAtlas *la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_tipo->addChild(la_physical, 10, 101);
+	la_physical->setAnchorPoint(ccp(0, 0.5f));
+	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
+	CCSprite* sp_item_name = CCSprite::create("images/LayerExercise_tipo.png");
+	__item_tipo->addChild(sp_item_name, 10);
+	CCSize size_sp_item_name = sp_item_name->getContentSize();
+	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
+	CCLabelAtlas *la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_tipo->addChild(la_tipo, 10, 102);
+	la_tipo->setAnchorPoint(ccp(0, 0.5f));
+	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
+
+
+	//魅力项
+	__item_meili = CCMenuItemSprite::create(
+		CCSprite::create("images/LayerExercise_low_2_0.png"),
+		CCSprite::create("images/LayerExercise_low_2_1.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackMeili));
+	CCSize size_item_meili = __item_meili->getContentSize();
+	__item_meili->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width* 1.1f, vs.height * 0.5f));
+
+	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
+	__item_meili->addChild(sp_gold, 10);
+	size_sp_gold = sp_gold->getContentSize();
+	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
+	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_meili->addChild(la_gold, 10, 100);
+	la_gold->setAnchorPoint(ccp(0, 0.5f));
+	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
+	sp_physical = CCSprite::create("images/LayerExercise_physical.png");
+	__item_meili->addChild(sp_physical, 10);
+	size_sp_physical = sp_physical->getContentSize();
+	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
+	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_meili->addChild(la_physical, 10, 101);
+	la_physical->setAnchorPoint(ccp(0, 0.5f));
+	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
+	sp_item_name = CCSprite::create("images/LayerExercise_meili.png");
+	__item_meili->addChild(sp_item_name, 10);
+	size_sp_item_name = sp_item_name->getContentSize();
+	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
+	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_meili->addChild(la_tipo, 10, 102);
+	la_tipo->setAnchorPoint(ccp(0, 0.5f));
+	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
+
+	//智力项
+	__item_zhili = CCMenuItemSprite::create(
+		CCSprite::create("images/LayerExercise_low_3_0.png"),
+		CCSprite::create("images/LayerExercise_low_3_1.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackZhili));
+	CCSize size_item_zhili = __item_zhili->getContentSize();
+	__item_zhili->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
+
+	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
+	__item_zhili->addChild(sp_gold, 10);
+	size_sp_gold = sp_gold->getContentSize();
+	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
+	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_zhili->addChild(la_gold, 10, 100);
+	la_gold->setAnchorPoint(ccp(0, 0.5f));
+	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
+	sp_physical = CCSprite::create("images/LayerExercise_physical.png");
+	__item_zhili->addChild(sp_physical, 10);
+	size_sp_physical = sp_physical->getContentSize();
+	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
+	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_zhili->addChild(la_physical, 10, 101);
+	la_physical->setAnchorPoint(ccp(0, 0.5f));
+	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
+	sp_item_name = CCSprite::create("images/LayerExercise_zhili.png");
+	__item_zhili->addChild(sp_item_name, 10);
+	size_sp_item_name = sp_item_name->getContentSize();
+	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
+	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_zhili->addChild(la_tipo, 10, 102);
+	la_tipo->setAnchorPoint(ccp(0, 0.5f));
+	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
+
+	//情商项
+	__item_eq = CCMenuItemSprite::create(
+		CCSprite::create("images/LayerExercise_low_4_0.png"),
+		CCSprite::create("images/LayerExercise_low_4_1.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackEq));
+	CCSize size_item_eq = __item_eq->getContentSize();
+	__item_eq->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 1.1f, vs.height * 0.5f));
+
+	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
+	__item_eq->addChild(sp_gold, 10);
+	size_sp_gold = sp_gold->getContentSize();
+	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
+	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_eq->addChild(la_gold, 10, 100);
+	la_gold->setAnchorPoint(ccp(0, 0.5f));
+	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
+	sp_physical = CCSprite::create("images/LayerExercise_physical.png");
+	__item_eq->addChild(sp_physical, 10);
+	size_sp_physical = sp_physical->getContentSize();
+	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
+	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_eq->addChild(la_physical, 10, 101);
+	la_physical->setAnchorPoint(ccp(0, 0.5f));
+	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
+	sp_item_name = CCSprite::create("images/LayerExercise_eq.png");
+	__item_eq->addChild(sp_item_name, 10);
+	size_sp_item_name = sp_item_name->getContentSize();
+	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
+	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_eq->addChild(la_tipo, 10, 102);
+	la_tipo->setAnchorPoint(ccp(0, 0.5f));
+	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
+
+	//感性项
+	__item_ganxing = CCMenuItemSprite::create(
+		CCSprite::create("images/LayerExercise_low_5_0.png"),
+		CCSprite::create("images/LayerExercise_low_5_1.png"),
+		this,
+		menu_selector(LayerExercise::menuCallbackGanxing));
+	CCSize size_item_ganxing = __item_ganxing->getContentSize();
+	__item_ganxing->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 2.2f, vs.height * 0.5f));
+
+	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
+	__item_ganxing->addChild(sp_gold, 10);
+	size_sp_gold = sp_gold->getContentSize();
+	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
+	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_ganxing->addChild(la_gold, 10, 100);
+	la_gold->setAnchorPoint(ccp(0, 0.5f));
+	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
+	sp_physical = CCSprite::create("images/LayerExercise_physical.png");
+	__item_ganxing->addChild(sp_physical, 10);
+	size_sp_physical = sp_physical->getContentSize();
+	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
+	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_ganxing->addChild(la_physical, 10, 101);
+	la_physical->setAnchorPoint(ccp(0, 0.5f));
+	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
+	sp_item_name = CCSprite::create("images/LayerExercise_ganxing.png");
+	__item_ganxing->addChild(sp_item_name, 10);
+	size_sp_item_name = sp_item_name->getContentSize();
+	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
+	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	__item_ganxing->addChild(la_tipo, 10, 102);
+	la_tipo->setAnchorPoint(ccp(0, 0.5f));
+	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
+	
+	CCMenu *menu = CCMenu::create(item_close, __item_to_left, __item_to_right, __item_tipo, __item_meili, __item_zhili, __item_eq, __item_ganxing, NULL);
+	this->addChild(menu);
+	menu->setPosition(CCPointZero);
+
+	updateMe();
+	
 	return true;
 }
-void LayerMission::updataMissionContent()
+void LayerExercise::updateMe()
 {
-	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
-	TopwoData *td = Topwo::getInstance()->getTopwoData();
-	UserInfo *user_info = td->getUserInfo();
-	DataNpc * npc_data = user_info->getDataNpcFromArray(user_info->getCurrentWooer());
-	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
-	//剩余体力值
-	__atlas_total_physical->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
-	//追求者
-	__ttf_name->setString(npc_data->getName()->getCString());
-	//标题
-	__ttf_title->setString(mission_data->getTitle()->getCString());
-	//内容
-	__ttf_content->setString(mission_data->getContent()->getCString());
-	//任务
-	__ttf_mission->setString(CCString::createWithFormat("%s%s", tl->getXmlString("Require")->getCString(), mission_data->getMission()->getCString())->getCString());
-	//奖励
-	__ttf_reward->setString(CCString::createWithFormat("%s%d%s", tl->getXmlString("Reward")->getCString(), mission_data->getReward(), tl->getXmlString("Gold")->getCString())->getCString());
+	CCSprite* normal_sprite = NULL;
+	CCSprite* selected_sprite = NULL;
+	if (__level == 1)
+	{
+		//标题
+		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_low_title.png"));
+		//向左项
+		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_green_0.png"));
+		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_green_0.png"));
+		CCSize size_item_to_left = __item_to_left->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_left->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_left->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
+		normal_sprite->setFlipX(true);
+		selected_sprite->setFlipX(true);
 
-	//目标值
-	bool is_finish = false;
-	float mission_value = (float)mission_data->getTarget();
-	int mission_type = mission_data->getType();
-	if (mission_type == 1)
-	{//对话任务
-		if (user_info->getCurrentSectionId() == (int)mission_value)
-		{
-			is_finish = true;
-		}
-	}
-	else if (mission_type == 2)
-	{//锻炼任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//体魄
-			if (user_info->getCurrentTiPo() >= value_int)
-			{
-				is_finish = true;
-			}
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//魅力
-			if (user_info->getCurrentMeiLi() >= value_int)
-			{
-				is_finish = true;
-			}
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//智力
-			if (user_info->getCurrentZhiLi() >= value_int)
-			{
-				is_finish = true;
-			}
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//情商
-			if (user_info->getCurrentEQ() >= value_int)
-			{
-				is_finish = true;
-			}
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//感性
-			if (user_info->getCurrentGanXing() >= value_int)
-			{
-				is_finish = true;
-			}
-		}
-	}
-	else if (mission_type == 3)
-	{//购买任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//物品1
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//物品2
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//物品3
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//物品4
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//物品5
-		}
-		is_finish = true;
-	}
+		//向右项
+		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_green_0.png"));
+		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_green_0.png"));
+		CCSize size_item_to_right = __item_to_right->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_right->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_right->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
 
-	setMissionFinishState(is_finish);
+		//体魄项
+		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_low_1_0.png"));
+		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_low_1_1.png"));
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-500");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-15");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+2");
+		//魅力项
+		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_low_2_0.png"));
+		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_low_2_1.png"));
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-500");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-15");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+2");
+		//智力项
+		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_low_3_0.png"));
+		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_low_3_1.png"));
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-500");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-15");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+2");
+		//情商项
+		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_low_4_0.png"));
+		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_low_4_1.png"));
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-500");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-15");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+2");
+		//感性项
+		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_low_5_0.png"));
+		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_low_5_1.png"));
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-500");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(101))->setString("-15");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(102))->setString("+2");
+	}
+	else if (__level == 2)
+	{
+		//标题
+		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_mid_title.png"));
+		//向左项
+		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_blue_0.png"));
+		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_blue_0.png"));
+		CCSize size_item_to_left = __item_to_left->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_left->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_left->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
+		normal_sprite->setFlipX(true);
+		selected_sprite->setFlipX(true);
+
+		//向右项
+		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_blue_0.png"));
+		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_blue_0.png"));
+		CCSize size_item_to_right = __item_to_right->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_right->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_right->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
+
+		//体魄项
+		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_mid_1_0.png"));
+		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_mid_1_1.png"));
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-1000");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-30");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+5");
+		//魅力项
+		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_mid_2_0.png"));
+		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_mid_2_1.png"));
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-1000");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-30");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+5");
+		//智力项
+		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_mid_3_0.png"));
+		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_mid_3_1.png"));
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-1000");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-30");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+5");
+		//情商项
+		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_mid_4_0.png"));
+		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_mid_4_1.png"));
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-1000");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-30");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+5");
+		//感性项
+		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_mid_5_0.png"));
+		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_mid_5_1.png"));
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-1000");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(101))->setString("-30");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(102))->setString("+5");
+	}
+	else if (__level == 3)
+	{
+		//标题
+		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_high_title.png"));
+		//向左项
+		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_orange_0.png"));
+		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_orange_0.png"));
+		CCSize size_item_to_left = __item_to_left->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_left->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_left->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
+		normal_sprite->setFlipX(true);
+		selected_sprite->setFlipX(true);
+
+		//向右项
+		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_orange_0.png"));
+		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_orange_0.png"));
+		CCSize size_item_to_right = __item_to_right->getContentSize();
+		normal_sprite = static_cast<CCSprite*>(__item_to_right->getNormalImage());
+		selected_sprite = static_cast<CCSprite*>(__item_to_right->getSelectedImage());
+		normal_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		selected_sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+		normal_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
+		selected_sprite->setScale(1.2f);
+
+		//体魄项
+		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_high_1_0.png"));
+		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_high_1_1.png"));
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-1500");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-45");
+		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+10");
+		//魅力项
+		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_high_2_0.png"));
+		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_high_2_1.png"));
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-1500");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-45");
+		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+10");
+		//智力项
+		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_high_3_0.png"));
+		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_high_3_1.png"));
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-1500");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-45");
+		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+10");
+		//情商项
+		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_high_4_0.png"));
+		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_high_4_1.png"));
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-1500");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-45");
+		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+10");
+		//感性项
+		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_high_5_0.png"));
+		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_high_5_1.png"));
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-1500");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(101))->setString("-45");
+		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(102))->setString("+10");
+	}
+}
+void LayerExercise::menuCallbackToLeft(CCObject* pSender)
+{
+	if (__level == 1)
+	{
+		__level = 3;
+	}
+	else if (__level == 2)
+	{
+		__level = 1;
+	}
+	else if (__level == 3)
+	{
+		__level = 2;
+	}
+	updateMe();
 }
 
-void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
+void LayerExercise::menuCallbackToRight(CCObject* pSender)
 {
-	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
+	if (__level == 1)
+	{
+		__level = 2;
+	}
+	else if (__level == 2)
+	{
+		__level = 3;
+	}
+	else if (__level == 3)
+	{
+		__level = 1;
+	}
+	updateMe();
+}
+void LayerExercise::menuCallbackTipo(CCObject* pSender)
+{
+	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
+	int tipo = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	DataMission *data_mission = user_info->getDataMissionFromArray(user_info->getCurrentMissionId());
-
-	if (user_info->getCurrentPhysical() < 10)
-	{//体力不足
-		return;
-	}
-
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() - 10);
-
-	float mission_value = (float)data_mission->getTarget();
-	int mission_type = data_mission->getType();
-	if (mission_type == 1)
-	{//对话任务
-		DataSection *data_section = user_info->getDataSectionFromArray((int)mission_value);
-		this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(LayerMission::callbackDialogOver)), 10);
-	}
-	else if (mission_type == 2)
-	{//锻炼任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//体魄
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//魅力
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//智力
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//情商
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//感性
-		}
-	}
-	else if (mission_type == 3)
-	{//购买任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//物品1
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//物品2
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//物品3
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//物品4
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//物品5
-		}
-	}
+	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
+	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
+	user_info->setCurrentTiPo(user_info->getCurrentTiPo() + tipo);
 }
-
-void LayerMission::menuCallbackGetReward(CCObject* pSender)
+void LayerExercise::menuCallbackMeili(CCObject* pSender)
 {
-	TopwoData *td = Topwo::getInstance()->getTopwoData();
-	UserInfo *user_info = td->getUserInfo();
+	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
+	int meili = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
 
-	//领取奖励
-	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
-	user_info->setCurrentGold(user_info->getCurrentGold() + mission_data->getReward());
-
-	//跳到下一个任务
-	user_info->setCurrentMissionId(user_info->getCurrentMissionId() + 1);
-
-	updataMissionContent();
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
+	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
+	user_info->setCurrentMeiLi(user_info->getCurrentMeiLi() + meili);
 }
-void LayerMission::menuCallbackClose(CCObject* pSender)
+void LayerExercise::menuCallbackZhili(CCObject* pSender)
+{
+	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
+	int zhili = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
+	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
+	user_info->setCurrentZhiLi(user_info->getCurrentZhiLi() + zhili);
+}
+void LayerExercise::menuCallbackEq(CCObject* pSender)
+{
+	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
+	int eq = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
+	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
+	user_info->setCurrentEQ(user_info->getCurrentEQ() + eq);
+}
+void LayerExercise::menuCallbackGanxing(CCObject* pSender)
+{
+	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
+	int ganxing = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+
+	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
+	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
+	user_info->setCurrentGanXing(user_info->getCurrentGanXing() + ganxing);
+}
+void LayerExercise::menuCallbackClose(CCObject* pSender)
 {
 	this->removeFromParent();
 }
-void LayerMission::callbackDialogOver()
-{
-	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
-	float mission_value = (float)mission_data->getTarget();
-	user_info->setCurrentSectionId((int)mission_value);
-
-	updataMissionContent();
-}
-void LayerMission::removeFromParent()
+void LayerExercise::removeFromParent()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 	CCLayer::removeFromParent();
 }
 
-void LayerMission::setMissionFinishState(bool is_finish)
-{
-	if (is_finish)
-	{
-		__item_mission_guide->setVisible(false);
-		__item_mission_guide->setEnabled(false);
-		__item_get_reward->setVisible(true);
-		__item_get_reward->setEnabled(true);
-	}
-	else
-	{
-		__item_mission_guide->setVisible(true);
-		__item_mission_guide->setEnabled(true);
-		__item_get_reward->setVisible(false);
-		__item_get_reward->setEnabled(false);
-	}
-}
-bool LayerMission::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool LayerExercise::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
 	return true;
 }
-void LayerMission::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void LayerExercise::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
 }
-void LayerMission::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+void LayerExercise::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
 }
-void LayerMission::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+void LayerExercise::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
 }

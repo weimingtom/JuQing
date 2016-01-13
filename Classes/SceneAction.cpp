@@ -122,11 +122,11 @@ bool SceneAction::initUI()
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
 
-	if (user_info->getCurrentSectionId() <= 1)
+	/*if (user_info->getCurrentSectionId() <= 1)
 	{
 		item_old->setEnabled(false);
 		item_old->setColor(ccc3(128,128,128));
-	}
+	}*/
 
 	return true;
 }

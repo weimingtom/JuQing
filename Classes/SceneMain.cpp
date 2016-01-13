@@ -1,6 +1,7 @@
 #include "SceneMain.h"
 #include "SceneAction.h"
 #include "LayerMission.h"
+#include "LayerExercise.h"
 
 CCScene* SceneMain::creatScene()
 {
@@ -171,7 +172,7 @@ bool SceneMain::initUI()
 		"images/btn_exercise_0.png",
 		"images/btn_exercise_1.png",
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuExerciseCallback));
 	CCSize size_item_exercise = item_exercise->getContentSize();
 	item_exercise->setPosition(ccp(vs.width - size_item_exercise.width * 1.75f, vs.height - size_date.height * 2.0f - size_item_task.height - size_item_exercise.height * 1.25f));
 
@@ -183,32 +184,7 @@ bool SceneMain::initUI()
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_work = item_work->getContentSize();
 	item_work->setPosition(ccp(vs.width - size_item_exercise.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height - size_item_exercise.height * 1.25f));
-	/*
-	//课程标题
-	sprite = CCSprite::create("images/SceneMain_low_class_title.png");
-	this->addChild(sprite);
-	CCSize size_class_title = sprite->getContentSize();
-	sprite->setPosition(ccp(vs.width * 0.5f, vs.height - size_date.height - size_item_rest.height - size_class_title.height));
-
-	//向左项
-	CCMenuItemImage *item_to_left = CCMenuItemImage::create(
-		"images/btn_arrow_0.png",
-		"images/btn_arrow_1.png",
-		this,
-		menu_selector(SceneMain::menuBackCallback));
-	CCSize size_item_to_left = item_to_left->getContentSize();
-	item_to_left->setPosition(ccp(vs.width * 0.5f - size_class_title.width * 1.5f, sprite->getPositionY()));
-
-	//向左右
-	CCMenuItemImage *item_to_right = CCMenuItemImage::create(
-		"images/btn_arrow_0.png",
-		"images/btn_arrow_1.png",
-		this,
-		menu_selector(SceneMain::menuBackCallback));
-	CCSize size_item_to_right = item_to_right->getContentSize();
-	item_to_right->setPosition(ccp(vs.width * 0.5f + size_class_title.width * 1.5f, sprite->getPositionY()));
-	*/
-
+	
 	//菜单
 	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, item_gift, item_exercise, item_work, item_task, NULL);
 	menu->setPosition(CCPointZero);
@@ -225,4 +201,9 @@ void SceneMain::menuBackCallback(CCObject* pSender)
 void SceneMain::menuMissionCallback(CCObject* pSender)
 {
 	this->addChild(LayerMission::create(), 10);
+}
+//锻炼菜单项
+void SceneMain::menuExerciseCallback(CCObject* pSender)
+{
+	this->addChild(LayerExercise::create(), 10);
 }

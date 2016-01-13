@@ -127,8 +127,8 @@ bool LayerMission::initUI()
 	item_close->setPosition(ccp(size_mission_bg.width - size_item_close.width * 0.5f, size_mission_bg.height - size_item_close.height * 0.5f));
 
 	CCMenu* pMenu = CCMenu::create(item_close, __item_mission_guide, __item_get_reward, NULL);
-	pMenu->setPosition(CCPointZero);
 	mission_bg->addChild(pMenu, 1);
+	pMenu->setPosition(CCPointZero);
 
 	updataMissionContent();
 
