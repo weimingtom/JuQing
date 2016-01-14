@@ -18,9 +18,13 @@ bool LayerExercise::init()
 
 	initUI();
 
-	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -128, true);
+	setTouchEnabled(true);  //开启触摸响应
 
     return true;
+}
+void LayerExercise::registerWithTouchDispatcher()
+{
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
 //初始化UI
 bool LayerExercise::initUI()
@@ -64,7 +68,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/LayerExercise_low_1_0.png"),
 		CCSprite::create("images/LayerExercise_low_1_1.png"),
 		this,
-		menu_selector(LayerExercise::menuCallbackTipo));
+		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_tipo = __item_tipo->getContentSize();
 	__item_tipo->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width * 2.2f, vs.height * 0.5f));
 
@@ -99,7 +103,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/LayerExercise_low_2_0.png"),
 		CCSprite::create("images/LayerExercise_low_2_1.png"),
 		this,
-		menu_selector(LayerExercise::menuCallbackMeili));
+		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_meili = __item_meili->getContentSize();
 	__item_meili->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width* 1.1f, vs.height * 0.5f));
 
@@ -133,7 +137,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/LayerExercise_low_3_0.png"),
 		CCSprite::create("images/LayerExercise_low_3_1.png"),
 		this,
-		menu_selector(LayerExercise::menuCallbackZhili));
+		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_zhili = __item_zhili->getContentSize();
 	__item_zhili->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
 
@@ -167,7 +171,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/LayerExercise_low_4_0.png"),
 		CCSprite::create("images/LayerExercise_low_4_1.png"),
 		this,
-		menu_selector(LayerExercise::menuCallbackEq));
+		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_eq = __item_eq->getContentSize();
 	__item_eq->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 1.1f, vs.height * 0.5f));
 
@@ -201,7 +205,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/LayerExercise_low_5_0.png"),
 		CCSprite::create("images/LayerExercise_low_5_1.png"),
 		this,
-		menu_selector(LayerExercise::menuCallbackGanxing));
+		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_ganxing = __item_ganxing->getContentSize();
 	__item_ganxing->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 2.2f, vs.height * 0.5f));
 
@@ -233,6 +237,11 @@ bool LayerExercise::initUI()
 	CCMenu *menu = CCMenu::create(item_close, __item_to_left, __item_to_right, __item_tipo, __item_meili, __item_zhili, __item_eq, __item_ganxing, NULL);
 	this->addChild(menu);
 	menu->setPosition(CCPointZero);
+
+	__layer_progress = LayerProgress::create();
+	this->addChild(__layer_progress, 10);
+	__layer_progress->setVisible(false);
+	__layer_progress->setTouchEnabled(false);
 
 	updateMe();
 	
@@ -459,69 +468,65 @@ void LayerExercise::menuCallbackToRight(CCObject* pSender)
 	}
 	updateMe();
 }
-void LayerExercise::menuCallbackTipo(CCObject* pSender)
+void LayerExercise::menuCallbackExercise(CCObject* pSender)
 {
-	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
-	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
-	int tipo = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
-
+	CCMenuItemSprite *menu_item = static_cast<CCMenuItemSprite*>(pSender);
+	int gold = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(101))->getString());
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
-	user_info->setCurrentTiPo(user_info->getCurrentTiPo() + tipo);
+
+	if ((user_info->getCurrentGold() + gold) < 0)
+	{
+	}
+	else if ((user_info->getCurrentPhysical() + physical) < 0)
+	{
+
+	}
+	else
+	{
+		__layer_progress->setVisible(true);
+		__layer_progress->setTouchEnabled(true);
+		__layer_progress->setCallFunc(CCCallFuncO::create(this, callfuncO_selector(LayerExercise::progressCallbackExercise), pSender));
+	}
 }
-void LayerExercise::menuCallbackMeili(CCObject* pSender)
+void LayerExercise::progressCallbackExercise(CCObject* pSender)
 {
-	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
-	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
-	int meili = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+	__layer_progress->setVisible(false);
+	__layer_progress->setTouchEnabled(false);
+
+	CCMenuItemSprite *menu_item = static_cast<CCMenuItemSprite*>(pSender);
+	int gold = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(100))->getString());
+	int physical = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(101))->getString());
+	int exercise_value = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(102))->getString());
 
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
 	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
-	user_info->setCurrentMeiLi(user_info->getCurrentMeiLi() + meili);
-}
-void LayerExercise::menuCallbackZhili(CCObject* pSender)
-{
-	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
-	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
-	int zhili = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
+	if (menu_item == __item_tipo)
+	{
+		user_info->setCurrentTiPo(user_info->getCurrentTiPo() + exercise_value);
+	}
+	else if (menu_item == __item_meili)
+	{
+		user_info->setCurrentMeiLi(user_info->getCurrentMeiLi() + exercise_value);
+	}
+	else if (menu_item == __item_zhili)
+	{
+		user_info->setCurrentZhiLi(user_info->getCurrentZhiLi() + exercise_value);
+	}
+	else if (menu_item == __item_eq)
+	{
+		user_info->setCurrentEQ(user_info->getCurrentEQ() + exercise_value);
+	}
+	else if (menu_item == __item_ganxing)
+	{
+		user_info->setCurrentGanXing(user_info->getCurrentGanXing() + exercise_value);
+	}
 
-	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
-	user_info->setCurrentZhiLi(user_info->getCurrentZhiLi() + zhili);
-}
-void LayerExercise::menuCallbackEq(CCObject* pSender)
-{
-	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
-	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
-	int eq = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
-
-	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
-	user_info->setCurrentEQ(user_info->getCurrentEQ() + eq);
-}
-void LayerExercise::menuCallbackGanxing(CCObject* pSender)
-{
-	int gold = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->getString());
-	int physical = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->getString());
-	int ganxing = atoi(static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->getString());
-
-	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
-	user_info->setCurrentGanXing(user_info->getCurrentGanXing() + ganxing);
 }
 void LayerExercise::menuCallbackClose(CCObject* pSender)
 {
 	this->removeFromParent();
-}
-void LayerExercise::removeFromParent()
-{
-	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-	CCLayer::removeFromParent();
 }
 
 bool LayerExercise::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)

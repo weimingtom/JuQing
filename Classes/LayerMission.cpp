@@ -26,9 +26,13 @@ bool LayerMission::init()
 
 	initUI();
 
-	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -128, true);
+	setTouchEnabled(true);  //开启触摸响应
 
-    return true;
+	return true;
+}
+void LayerMission::registerWithTouchDispatcher()
+{
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
 //初始化UI
 bool LayerMission::initUI()
@@ -322,12 +326,6 @@ void LayerMission::callbackDialogOver()
 
 	updataMissionContent();
 }
-void LayerMission::removeFromParent()
-{
-	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-	CCLayer::removeFromParent();
-}
-
 void LayerMission::setMissionFinishState(bool is_finish)
 {
 	if (is_finish)

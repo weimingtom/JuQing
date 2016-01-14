@@ -36,9 +36,13 @@ bool LayerDialog::init()
 
 	initUI();
 
-	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -128, true);
+	setTouchEnabled(true);  //¿ªÆô´¥ÃþÏìÓ¦
 
-    return true;
+	return true;
+}
+void LayerDialog::registerWithTouchDispatcher()
+{
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
 LayerDialog* LayerDialog::createWith(int start_id, int end_id, CCObject* target, SEL_CallFunc selector)
 {
@@ -116,11 +120,7 @@ void LayerDialog::removeFromParent()
 	{
 		(__pListener->*__pSelector)();
 	}
-	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 	CCLayer::removeFromParent();
-}
-void LayerDialog::onExit()
-{
 }
 bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {

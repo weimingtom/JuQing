@@ -131,24 +131,6 @@ bool SceneMain::initUI()
 	CCSize size_item_gift = item_gift->getContentSize();
 	item_gift->setPosition(ccp(size_attribute.width * 0.5f, (vs.height - size_attribute.height) * 0.5f));
 
-	//休息项
-	CCMenuItemImage *item_rest = CCMenuItemImage::create(
-		"images/btn_rest_0.png",
-		"images/btn_rest_1.png",
-		this,
-		menu_selector(SceneMain::menuBackCallback));
-	CCSize size_item_rest = item_rest->getContentSize();
-	item_rest->setPosition(ccp(vs.width * 0.5f, size_item_rest.height * 0.5f));
-
-	//物品项
-	CCMenuItemImage *item_goods = CCMenuItemImage::create(
-		"images/btn_goods_0.png",
-		"images/btn_goods_1.png",
-		this,
-		menu_selector(SceneMain::menuBackCallback));
-	CCSize size_item_goods = item_goods->getContentSize();
-	item_goods->setPosition(ccp(vs.width * 0.5f + size_item_rest.width * 1.25f, size_item_rest.height * 0.5f));
-
 	//表白项
 	CCMenuItemImage *item_express = CCMenuItemImage::create(
 		"images/btn_express_0.png",
@@ -156,7 +138,7 @@ bool SceneMain::initUI()
 		this,
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_express = item_express->getContentSize();
-	item_express->setPosition(ccp(vs.width * 0.5f - size_item_rest.width * 1.25f, size_item_rest.height * 0.5f));
+	item_express->setPosition(ccp(vs.width * 0.5f, size_item_express.height * 0.5f));
 
 	//任务项
 	CCMenuItemImage *item_task = CCMenuItemImage::create(
@@ -167,6 +149,13 @@ bool SceneMain::initUI()
 	CCSize size_item_task = item_task->getContentSize();
 	item_task->setPosition(ccp(vs.width - size_item_task.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height));
 
+	//四项的背景
+	CCSprite* sp_four_items_bg = CCSprite::create("images/SceneMain_four_items_bg.png");
+	this->addChild(sp_four_items_bg);
+	CCSize size_sp_four_items_bg = sp_four_items_bg->getContentSize();
+	sp_four_items_bg->setPosition(ccp(vs.width - size_sp_four_items_bg.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height * 2.0f - size_sp_four_items_bg.height * 0.5f));
+	CCSize size_padding = ccp(size_sp_four_items_bg.width * 0.5f, size_sp_four_items_bg.height * 0.5f);
+
 	//锻炼项
 	CCMenuItemImage *item_exercise = CCMenuItemImage::create(
 		"images/btn_exercise_0.png",
@@ -174,7 +163,16 @@ bool SceneMain::initUI()
 		this,
 		menu_selector(SceneMain::menuExerciseCallback));
 	CCSize size_item_exercise = item_exercise->getContentSize();
-	item_exercise->setPosition(ccp(vs.width - size_item_exercise.width * 1.75f, vs.height - size_date.height * 2.0f - size_item_task.height - size_item_exercise.height * 1.25f));
+	item_exercise->setPosition(ccp(sp_four_items_bg->getPositionX() - size_padding.width * 0.5f, sp_four_items_bg->getPositionY() + size_padding.height * 0.5f));
+
+	//物品项
+	CCMenuItemImage *item_goods = CCMenuItemImage::create(
+		"images/btn_goods_0.png",
+		"images/btn_goods_1.png",
+		this,
+		menu_selector(SceneMain::menuBackCallback));
+	CCSize size_item_goods = item_goods->getContentSize();
+	item_goods->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() + size_padding.height * 0.5f));
 
 	//打工项
 	CCMenuItemImage *item_work = CCMenuItemImage::create(
@@ -183,7 +181,16 @@ bool SceneMain::initUI()
 		this,
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_work = item_work->getContentSize();
-	item_work->setPosition(ccp(vs.width - size_item_exercise.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height - size_item_exercise.height * 1.25f));
+	item_work->setPosition(ccp(sp_four_items_bg->getPositionX() - size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
+
+	//休息项
+	CCMenuItemImage *item_rest = CCMenuItemImage::create(
+		"images/btn_rest_0.png",
+		"images/btn_rest_1.png",
+		this,
+		menu_selector(SceneMain::menuBackCallback));
+	CCSize size_item_rest = item_rest->getContentSize();
+	item_rest->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 	
 	//菜单
 	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, item_gift, item_exercise, item_work, item_task, NULL);

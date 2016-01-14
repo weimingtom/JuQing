@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Topwo.h"
+#include "LayerProgress.h"
 USING_NS_CC;
 
 class LayerExercise : public cocos2d::CCLayer
@@ -15,7 +16,7 @@ public:
 
 	//初始化UI
 	bool initUI();
-	virtual void removeFromParent() override;
+	virtual void registerWithTouchDispatcher() override;
 
 	virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent) override;
@@ -25,11 +26,8 @@ public:
 	void menuCallbackToLeft(CCObject* pSender);
 	void menuCallbackToRight(CCObject* pSender);
 	void menuCallbackClose(CCObject* pSender);
-	void menuCallbackTipo(CCObject* pSender);
-	void menuCallbackMeili(CCObject* pSender);
-	void menuCallbackZhili(CCObject* pSender);
-	void menuCallbackEq(CCObject* pSender);
-	void menuCallbackGanxing(CCObject* pSender);
+	void menuCallbackExercise(CCObject* pSender);
+	void progressCallbackExercise(CCObject* pSender);
 
 	void updateMe();
 private:
@@ -47,6 +45,8 @@ private:
 	CCMenuItemSprite *__item_eq;
 	//感性项
 	CCMenuItemSprite *__item_ganxing;
+	//进度条
+	LayerProgress *__layer_progress;
 };
 
 #endif // __LAYER_EXERCISE_H__

@@ -18,7 +18,7 @@ public:
 	bool initUI();
 	virtual void removeFromParent() override;
 
-	virtual void onExit() override;
+	virtual void registerWithTouchDispatcher() override;
 
 	virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent) override;

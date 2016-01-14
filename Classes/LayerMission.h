@@ -15,7 +15,7 @@ public:
 
 	//≥ı ºªØUI
 	bool initUI();
-	virtual void removeFromParent() override;
+	virtual void registerWithTouchDispatcher() override;
 
 	void updataMissionContent();
 
