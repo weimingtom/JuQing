@@ -6,6 +6,8 @@
 #include "LayerProgress.h"
 USING_NS_CC;
 
+static const char RES_white_dialog[] = "images/white_dialog.png";
+
 class LayerExercise : public cocos2d::CCLayer
 {
 public:

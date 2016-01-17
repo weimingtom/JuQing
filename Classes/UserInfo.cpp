@@ -13,6 +13,11 @@ UserInfo::UserInfo()
 , __cur_section_id(1)
 , __cur_plot_id(0)
 , __cur_wooer(3)
+, __cur_goods_level_tipo(0)
+, __cur_goods_level_meili(0)
+, __cur_goods_level_zhili(0)
+, __cur_goods_level_eq(0)
+, __cur_goods_level_ganxing(0)
 {
 	__arr_data_npc = CCArray::create();
 	__arr_data_npc->retain();

@@ -149,7 +149,7 @@ TopwoTypeBMFont::~TopwoTypeBMFont()
 
 bool TopwoTypeBMFont::init(const char* fntfile)
 {
-	if (!CCLabelBMFont::initWithString("", fntfile))
+	if (!initWithString("", fntfile))
 	{
 		return false;
 	}
@@ -222,7 +222,7 @@ TopwoTypeTTF::~TopwoTypeTTF()
 
 bool TopwoTypeTTF::init(const char* fntfile, float fontSize)
 {
-	if (!TopwoTypeTTF::initWithString("", fntfile, fontSize))
+	if (!initWithString("", fntfile, fontSize))
 	{
 		return false;
 	}

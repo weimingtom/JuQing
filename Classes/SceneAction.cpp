@@ -54,7 +54,7 @@ bool SceneAction::initUI()
 	CCSize size = item_new->getContentSize();
 	item_new->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 5.0f / 2.0f + 25.0f));
 
-	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/arial.ttf", 36);
+	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_new->addChild(lbl, 1);
 
@@ -66,7 +66,7 @@ bool SceneAction::initUI()
 		menu_selector(SceneAction::menuOldCallback));
 	item_old->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 3.0f / 2.0f + 15.0f));
 
-	lbl = CCLabelTTF::create("old", "fonts/ttfs/arial.ttf", 36);
+	lbl = CCLabelTTF::create("old", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_old->addChild(lbl, 1);
 
@@ -78,7 +78,7 @@ bool SceneAction::initUI()
 		menu_selector(SceneAction::menuSetCallback));
 	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
 
-	lbl = CCLabelTTF::create("set", "fonts/ttfs/arial.ttf", 36);
+	lbl = CCLabelTTF::create("set", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_set->addChild(lbl, 1);
 
@@ -90,7 +90,7 @@ bool SceneAction::initUI()
 		menu_selector(SceneAction::menuHelpCallback));
 	item_help->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height / 2.0f - 5.0f));
 
-	lbl = CCLabelTTF::create("help", "fonts/ttfs/arial.ttf", 36);
+	lbl = CCLabelTTF::create("help", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_help->addChild(lbl, 1);
 
@@ -102,7 +102,7 @@ bool SceneAction::initUI()
 		menu_selector(SceneAction::menuAboutCallback));
 	item_about->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 3.0f / 2.0f - 15.0f));
 
-	lbl = CCLabelTTF::create("about", "fonts/ttfs/arial.ttf", 36);
+	lbl = CCLabelTTF::create("about", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
@@ -114,7 +114,7 @@ bool SceneAction::initUI()
 		menu_selector(SceneAction::menuCloseCallback));
 	item_close->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 5.0f / 2.0f - 25.0f));
 
-	lbl = CCLabelTTF::create("close", "fonts/ttfs/arial.ttf", 36);
+	lbl = CCLabelTTF::create("close", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_close->addChild(lbl, 1);
 

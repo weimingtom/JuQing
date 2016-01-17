@@ -96,18 +96,17 @@ bool LayerDialog::initUI()
 	this->addChild(bg_name, 5);
 
 	//Ãû×Ö
-	__name = CCLabelTTF::create("Name", "fonts/ttfs/arial.ttf", 36);
+	__name = CCLabelTTF::create("Name", "fonts/ttfs/MicrosoftYaHei.ttf", 32);
 	__name->setPosition(ccp(bg_name_size.width / 2.0f, bg_name_size.height / 2.0f));
 	bg_name->addChild(__name, 0, 0);
 
 	//¶Ô»°
 	CCSize type_size = bg_dialog_size - CCSizeMake(80.0f, 40.0f);
-	__dialog = TopwoTypeTTF::create("fonts/ttfs/mnjcy.ttf", 32);
+	__dialog = TopwoTypeTTF::create("fonts/ttfs/MicrosoftYaHei.ttf", 28);
 	__dialog->setTypeSize(type_size);
 	__dialog->setTypeInterval(0.1f);
 	__dialog->setTypeFinishCallback(this, callfunc_selector(LayerDialog::typedCallBack));
 
-	__dialog->setHorizontalAlignment(kCCTextAlignmentLeft);
 	__dialog->setAnchorPoint(ccp(0, 1.0f));
 	__dialog->setPosition(ccp(bg_dialog_size.width / 2.0f - type_size.width / 2.0f, bg_dialog_size.height / 2.0f + type_size.height / 2.0f));
 	bg_dialog->addChild(__dialog, 0, 0);
@@ -261,7 +260,7 @@ void LayerDialog::analyzeDialog(int index)
 				while (need > 0)
 				{
 					CCMenuItemImage* fork = CCMenuItemImage::create("images/btn_fork_0.png", "images/btn_fork_1.png", this, menu_selector(LayerDialog::menuCallbackFork));
-					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/atlas/arial.ttf", 28);
+					CCLabelTTF* fork_content = CCLabelTTF::create("Fork Content", "fonts/atlas/MicrosoftYaHei.ttf", 28);
 					fork->addChild(fork_content);
 					fork_content->setTag(0);
 					fork_content->setPosition(ccp(fork_size.width / 2.0f, fork_size.height / 2.0f));

@@ -1,4 +1,5 @@
 #include "LayerExercise.h"
+#include "LayerMission.h"
 
 LayerExercise::LayerExercise()
 :__level(1)
@@ -32,20 +33,34 @@ bool LayerExercise::initUI()
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 
+	CCScale9Sprite* sp_bg = CCScale9Sprite::create(RES_white_dialog);
+	this->addChild(sp_bg);
+	sp_bg->setContentSize(CCSizeMake(650.0f, 320.0f));
+	CCSize size_sp_bg = sp_bg->getContentSize();
+	sp_bg->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
+
 	//关闭项
-	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"images/btn_close_1_0.png",
-		"images/btn_close_1_0.png",
+	CCMenuItemSprite *item_close = CCMenuItemSprite::create(
+		CCSprite::create(RES_btn_close_1_0),
+		CCSprite::create(RES_btn_close_1_0),
 		this,
-		menu_selector(LayerExercise::menuCallbackClose));
+		menu_selector(LayerExercise::menuCallbackClose)
+		);
 	CCSize size_item_close = item_close->getContentSize();
-	item_close->setPosition(ccp(vs.width * 0.8f, vs.height * 0.8f));
+	CCNode *node = item_close->getNormalImage();
+	node->setAnchorPoint(ccp(0.5f, 0.5f));
+	node->setPosition(ccp(size_item_close.width * 0.5f, size_item_close.height * 0.5f));
+	node = item_close->getSelectedImage();
+	node->setAnchorPoint(ccp(0.5f, 0.5f));
+	node->setPosition(ccp(size_item_close.width * 0.5f, size_item_close.height * 0.5f));
+	node->setScale(1.2f);
+	item_close->setPosition((vs.width + size_sp_bg.width - size_item_close.width) * 0.5f, (vs.height + size_sp_bg.height - size_item_close.height) * 0.5f);
 
 	//标题
 	__sp_title = CCSprite::create("images/LayerExercise_low_title.png");
 	this->addChild(__sp_title);
 	CCSize size_sp_title = __sp_title->getContentSize();
-	__sp_title->setPosition(ccp(vs.width * 0.5f, vs.height * 0.8f));
+	__sp_title->setPosition(ccp(vs.width * 0.5f, vs.height * 0.71f));
 
 	//向左项
 	__item_to_left = CCMenuItemSprite::create(
@@ -53,7 +68,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/btn_arrow_green_0.png"),
 		this,
 		menu_selector(LayerExercise::menuCallbackToLeft));
-	__item_to_left->setPosition(ccp(vs.width * 0.5f - size_sp_title.width * 1.5f, vs.height * 0.8f));
+	__item_to_left->setPosition(ccp(vs.width * 0.5f - size_sp_title.width * 1.5f, vs.height * 0.71f));
 
 	//向右项
 	__item_to_right = CCMenuItemSprite::create(
@@ -61,7 +76,7 @@ bool LayerExercise::initUI()
 		CCSprite::create("images/btn_arrow_green_0.png"),
 		this,
 		menu_selector(LayerExercise::menuCallbackToRight));
-	__item_to_right->setPosition(ccp(vs.width * 0.5f + size_sp_title.width* 1.5f, vs.height * 0.8f));
+	__item_to_right->setPosition(ccp(vs.width * 0.5f + size_sp_title.width* 1.5f, vs.height * 0.71f));
 
 	//体魄项
 	__item_tipo = CCMenuItemSprite::create(
@@ -70,7 +85,7 @@ bool LayerExercise::initUI()
 		this,
 		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_tipo = __item_tipo->getContentSize();
-	__item_tipo->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width * 2.2f, vs.height * 0.5f));
+	__item_tipo->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width * 2.2f, vs.height * 0.43f));
 
 	CCSprite* sp_gold = CCSprite::create("images/LayerExercise_gold.png");
 	__item_tipo->addChild(sp_gold, 10);
@@ -105,7 +120,7 @@ bool LayerExercise::initUI()
 		this,
 		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_meili = __item_meili->getContentSize();
-	__item_meili->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width* 1.1f, vs.height * 0.5f));
+	__item_meili->setPosition(ccp(vs.width * 0.5f - size_item_tipo.width* 1.1f, vs.height * 0.43f));
 
 	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
 	__item_meili->addChild(sp_gold, 10);
@@ -139,7 +154,7 @@ bool LayerExercise::initUI()
 		this,
 		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_zhili = __item_zhili->getContentSize();
-	__item_zhili->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
+	__item_zhili->setPosition(ccp(vs.width * 0.5f, vs.height * 0.43f));
 
 	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
 	__item_zhili->addChild(sp_gold, 10);
@@ -173,7 +188,7 @@ bool LayerExercise::initUI()
 		this,
 		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_eq = __item_eq->getContentSize();
-	__item_eq->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 1.1f, vs.height * 0.5f));
+	__item_eq->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 1.1f, vs.height * 0.43f));
 
 	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
 	__item_eq->addChild(sp_gold, 10);
@@ -207,7 +222,7 @@ bool LayerExercise::initUI()
 		this,
 		menu_selector(LayerExercise::menuCallbackExercise));
 	CCSize size_item_ganxing = __item_ganxing->getContentSize();
-	__item_ganxing->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 2.2f, vs.height * 0.5f));
+	__item_ganxing->setPosition(ccp(vs.width * 0.5f + size_item_tipo.width * 2.2f, vs.height * 0.43f));
 
 	sp_gold = CCSprite::create("images/LayerExercise_gold.png");
 	__item_ganxing->addChild(sp_gold, 10);

@@ -50,6 +50,16 @@ private:
 	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
 	//当前追求目标
 	CC_SYNTHESIZE(int, __cur_wooer, CurrentWooer);
+	//当前物品体魄
+	CC_SYNTHESIZE(int, __cur_goods_level_tipo, CurrentGoodsLevelTiPo);
+	//当前物品魅力
+	CC_SYNTHESIZE(int, __cur_goods_level_meili, CurrentGoodsLevelMeiLi);
+	//当前物品智力
+	CC_SYNTHESIZE(int, __cur_goods_level_zhili, CurrentGoodsLevelZhiLi);
+	//当前物品情商
+	CC_SYNTHESIZE(int, __cur_goods_level_eq, CurrentGoodsLevelEQ);
+	//当前物品感性
+	CC_SYNTHESIZE(int, __cur_goods_level_ganxing, CurrentGoodsLevelGanXing);
 	//当前章节ID
 	//CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
 };

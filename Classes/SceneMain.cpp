@@ -2,6 +2,9 @@
 #include "SceneAction.h"
 #include "LayerMission.h"
 #include "LayerExercise.h"
+#include "LayerGoods.h"
+#include "LayerWork.h"
+#include "LayerRest.h"
 
 CCScene* SceneMain::creatScene()
 {
@@ -53,25 +56,25 @@ bool SceneMain::initUI()
 	CCSize size_date = sprite->getContentSize();
 
 	//月数
-	CCLabelAtlas* atlas = CCLabelAtlas::create("9","fonts/atlas/number_style_1.png",20, 20, '0');
+	CCLabelAtlas* atlas = CCLabelAtlas::create("9", RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 0);
 	atlas->setAnchorPoint(ccp(0.5f, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 6.75f, size_date.height * 0.556f));
 
 	//日数
-	atlas = CCLabelAtlas::create("1", "fonts/atlas/number_style_1.png", 20, 20, '0');
+	atlas = CCLabelAtlas::create("1", RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 1);
 	atlas->setAnchorPoint(ccp(0.5f, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 3.2f, size_date.height * 0.556f));
 
 	//体力数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString(), "fonts/atlas/number_style_1.png", 20, 20, '0');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString(), RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 1.96f, size_date.height * 0.526f));
 
 	//金币数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString(), "fonts/atlas/number_style_1.png", 20, 20, '0');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString(), RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width * 0.77f, size_date.height * 0.526f));
@@ -84,39 +87,39 @@ bool SceneMain::initUI()
 	CCSize size_attribute = sprite->getContentSize();
 
 	//体魄数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.625f));
 
 	//魅力数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.5f));
 
 	//智力数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.375f));
 
 	//情商数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.248f));
 
 	//感性数
-	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), "fonts/atlas/number_style_2.png", 9, 15, '+');
+	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.122f));
 
 	//返回项
 	CCMenuItemImage *item_back = CCMenuItemImage::create(
-		"images/btn_back_0.png",
-		"images/btn_back_1.png",
+		RES_btn_back_1_0,
+		RES_btn_back_1_1,
 		this,
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_back = item_back->getContentSize();
@@ -170,7 +173,7 @@ bool SceneMain::initUI()
 		"images/btn_goods_0.png",
 		"images/btn_goods_1.png",
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuGoodsCallback));
 	CCSize size_item_goods = item_goods->getContentSize();
 	item_goods->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() + size_padding.height * 0.5f));
 
@@ -179,7 +182,7 @@ bool SceneMain::initUI()
 		"images/btn_work_0.png",
 		"images/btn_work_1.png",
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuWorkCallback));
 	CCSize size_item_work = item_work->getContentSize();
 	item_work->setPosition(ccp(sp_four_items_bg->getPositionX() - size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 
@@ -188,7 +191,7 @@ bool SceneMain::initUI()
 		"images/btn_rest_0.png",
 		"images/btn_rest_1.png",
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuRestCallback));
 	CCSize size_item_rest = item_rest->getContentSize();
 	item_rest->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 	
@@ -213,4 +216,19 @@ void SceneMain::menuMissionCallback(CCObject* pSender)
 void SceneMain::menuExerciseCallback(CCObject* pSender)
 {
 	this->addChild(LayerExercise::create(), 10);
+}
+//物品菜单项
+void SceneMain::menuGoodsCallback(CCObject* pSender)
+{
+	this->addChild(LayerGoods::create(), 10);
+}
+//打工菜单项
+void SceneMain::menuWorkCallback(CCObject* pSender)
+{
+	this->addChild(LayerWork::create(), 10);
+}
+//休息菜单项
+void SceneMain::menuRestCallback(CCObject* pSender)
+{
+	this->addChild(LayerRest::create(), 10);
 }

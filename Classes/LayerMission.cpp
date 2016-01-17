@@ -2,6 +2,7 @@
 #include "Topwo.h"
 #include "UserInfo.h"
 #include "LayerDialog.h"
+#include "SceneMain.h"
 
 LayerMission::LayerMission()
 :__atlas_total_physical(NULL)
@@ -53,53 +54,53 @@ bool LayerMission::initUI()
 	sp_physical->setPosition(ccp(size_mission_bg.width * 0.52f, size_mission_bg.height * 0.78f));
 
 	//消耗的体力值
-	CCLabelAtlas* atlas_need_physical = CCLabelAtlas::create("10", "fonts/atlas/number_style_1.png", 20, 20, '0');
+	CCLabelAtlas* atlas_need_physical = CCLabelAtlas::create("10", RES_number_style_1, 20, 20, '0');
 	sp_physical->addChild(atlas_need_physical);
 	atlas_need_physical->setAnchorPoint(ccp(0.5f, 0.5f));
 	CCSize size_atlas_need_physical = atlas_need_physical->getContentSize();
 	atlas_need_physical->setPosition(ccp(size_sp_physical.width * 0.28f, size_sp_physical.height * 0.45f));
 
 	//当前拥有的体力值
-	__atlas_total_physical = CCLabelAtlas::create("", "fonts/atlas/number_style_1.png", 20, 20, '0');
+	__atlas_total_physical = CCLabelAtlas::create("", RES_number_style_1, 20, 20, '0');
 	sp_physical->addChild(__atlas_total_physical);
 	__atlas_total_physical->setAnchorPoint(ccp(0, 0.5f));
 	CCSize size_atlas_total_physical = __atlas_total_physical->getContentSize();
 	__atlas_total_physical->setPosition(ccp(size_sp_physical.width * 0.95f, size_sp_physical.height * 0.45f));
 
 	//名字
-	__ttf_name = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 40.0f);
+	__ttf_name = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 40.0f);
 	mission_bg->addChild(__ttf_name);
 	__ttf_name->setColor(ccc3(218, 69, 231));
 	CCSize size_ttf_name = __ttf_name->getContentSize();
 	__ttf_name->setPosition(ccp(size_mission_bg.width * 0.205f, size_mission_bg.height * 0.77f));
 
 	//标题
-	__ttf_title = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 36.0f);
+	__ttf_title = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 36.0f);
 	mission_bg->addChild(__ttf_title);
 	__ttf_title->enableStroke(ccc3(0, 117, 146), 1.0f);
 	CCSize size_ttf_title = __ttf_title->getContentSize();
 	__ttf_title->setPosition(ccp(size_mission_bg.width * 0.5f, size_mission_bg.height - 32.0f));
 
 	//内容
-	__ttf_content = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeMake(460.0f, 110.0f), kCCTextAlignmentLeft);
+	__ttf_content = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeMake(460.0f, 110.0f), kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_content);
 	__ttf_content->setAnchorPoint(ccp(0.5f, 1.0f));
 	CCSize size_ttf_content = __ttf_content->getContentSize();
 	__ttf_content->setPosition(ccp(size_mission_bg.width * 0.53f, size_mission_bg.height * 0.68f));
 
 	//目标
-	__ttf_mission = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
+	__ttf_mission = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_mission);
 	__ttf_mission->setAnchorPoint(ccp(0, 0.5f));
-	__ttf_mission->enableStroke(ccc3(165, 51, 191), 1.0f);
+	__ttf_mission->enableStroke(ccc3(255, 0, 0), 1.0f);
 	CCSize size_ttf_target = __ttf_mission->getContentSize();
 	__ttf_mission->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.32f));
 
 	//奖励
-	__ttf_reward = CCLabelTTF::create("", "fonts/ttfs/arial.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
+	__ttf_reward = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_reward);
 	__ttf_reward->setAnchorPoint(ccp(0, 0.5f));
-	__ttf_reward->enableStroke(ccc3(214, 221, 179), 1.0f);
+	__ttf_reward->enableStroke(ccc3(255, 255, 0), 1.0f);
 	CCSize size_ttf_reward = __ttf_reward->getContentSize();
 	__ttf_reward->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.24f));
 
@@ -121,13 +122,21 @@ bool LayerMission::initUI()
 	CCSize size_item_get_reward = __item_get_reward->getContentSize();
 	__item_get_reward->setPosition(ccp(size_mission_bg.width * 0.5f, size_item_mission_guide.height * 0.5f));
 
-	//关闭选项
-	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"images/btn_close_1_0.png",
-		"images/btn_close_1_0.png",
+	//关闭项
+	CCMenuItemSprite *item_close = CCMenuItemSprite::create(
+		CCSprite::create(RES_btn_close_1_0),
+		CCSprite::create(RES_btn_close_1_0),
 		this,
-		menu_selector(LayerMission::menuCallbackClose));
+		menu_selector(LayerMission::menuCallbackClose)
+		);
 	CCSize size_item_close = item_close->getContentSize();
+	CCNode *node = item_close->getNormalImage();
+	node->setAnchorPoint(ccp(0.5f, 0.5f));
+	node->setPosition(ccp(size_item_close.width * 0.5f, size_item_close.height * 0.5f));
+	node = item_close->getSelectedImage();
+	node->setAnchorPoint(ccp(0.5f, 0.5f));
+	node->setPosition(ccp(size_item_close.width * 0.5f, size_item_close.height * 0.5f));
+	node->setScale(1.2f);
 	item_close->setPosition(ccp(size_mission_bg.width - size_item_close.width * 0.5f, size_mission_bg.height - size_item_close.height * 0.5f));
 
 	CCMenu* pMenu = CCMenu::create(item_close, __item_mission_guide, __item_get_reward, NULL);

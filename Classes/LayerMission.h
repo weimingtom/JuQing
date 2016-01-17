@@ -5,6 +5,8 @@
 #include "Topwo.h"
 USING_NS_CC;
 
+static const char RES_btn_close_1_0[] = "images/btn_close_1_0.png";
+
 class LayerMission : public cocos2d::CCLayer
 {
 public:
@@ -24,9 +26,9 @@ public:
 	virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
 
+	void menuCallbackClose(CCObject* pSender);
 	void menuCallbackMissionGuide(CCObject* pSender);
 	void menuCallbackGetReward(CCObject* pSender);
-	void menuCallbackClose(CCObject* pSender);
 
 	//对话结束回调
 	void callbackDialogOver();
