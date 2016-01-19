@@ -3,6 +3,8 @@
 #include "UserInfo.h"
 #include "LayerDialog.h"
 #include "SceneMain.h"
+#include "LayerExercise.h"
+#include "LayerGoods.h"
 
 LayerMission::LayerMission()
 :__atlas_total_physical(NULL)
@@ -218,6 +220,17 @@ void LayerMission::updataMissionContent()
 				is_finish = true;
 			}
 		}
+		else if (tl->floatIsEquals(value_float, 0.12345f))
+		{//全面
+			if (user_info->getCurrentTiPo() >= value_int
+				&&user_info->getCurrentMeiLi() >= value_int
+				&&user_info->getCurrentZhiLi() >= value_int
+				&&user_info->getCurrentEQ() >= value_int
+				&&user_info->getCurrentGanXing() >= value_int)
+			{
+				is_finish = true;
+			}
+		}
 	}
 	else if (mission_type == 3)
 	{//购买任务
@@ -250,12 +263,16 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 	DataMission *data_mission = user_info->getDataMissionFromArray(user_info->getCurrentMissionId());
 
-	if (user_info->getCurrentPhysical() < 10)
-	{//体力不足
-		return;
-	}
+	if (!user_info->getCurrentMissionIsConsume())
+	{
+		if (user_info->getCurrentPhysical() < 10)
+		{//体力不足
+			return;
+		}
 
-	user_info->setCurrentPhysical(user_info->getCurrentPhysical() - 10);
+		user_info->setCurrentPhysical(user_info->getCurrentPhysical() - 10);
+		user_info->setCurrentMissionIsConsume(true);
+	}
 
 	float mission_value = (float)data_mission->getTarget();
 	int mission_type = data_mission->getType();
@@ -266,43 +283,11 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	}
 	else if (mission_type == 2)
 	{//锻炼任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//体魄
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//魅力
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//智力
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//情商
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//感性
-		}
+		this->addChild(LayerExercise::create(), 10);
 	}
 	else if (mission_type == 3)
 	{//购买任务
-		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//物品1
-		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//物品2
-		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//物品3
-		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//物品4
-		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//物品5
-		}
+		this->addChild(LayerGoods::create(), 10);
 	}
 }
 
@@ -312,12 +297,24 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	UserInfo *user_info = td->getUserInfo();
 
 	//领取奖励
+	if (!user_info->getCurrentMissionIsConsume())
+	{
+		if (user_info->getCurrentPhysical() < 10)
+		{//体力不足
+			return;
+		}
+
+		user_info->setCurrentPhysical(user_info->getCurrentPhysical() - 10);
+		user_info->setCurrentMissionIsConsume(true);
+	}
+
 	int cur_mission_id = user_info->getCurrentMissionId();
 	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
 	user_info->setCurrentGold(user_info->getCurrentGold() + mission_data->getReward());
 
 	//跳到下一个任务
 	user_info->setCurrentMissionId(user_info->getCurrentMissionId() + 1);
+	user_info->setCurrentMissionIsConsume(false);
 
 	updataMissionContent();
 }

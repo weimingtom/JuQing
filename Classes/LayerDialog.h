@@ -5,6 +5,8 @@
 #include "Topwo.h"
 USING_NS_CC;
 
+static const char RES_common_32[] = "fonts/bmfonts/common_32.fnt";
+
 class LayerDialog : public cocos2d::CCLayer
 {
 public:

@@ -44,6 +44,8 @@ private:
 	CC_SYNTHESIZE(int, __cur_ganxing, CurrentGanXing);
 	//当前任务ID
 	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);
+	//当前任务的消耗是否扣除
+	CC_SYNTHESIZE(bool, __cur_mission_is_consume, CurrentMissionIsConsume);
 	//当前小节ID
 	CC_SYNTHESIZE(int, __cur_section_id, CurrentSectionId);
 	//当前剧情ID
