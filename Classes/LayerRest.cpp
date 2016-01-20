@@ -192,4 +192,7 @@ void LayerRest::rest(CCObject *pSender)
 	{//体力上限100
 		user_info->setCurrentPhysical(100);
 	}
+
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }
