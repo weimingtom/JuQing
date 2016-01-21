@@ -2,6 +2,7 @@
 #include "LayerExercise.h"
 #include "LayerMission.h"
 #include "LayerProgress.h"
+#include "SceneMain.h"
 
 LayerWork::LayerWork()
 {
@@ -180,4 +181,7 @@ void LayerWork::work(CCObject* pSender)
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 	user_info->setCurrentGold(user_info->getCurrentGold() + gold);
 	user_info->setCurrentPhysical(user_info->getCurrentPhysical() - physical);
+
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }

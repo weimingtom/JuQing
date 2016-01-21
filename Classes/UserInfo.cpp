@@ -19,6 +19,7 @@ UserInfo::UserInfo()
 , __cur_goods_level_eq(0)
 , __cur_goods_level_ganxing(0)
 , __cur_mission_is_consume(false)
+, __cur_favor(10)
 {
 	__arr_data_npc = CCArray::create();
 	__arr_data_npc->retain();

@@ -1,5 +1,6 @@
 #include "LayerExercise.h"
 #include "LayerMission.h"
+#include "SceneMain.h"
 
 LayerExercise::LayerExercise()
 :__level(1)
@@ -538,6 +539,8 @@ void LayerExercise::progressCallbackExercise(CCObject* pSender)
 		user_info->setCurrentGanXing(user_info->getCurrentGanXing() + exercise_value);
 	}
 
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }
 void LayerExercise::menuCallbackClose(CCObject* pSender)
 {

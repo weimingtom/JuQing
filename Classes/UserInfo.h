@@ -64,6 +64,8 @@ private:
 	CC_SYNTHESIZE(int, __cur_goods_level_ganxing, CurrentGoodsLevelGanXing);
 	//当前章节ID
 	//CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
+	//当前女主角的好感度
+	CC_SYNTHESIZE(int, __cur_favor, CurrentFavor);
 };
 
 #endif  //__USER_INFO_H__

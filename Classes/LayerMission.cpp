@@ -289,6 +289,9 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	{//¹ºÂòÈÎÎñ
 		this->addChild(LayerGoods::create(), 10);
 	}
+
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }
 
 void LayerMission::menuCallbackGetReward(CCObject* pSender)
@@ -317,6 +320,9 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	user_info->setCurrentMissionIsConsume(false);
 
 	updataMissionContent();
+
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }
 void LayerMission::menuCallbackClose(CCObject* pSender)
 {

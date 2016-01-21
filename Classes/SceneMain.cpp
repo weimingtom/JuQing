@@ -15,7 +15,7 @@ CCScene* SceneMain::creatScene()
     SceneMain *layer = SceneMain::create();
 
     // add layer as a child to scene
-    scene->addChild(layer);
+    scene->addChild(layer, 0, 0);
 
     // return the scene
     return scene;
@@ -52,7 +52,7 @@ bool SceneMain::initUI()
 	CCSprite* sprite = CCSprite::create("images/SceneMain_date.png");
 	sprite->setAnchorPoint(ccp(0.5f, 1.0f));
 	sprite->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height));
-	this->addChild(sprite);
+	this->addChild(sprite, 0 ,0);
 	CCSize size_date = sprite->getContentSize();
 
 	//月数
@@ -83,18 +83,18 @@ bool SceneMain::initUI()
 	sprite = CCSprite::create("images/SenceMain_user_attributes.png");
 	sprite->setAnchorPoint(ccp(0, 1.0f));
 	sprite->setPosition(ccp(vo.x, vo.y + vs.height));
-	this->addChild(sprite);
+	this->addChild(sprite, 0 ,1);
 	CCSize size_attribute = sprite->getContentSize();
 
 	//体魄数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString(), RES_number_style_2, 9, 15, '+');
-	sprite->addChild(atlas, 0, 3);
+	sprite->addChild(atlas, 0, 1);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.625f));
 
 	//魅力数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), RES_number_style_2, 9, 15, '+');
-	sprite->addChild(atlas, 0, 3);
+	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.5f));
 
@@ -106,15 +106,34 @@ bool SceneMain::initUI()
 
 	//情商数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), RES_number_style_2, 9, 15, '+');
-	sprite->addChild(atlas, 0, 3);
+	sprite->addChild(atlas, 0, 4);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.248f));
 
 	//感性数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), RES_number_style_2, 9, 15, '+');
-	sprite->addChild(atlas, 0, 3);
+	sprite->addChild(atlas, 0, 5);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.122f));
+
+	//好感进度条
+	CCSprite *progress_favor_bg =CCSprite::create(RES_SceneMain_progress_favor_bg);
+	this->addChild(progress_favor_bg, 0, 2);
+	CCSize size_progress_favor_bg = progress_favor_bg->getContentSize();
+	progress_favor_bg->setPosition(ccp(vs.width * 0.5f, size_progress_favor_bg.height * 0.5f));
+	CCSprite *progress_favor = CCSprite::create(RES_SceneMain_progress_favor);
+	CCProgressTimer *progress_timer = CCProgressTimer::create(progress_favor);
+	progress_favor_bg->addChild(progress_timer, 0 ,0);
+	progress_timer->setType(kCCProgressTimerTypeBar);
+	progress_timer->setAnchorPoint(ccp(0, 0.5f));
+	progress_timer->setPosition(ccp(size_progress_favor_bg.width * 0.125f, size_progress_favor_bg.height * 0.74f));
+	progress_timer->setMidpoint(ccp(0, 0.5));
+	progress_timer->setBarChangeRate(ccp(1, 0));
+	progress_timer->setPercentage(user_info->getCurrentFavor());
+	CCLabelAtlas *la_favor = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentFavor())->getCString(), RES_number_style_5, 9, 12, '0');
+	progress_favor_bg->addChild(la_favor, 0, 1);
+	CCSize size_la_favor = la_favor->getContentSize();
+	la_favor->setPosition(ccp(size_progress_favor_bg.width * 0.6f, size_progress_favor_bg.height * 0.04f));
 
 	//返回项
 	CCMenuItemImage *item_back = CCMenuItemImage::create(
@@ -127,26 +146,26 @@ bool SceneMain::initUI()
 
 	//礼包项
 	CCMenuItemImage *item_gift = CCMenuItemImage::create(
-		"images/btn_gift_0.png",
-		"images/btn_gift_1.png",
+		RES_btn_gift_0,
+		RES_btn_gift_1,
 		this,
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_gift = item_gift->getContentSize();
-	item_gift->setPosition(ccp(size_attribute.width * 0.5f, (vs.height - size_attribute.height) * 0.5f));
+	item_gift->setPosition(ccp(vs.width - size_attribute.width * 0.5f, (vs.height - size_attribute.height) * 0.5f));
 
 	//表白项
 	CCMenuItemImage *item_express = CCMenuItemImage::create(
-		"images/btn_express_0.png",
-		"images/btn_express_1.png",
+		RES_btn_express_0,
+		RES_btn_express_1,
 		this,
 		menu_selector(SceneMain::menuBackCallback));
 	CCSize size_item_express = item_express->getContentSize();
-	item_express->setPosition(ccp(vs.width * 0.5f, size_item_express.height * 0.5f));
+	item_express->setPosition(ccp((vs.width + size_progress_favor_bg.width + size_item_express.width) * 0.5f, progress_favor_bg->getPositionY() + size_progress_favor_bg.height * 0.18f));
 
 	//任务项
 	CCMenuItemImage *item_task = CCMenuItemImage::create(
-		"images/btn_mission_0.png",
-		"images/btn_mission_1.png",
+		RES_btn_mission_0,
+		RES_btn_mission_1,
 		this,
 		menu_selector(SceneMain::menuMissionCallback));
 	CCSize size_item_task = item_task->getContentSize();
@@ -161,8 +180,8 @@ bool SceneMain::initUI()
 
 	//锻炼项
 	CCMenuItemImage *item_exercise = CCMenuItemImage::create(
-		"images/btn_exercise_0.png",
-		"images/btn_exercise_1.png",
+		RES_btn_exercise_0,
+		RES_btn_exercise_1,
 		this,
 		menu_selector(SceneMain::menuExerciseCallback));
 	CCSize size_item_exercise = item_exercise->getContentSize();
@@ -170,8 +189,8 @@ bool SceneMain::initUI()
 
 	//物品项
 	CCMenuItemImage *item_goods = CCMenuItemImage::create(
-		"images/btn_goods_0.png",
-		"images/btn_goods_1.png",
+		RES_btn_goods_0,
+		RES_btn_goods_1,
 		this,
 		menu_selector(SceneMain::menuGoodsCallback));
 	CCSize size_item_goods = item_goods->getContentSize();
@@ -179,8 +198,8 @@ bool SceneMain::initUI()
 
 	//打工项
 	CCMenuItemImage *item_work = CCMenuItemImage::create(
-		"images/btn_work_0.png",
-		"images/btn_work_1.png",
+		RES_btn_work_0,
+		RES_btn_work_1,
 		this,
 		menu_selector(SceneMain::menuWorkCallback));
 	CCSize size_item_work = item_work->getContentSize();
@@ -188,8 +207,8 @@ bool SceneMain::initUI()
 
 	//休息项
 	CCMenuItemImage *item_rest = CCMenuItemImage::create(
-		"images/btn_rest_0.png",
-		"images/btn_rest_1.png",
+		RES_btn_rest_0,
+		RES_btn_rest_1,
 		this,
 		menu_selector(SceneMain::menuRestCallback));
 	CCSize size_item_rest = item_rest->getContentSize();
@@ -231,4 +250,105 @@ void SceneMain::menuWorkCallback(CCObject* pSender)
 void SceneMain::menuRestCallback(CCObject* pSender)
 {
 	this->addChild(LayerRest::create(), 10);
+}
+//更新自己
+void SceneMain::updateMe()
+{
+	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	int plaid_days = user_info->getPlaidDays();
+	int month = 9;
+	int day = 1;
+	if (plaid_days > 30 && plaid_days <= 61)
+	{//10
+		month = 10;
+		day = plaid_days - 30;
+	}
+	else if (plaid_days > 61 && plaid_days <= 91)
+	{//11
+		month = 11;
+		day = plaid_days - 61;
+	}
+	else if (plaid_days > 91 && plaid_days <= 122)
+	{//12
+		month = 12;
+		day = plaid_days - 91;
+	}
+	else if (plaid_days > 122 && plaid_days <= 153)
+	{//1
+		month = 1;
+		day = plaid_days - 122;
+	}
+	else if (plaid_days > 153 && plaid_days <= 181)
+	{//2
+		month = 2;
+		day = plaid_days - 153;
+	}
+	else if (plaid_days > 181 && plaid_days <= 212)
+	{//3
+		month = 3;
+		day = plaid_days - 181;
+	}
+	else if (plaid_days > 212 && plaid_days <= 242)
+	{//4
+		month = 4;
+		day = plaid_days - 212;
+	}
+	else if (plaid_days > 242 && plaid_days <= 273)
+	{//5
+		month = 5;
+		day = plaid_days - 242;
+	}
+	else if (plaid_days > 273 && plaid_days <= 303)
+	{//6
+		month = 6;
+		day = plaid_days - 273;
+	}
+	else if (plaid_days > 303 && plaid_days <= 334)
+	{//7
+		month = 7;
+		day = plaid_days - 303;
+	}
+	else if (plaid_days > 334 && plaid_days <= 365)
+	{//8
+		month = 8;
+		day = plaid_days - 334;
+	}
+	CCNode *node = this->getChildByTag(0);
+	//月
+	CCLabelAtlas *atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("%d", month)->getCString());
+	//日
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
+	atlas->setString(CCString::createWithFormat("%d", day)->getCString());
+	//体力
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(2));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
+	//金币
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(3));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString());
+
+	node = this->getChildByTag(1);
+	//体魄
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString());
+	//魅力
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(2));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString());
+	//智力
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(3));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString());
+	//情商
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(4));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString());
+	//感性
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(5));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString());
+
+	node = this->getChildByTag(2);
+	//好感度进度条
+	CCProgressTimer *progress_timer = static_cast<CCProgressTimer *>(node->getChildByTag(0));
+	progress_timer->setPercentage(user_info->getCurrentFavor());
+	//好感度数值
+	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
+	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentFavor())->getCString());
 }
