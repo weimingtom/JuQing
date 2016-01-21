@@ -1,6 +1,6 @@
 # 此为注释 – 将被 Git 忽略
 # 忽略所有 .a 结尾的文件
-*.a 
+*.a
 # 但 lib.a 除外
 !lib.a
 # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
@@ -9,3 +9,14 @@
 build/
 # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 doc/*.txt
+proj.android/
+proj.blackberry/
+proj.ios/
+proj.linux/
+proj.mac/
+proj.marmalade/
+proj.tizen/
+proj.win32/
+proj.winrt/
+proj.wp8/
+proj.wp8-xaml/
