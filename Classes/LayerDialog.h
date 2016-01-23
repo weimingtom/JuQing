@@ -1,4 +1,4 @@
-#ifndef __LAYER_DIALOG_H__
+ï»¿#ifndef __LAYER_DIALOG_H__
 #define __LAYER_DIALOG_H__
 
 #include "cocos2d.h"
@@ -16,7 +16,7 @@ public:
 	CREATE_FUNC(LayerDialog);
 	static LayerDialog* createWith(int start_id, int end_id, CCObject* target, SEL_CallFunc selector);
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
 	virtual void removeFromParent() override;
 
@@ -27,12 +27,12 @@ public:
 	virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
     
-    //»Øµ÷
+    //å›è°ƒ
 	void menuCallbackFork(CCObject* pSender);
 
-	//½âÎöÒ»¾ä¶Ô»°
+	//è§£æä¸€å¥å¯¹è¯
 	void analyzeDialog(int index);
-	//´ò×Ö½áÊø»Øµ÷
+	//æ‰“å­—ç»“æŸå›è°ƒ
 	void typedCallBack();
 private:
 	CCSprite* __bg;
@@ -45,7 +45,7 @@ private:
 	int __start_id;
 	int __end_id;
 	int __current_id;
-	int __offset;//ÏÂÒ»¾äµÄÆ«ÒÆÁ¿
+	int __offset;//ä¸‹ä¸€å¥çš„åç§»é‡
 
 	CCObject*       __pListener;
 	SEL_CallFunc    __pSelector;

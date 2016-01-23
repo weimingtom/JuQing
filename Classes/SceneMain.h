@@ -1,4 +1,4 @@
-#ifndef __SCENE_MAIN_H__
+ï»¿#ifndef __SCENE_MAIN_H__
 #define __SCENE_MAIN_H__
 
 #include "cocos2d.h"
@@ -33,22 +33,22 @@ public:
 	CREATE_FUNC(SceneMain);
     static cocos2d::CCScene* creatScene();
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
-	//¸üĞÂ×Ô¼º
+	//æ›´æ–°è‡ªå·±
 	void updateMe();
     
-    //·µ»Ø²Ëµ¥Ïî
+    //è¿”å›èœå•é¡¹
 	void menuBackCallback(CCObject* pSender);
-	//ÈÎÎñ²Ëµ¥Ïî
+	//ä»»åŠ¡èœå•é¡¹
 	void menuMissionCallback(CCObject* pSender);
-	//¶ÍÁ¶²Ëµ¥Ïî
+	//é”»ç‚¼èœå•é¡¹
 	void menuExerciseCallback(CCObject* pSender);
-	//ÎïÆ·²Ëµ¥Ïî
+	//ç‰©å“èœå•é¡¹
 	void menuGoodsCallback(CCObject* pSender);
-	//´ò¹¤²Ëµ¥Ïî
+	//æ‰“å·¥èœå•é¡¹
 	void menuWorkCallback(CCObject* pSender);
-	//ĞİÏ¢²Ëµ¥Ïî
+	//ä¼‘æ¯èœå•é¡¹
 	void menuRestCallback(CCObject* pSender);
 };
 

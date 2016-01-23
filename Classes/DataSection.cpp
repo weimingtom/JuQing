@@ -1,4 +1,4 @@
-#include "DataSection.h"
+﻿#include "DataSection.h"
 
 DataSection::DataSection()
 :__id(0)
@@ -12,7 +12,7 @@ DataSection::~DataSection()
 {
 }
 
-//�����ʼ��ԭʼ0״̬
+//负责初始到原始0状态
 bool DataSection::init()
 {
 	return true;

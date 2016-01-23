@@ -1,4 +1,4 @@
-#ifndef __TOPWO_FUNC_H__
+ï»¿#ifndef __TOPWO_FUNC_H__
 #define __TOPWO_FUNC_H__
 #include "cocos2d.h"
 #include "TopwoDefine.h"
@@ -15,40 +15,40 @@ public:
 	CREATE_FUNC(TopwoTools);
 
 
-	// ¼ÆËãstr×Ö·ûÊıÄ¿
+	// è®¡ç®—strå­—ç¬¦æ•°ç›®
 	int getUtf8Length(char *str);
-	//get×Ó´®
+	//getå­ä¸²
 	CCString* subUtfString(char *str, unsigned int start, unsigned int end);
 
-	//»ñÈ¡¶ÔÓ¦keyµÄ×Ö·û´®
+	//è·å–å¯¹åº”keyçš„å­—ç¬¦ä¸²
 	CCString *getXmlString(char *key);
-	//»ñÈ¡¶ÔÓ¦IndexµÄ×Ö·û´®
+	//è·å–å¯¹åº”Indexçš„å­—ç¬¦ä¸²
 	CCString *getXmlString(int index);
-	//»ñÈ¡xmlÖĞ¹Ø¼ü×ÖÀïÃæÊÇ¶à¾ästring
+	//è·å–xmlä¸­å…³é”®å­—é‡Œé¢æ˜¯å¤šå¥string
 	CCString *getXmlArrayString(char *key, twlong index);
 
 	void readRapidJSON(rapidjson::Document* doc, const char *file_name);
 	const char* skipBOM(const char* p);
 
 
-	//»ñÈ¡Ëæ»úÊı
+	//è·å–éšæœºæ•°
 	twfloat getRandom();
 	twdword getRandom(twdword max, twdword min = 0);
 
-	//opengl×ø±ê×ªµØÍ¼×ø±ê
+	//openglåæ ‡è½¬åœ°å›¾åæ ‡
 	CCPoint toTileCoordinate(CCTMXTiledMap* tmx_tile_map, CCPoint position);
-	//»ñÈ¡µ±Ç°µãËùÔÚ¿éµÄÖĞĞÄµÄ×ø±ê
+	//è·å–å½“å‰ç‚¹æ‰€åœ¨å—çš„ä¸­å¿ƒçš„åæ ‡
 	CCPoint getTileCenterPoint(CCTMXTiledMap* tmx_tile_map, CCPoint position);
-	//Åö×²¼ì²â
+	//ç¢°æ’æ£€æµ‹
 	bool isRectCollision(CCRect rect1, CCRect rect2);
-	//Åö×²µãÊÇ·ñÔÚ½ÚµãÄÚ
+	//ç¢°æ’ç‚¹æ˜¯å¦åœ¨èŠ‚ç‚¹å†…
 	bool isInNode(CCPoint, CCNode* node);
 
-	//ÅĞ¶Ï¸¡µãÊıÊÇ·ñÏàµÈ
-	bool floatIsEquals(float f1, float f2);
+	//åˆ¤æ–­æµ®ç‚¹æ•°æ˜¯å¦ç›¸ç­‰
+	bool doubleIsEquals(double d1, double d2);
 
 private:
-	CCDictionary *__xml_dictionary;//xmlÔÚÄÚ´æÖĞµÄĞéÄâ
+	CCDictionary *__xml_dictionary;//xmlåœ¨å†…å­˜ä¸­çš„è™šæ‹Ÿ
 };
 
 #endif  //__TOPWO_FUNC_H__

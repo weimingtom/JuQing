@@ -1,4 +1,4 @@
-#include "TopwoType.h"
+ï»¿#include "TopwoType.h"
 #include "Topwo.h"
 
 //TopwoLabel
@@ -21,17 +21,17 @@ TopwoType::~TopwoType()
 	__type_str->release();
 }
 
-//ÉèÖÃÏÔÊ¾ÇøÓò´óĞ¡
+//è®¾ç½®æ˜¾ç¤ºåŒºåŸŸå¤§å°
 void TopwoType::setTypeSize(CCSize size)
 {
 	__type_size = size;
 }
-//ÉèÖÃ´ò×Ö¼ä¸ôÊ±¼ä
+//è®¾ç½®æ‰“å­—é—´éš”æ—¶é—´
 void TopwoType::setTypeInterval(twfloat interval)
 {
 	__type_interval = interval;
 }
-//ÉèÖÃ´òÍêÒ»¾ä»°ºóµÄ»Øµ÷º¯Êı
+//è®¾ç½®æ‰“å®Œä¸€å¥è¯åçš„å›è°ƒå‡½æ•°
 void TopwoType::setTypeFinishCallback(CCObject* target, SEL_CallFunc callfun)
 {
 	__callbackListener = target;
@@ -40,37 +40,37 @@ void TopwoType::setTypeFinishCallback(CCObject* target, SEL_CallFunc callfun)
 void TopwoType::setTypeString(CCString *str)
 {
 	TopwoTools* topwo_tools = Topwo::getInstance()->getTopwoTools();
-	//´æ´¢Òª´òÓ¡µÄÄÇ¶Î»°
+	//å­˜å‚¨è¦æ‰“å°çš„é‚£æ®µè¯
 	*__type_str = *str;
-	//Õâ¶Î»°×Ü×Ö·ûÊı
+	//è¿™æ®µè¯æ€»å­—ç¬¦æ•°
 	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
 
 	__type_char_num = 0;
 
 	__is_type_all = false;
 
-	//¿ªÆô½âÎö
+	//å¼€å¯è§£æ
 	openAnalyze(0);
 }
 
-//µÚÒ»Ö¡¼ÆËã´ò×ÖÄÚÈİ
+//ç¬¬ä¸€å¸§è®¡ç®—æ‰“å­—å†…å®¹
 void TopwoType::analyzeTypeString(float f)
 {
 	TopwoTools* topwo_tools = Topwo::getInstance()->getTopwoTools();
 
-	//Ò»ĞĞ×Ö·û´®×îĞ¡¸öÊı
+	//ä¸€è¡Œå­—ç¬¦ä¸²æœ€å°ä¸ªæ•°
 	twuint min_char_count = (twuint)(__type_size.width / this->getTypedFontSize());
 
 	CCString* str = CCString::create(__type_str->getCString());
-	CCString *sub = NULL;//´æ´¢²Ã¼ôµÄÒ»¶Î»°
-	twint sub_start = 0;//²Ã¼ôµÄ¿ªÊ¼Î»ÖÃ
-	twint line_break_count = 0;//²Ã¼ôµÄ´ÎÊı
-	twuint i = min_char_count;//²Ã¼ôµÄ½áÊøÎ»ÖÃ
+	CCString *sub = NULL;//å­˜å‚¨è£å‰ªçš„ä¸€æ®µè¯
+	twint sub_start = 0;//è£å‰ªçš„å¼€å§‹ä½ç½®
+	twint line_break_count = 0;//è£å‰ªçš„æ¬¡æ•°
+	twuint i = min_char_count;//è£å‰ªçš„ç»“æŸä½ç½®
 	while ((i <= __type_char_sum) && (sub = topwo_tools->subUtfString(const_cast<char*>(str->getCString()), sub_start, i + 1)))
 	{
 		this->setTypedString(sub->getCString());
 		if (this->getTypedStringContentSize().width > __type_size.width)
-		{//³¬¹ıĞĞ¿í
+		{//è¶…è¿‡è¡Œå®½
 			sub = topwo_tools->subUtfString(const_cast<char*>(str->getCString()), 0, i);
 			__type_str->m_sString.insert(strlen(sub->getCString()) + line_break_count, 1, '\n');
 			sub_start = i;
@@ -83,10 +83,10 @@ void TopwoType::analyzeTypeString(float f)
 		}
 	}
 
-	//Çå¿Õ
+	//æ¸…ç©º
 	this->setTypedString("");
 
-	//ÖØĞÂ»ñÈ¡Õâ¶Î»°×Ü×Ö·ûÊı
+	//é‡æ–°è·å–è¿™æ®µè¯æ€»å­—ç¬¦æ•°
 	__type_char_sum = topwo_tools->getUtf8Length(const_cast<char*>(__type_str->getCString()));
 
 	if ((__type_interval > -0.00001f && __type_interval < 0.00001f) || (!__type_char_sum))
@@ -98,10 +98,10 @@ void TopwoType::analyzeTypeString(float f)
 		this->openTypeLoop( __type_interval, __type_char_sum, 0);
 	}
 }
-//´ò×Ö»Øµ÷
+//æ‰“å­—å›è°ƒ
 void TopwoType::typing(float f)
 {
-	//ÒÑ¾­È«²¿ÏÔÊ¾£¬È¡Ïû¼Æ»®
+	//å·²ç»å…¨éƒ¨æ˜¾ç¤ºï¼Œå–æ¶ˆè®¡åˆ’
 	if (__is_type_all || __type_char_num >= __type_char_sum - 1)
 	{
 		this->closeTypeLoop();
@@ -111,7 +111,7 @@ void TopwoType::typing(float f)
 
 	CCString *sub = NULL;
 
-	//ÅÅ³ı¸ñÊ½·û
+	//æ’é™¤æ ¼å¼ç¬¦
 	char ch = 0;
 	for (__type_char_num++; sub = Topwo::getInstance()->getTopwoTools()->subUtfString(const_cast<char*>(__type_str->getCString()), 0, __type_char_num); __type_char_num++)
 	{
@@ -125,7 +125,7 @@ void TopwoType::typing(float f)
 		}
 	}
 }
-//Ö±½ÓÈ«²¿ÏÔÊ¾³öÀ´
+//ç›´æ¥å…¨éƒ¨æ˜¾ç¤ºå‡ºæ¥
 void TopwoType::typeAll()
 {
 	if (__is_type_all)
@@ -134,7 +134,7 @@ void TopwoType::typeAll()
 	}
 	__is_type_all = true;
 	this->setTypedString(__type_str->getCString());
-	//»Øµ÷
+	//å›è°ƒ
 	if (__callbackListener&&__callbackfunc)
 		(__callbackListener->*__callbackfunc)();
 }
@@ -170,42 +170,42 @@ TopwoTypeBMFont* TopwoTypeBMFont::create(const char* fntfile)
 		return NULL;
 	}
 }
-//½âÎöÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+//è§£æè¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 void TopwoTypeBMFont::analyzeTypeStringSelf(float f)
 {
 	TopwoType::analyzeTypeString(f);
 }
-//´ò×Ö»Øµ÷
+//æ‰“å­—å›è°ƒ
 void TopwoTypeBMFont::typingSelf(float f)
 {
 	TopwoType::typing(f);
 }
-//¿ªÆô½âÎö
+//å¼€å¯è§£æ
 void TopwoTypeBMFont::openAnalyze(float delay)
 {
 	this->scheduleOnce(schedule_selector(TopwoTypeBMFont::analyzeTypeStringSelf), delay);
 }
-//¿ªÆô´ò×ÖÑ­»·
+//å¼€å¯æ‰“å­—å¾ªç¯
 void TopwoTypeBMFont::openTypeLoop(float interval, unsigned int repeat, float delay)
 {
 	this->schedule(schedule_selector(TopwoTypeBMFont::typingSelf), interval, repeat, delay);
 }
-//¹Ø±Õ´ò×ÖÑ­»·
+//å…³é—­æ‰“å­—å¾ªç¯
 void TopwoTypeBMFont::closeTypeLoop()
 {
 	this->unschedule(schedule_selector(TopwoTypeBMFont::typingSelf));
 }
-//ÉèÖÃ´ò³öÀ´µÄ×Ö·û´®
+//è®¾ç½®æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²
 void TopwoTypeBMFont::setTypedString(const char* typed_string)
 {
 	this->setString(typed_string);
 }
-//»ñÈ¡´ò³öÀ´µÄ×Ö·û´®ÄÚÈİµÄ´óĞ¡
+//è·å–æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²å†…å®¹çš„å¤§å°
 CCSize TopwoTypeBMFont::getTypedStringContentSize()
 {
 	return this->getContentSize();
 }
-//»ñÈ¡×ÖÌåµÄ´óĞ¡
+//è·å–å­—ä½“çš„å¤§å°
 float TopwoTypeBMFont::getTypedFontSize()
 {
 	return this->getConfiguration()->m_nInfoSize;
@@ -243,42 +243,42 @@ TopwoTypeTTF* TopwoTypeTTF::create(const char* fntfile, float fontSize)
 		return NULL;
 	}
 }
-//½âÎöÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+//è§£æè¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 void TopwoTypeTTF::analyzeTypeStringSelf(float f)
 {
 	TopwoType::analyzeTypeString(f);
 }
-//´ò×Ö»Øµ÷
+//æ‰“å­—å›è°ƒ
 void TopwoTypeTTF::typingSelf(float f)
 {
 	TopwoType::typing(f);
 }
-//¿ªÆô½âÎö
+//å¼€å¯è§£æ
 void TopwoTypeTTF::openAnalyze(float delay)
 {
 	this->scheduleOnce(schedule_selector(TopwoTypeTTF::analyzeTypeStringSelf), delay);
 }
-//¿ªÆô´ò×ÖÑ­»·
+//å¼€å¯æ‰“å­—å¾ªç¯
 void TopwoTypeTTF::openTypeLoop(float interval, unsigned int repeat, float delay)
 {
 	this->schedule(schedule_selector(TopwoTypeTTF::typingSelf), interval, repeat, delay);
 }
-//¹Ø±Õ´ò×ÖÑ­»·
+//å…³é—­æ‰“å­—å¾ªç¯
 void TopwoTypeTTF::closeTypeLoop()
 {
 	this->unschedule(schedule_selector(TopwoTypeTTF::typingSelf));
 }
-//ÉèÖÃ´ò³öÀ´µÄ×Ö·û´®
+//è®¾ç½®æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²
 void TopwoTypeTTF::setTypedString(const char* typed_string)
 {
 	this->setString(typed_string);
 }
-//»ñÈ¡µ±Ç°ÄÚÈİµÄ´óĞ¡
+//è·å–å½“å‰å†…å®¹çš„å¤§å°
 CCSize TopwoTypeTTF::getTypedStringContentSize()
 {
 	return this->getContentSize();
 }
-//»ñÈ¡×ÖÌåµÄ´óĞ¡
+//è·å–å­—ä½“çš„å¤§å°
 float TopwoTypeTTF::getTypedFontSize()
 {
 	return this->getFontSize();

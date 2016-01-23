@@ -1,4 +1,4 @@
-#ifndef __TOPWO_AUDIO_H__
+Ôªø#ifndef __TOPWO_AUDIO_H__
 #define __TOPWO_AUDIO_H__
 #include "cocos2d.h"
 using namespace cocos2d;
@@ -11,7 +11,7 @@ using namespace CocosDenshion;
 #define AUDIO_EFFECT_WRONG "audio/wrong.mp3"
 #define AUDIO_MUSIC_GAME_BJ "audio/bj.mp3"
 
-//“Ù∆µ¿‡
+//Èü≥È¢ëÁ±ª
 class TopwoAudio : public CCObject
 {
 public:
@@ -20,7 +20,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(TopwoAudio);
 
-	//…˘“Ù
+	//Â£∞Èü≥
 	twbool getSoundState(twbool is_switch);
 	twbool getEffectState(twbool is_switch);
 	twbool getMusicState(twbool is_switch);
@@ -29,8 +29,8 @@ public:
 	bool playMusic(const char* music);
 private:
 
-	twbool __is_effect;//“Ù–ßø™πÿ
-	twbool __is_music;//“Ù¿÷ø™πÿ
+	twbool __is_effect;//Èü≥ÊïàÂºÄÂÖ≥
+	twbool __is_music;//Èü≥‰πêÂºÄÂÖ≥
 };
 
 #endif  //__TOPWO_AUDIO_H__

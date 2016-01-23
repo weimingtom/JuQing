@@ -9,7 +9,6 @@
 build/
 # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 doc/*.txt
-proj.android/
 proj.blackberry/
 proj.ios/
 proj.linux/
@@ -20,4 +19,10 @@ proj.win32/
 proj.winrt/
 proj.wp8/
 proj.wp8-xaml/
+proj.android/.settings/
+proj.android/assets/
+proj.android/bin/
+proj.android/gen/
+proj.android/libs/
+proj.android/obj/
 资源/

@@ -1,4 +1,4 @@
-#include "SceneAction.h"
+ï»¿#include "SceneAction.h"
 #include "SceneMain.h"
 #include "LayerDialog.h"
 #include "UserInfo.h"
@@ -28,11 +28,13 @@ bool SceneAction::init()
         return false;
     }
 	initUI();
+
+	setKeypadEnabled(true);
     
     return true;
 }
 
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool SceneAction::initUI()
 {
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
@@ -40,12 +42,12 @@ bool SceneAction::initUI()
 
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
-	//±³¾°
+	//èƒŒæ™¯
 	CCSprite* bg = CCSprite::create("images/SceneAction_bg.jpg");
 	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 	this->addChild(bg, 0);
 
-	//ÐÂµÄ¿ªÊ¼Ïî
+	//æ–°çš„å¼€å§‹é¡¹
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -58,7 +60,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_new->addChild(lbl, 1);
 
-	//¾ÉµÄ»ØÒäÏî
+	//æ—§çš„å›žå¿†é¡¹
 	CCMenuItemImage *item_old = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -70,7 +72,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_old->addChild(lbl, 1);
 
-	//ÉèÖÃÏî
+	//è®¾ç½®é¡¹
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -82,7 +84,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_set->addChild(lbl, 1);
 
-	//°ïÖúÏî
+	//å¸®åŠ©é¡¹
 	CCMenuItemImage *item_help = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -94,7 +96,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_help->addChild(lbl, 1);
 
-	//¹ØÓÚÏî
+	//å…³äºŽé¡¹
 	CCMenuItemImage *item_about = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -106,7 +108,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
-	//ÍË³öÏî
+	//é€€å‡ºé¡¹
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
 		"images/btn_common_1_1.png",
@@ -132,7 +134,7 @@ bool SceneAction::initUI()
 }
 
 
-//ÐÂµÄ¿ªÊ¼
+//æ–°çš„å¼€å§‹
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
@@ -143,36 +145,35 @@ void SceneAction::menuNewCallback(CCObject* pSender)
 	user_info->setCurrentMissionId(1);
 	user_info->setCurrentSectionId(1);
 }
-//¾ÉµÄ»ØÒä
+//æ—§çš„å›žå¿†
 void SceneAction::menuOldCallback(CCObject* pSender)
 {
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneMain::creatScene()));
 }
-//ÉèÖÃ
+//è®¾ç½®
 void SceneAction::menuSetCallback(CCObject* pSender)
 {
 }
-//°ïÖú
+//å¸®åŠ©
 void SceneAction::menuHelpCallback(CCObject* pSender)
 {
 }
-//¹ØÓÚ
+//å…³äºŽ
 void SceneAction::menuAboutCallback(CCObject* pSender)
 {
 }
-//ÍË³ö
+//é€€å‡º
 void SceneAction::menuCloseCallback(CCObject* pSender)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
-#else
-    CCDirector::sharedDirector()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-#endif
+	Topwo::getInstance()->getTopwoPlatform()->callShowExitDialog();
 }
-//¶Ô»°»Øµ÷
+
+void SceneAction::keyBackClicked()
+{
+	Topwo::getInstance()->getTopwoPlatform()->callShowExitDialog();
+}
+
+//å¯¹è¯å›žè°ƒ
 void SceneAction::callbackDialogOver()
 {
 	CCDirector::sharedDirector()->replaceScene(SceneMain::creatScene());

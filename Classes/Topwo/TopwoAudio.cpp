@@ -1,4 +1,4 @@
-#include "TopwoAudio.h"
+ï»¿#include "TopwoAudio.h"
 
 TopwoAudio::TopwoAudio()
 :__is_effect(true)
@@ -12,16 +12,16 @@ TopwoAudio::~TopwoAudio()
 
 bool TopwoAudio::init()
 {
-	//Ô¤¼ÓÔØÒôÀÖ
-	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(AUDIO_MUSIC_GAME_BJ);
+	//é¢„åŠ è½½éŸ³ä¹
+	//SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(AUDIO_MUSIC_GAME_BJ);
 
-	//Ô¤¼ÓÔØÒôÐ§
-	SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_EFFECT_BUTTON);
+	//é¢„åŠ è½½éŸ³æ•ˆ
+	//SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_EFFECT_BUTTON);
 
 	return true;
 }
 
-//»ñÈ¡ÉùÒô×´Ì¬
+//èŽ·å–å£°éŸ³çŠ¶æ€
 twbool TopwoAudio::getSoundState(twbool is_switch)
 {
 	twbool sound_state1 = false, sound_state2 = false;
@@ -29,38 +29,38 @@ twbool TopwoAudio::getSoundState(twbool is_switch)
 	sound_state2 = getMusicState(is_switch);
 	return sound_state1 || sound_state2;
 }
-//»ñÈ¡ÒôÐ§×´Ì¬
+//èŽ·å–éŸ³æ•ˆçŠ¶æ€
 twbool TopwoAudio::getEffectState(twbool is_switch)
 {
 	if (is_switch)
-	{//ÐèÒª²¦¶¯ÒôÐ§¿ª¹Ø
-		//ÏÈ²¦¶¯Ò»ÏÂÒôÐ§¿ª¹Ø
+	{//éœ€è¦æ‹¨åŠ¨éŸ³æ•ˆå¼€å…³
+		//å…ˆæ‹¨åŠ¨ä¸€ä¸‹éŸ³æ•ˆå¼€å…³
 		__is_effect = (!__is_effect);
 
-		//²¦¶¯ÍêÖ®ºóµÄÒôÐ§×´Ì¬
+		//æ‹¨åŠ¨å®Œä¹‹åŽçš„éŸ³æ•ˆçŠ¶æ€
 		if (!__is_effect)
-		{//µ±Ç°ÒôÐ§×´Ì¬ÊÇ¹Ø×ÅµÄ£¬ÄÇ¾Í°ÑÕýÔÚ²¥·ÅµÄÒôÐ§Í£µô
+		{//å½“å‰éŸ³æ•ˆçŠ¶æ€æ˜¯å…³ç€çš„ï¼Œé‚£å°±æŠŠæ­£åœ¨æ’­æ”¾çš„éŸ³æ•ˆåœæŽ‰
 			SimpleAudioEngine::sharedEngine()->stopAllEffects();
 		}
 	}
 
 	return __is_effect;
 }
-//»ñÈ¡ÒôÀÖ×´Ì¬
+//èŽ·å–éŸ³ä¹çŠ¶æ€
 twbool TopwoAudio::getMusicState(twbool is_switch)
 {
 	if (is_switch)
-	{//ÐèÒª²¦¶¯ÒôÀÖ¿ª¹Ø
-		//ÏÈ²¦¶¯Ò»ÏÂÒôÀÖ¿ª¹Ø
+	{//éœ€è¦æ‹¨åŠ¨éŸ³ä¹å¼€å…³
+		//å…ˆæ‹¨åŠ¨ä¸€ä¸‹éŸ³ä¹å¼€å…³
 		__is_music = (!__is_music);
 
-		//²¦¶¯ÍêÖ®ºóµÄÒôÀÖ×´Ì¬
+		//æ‹¨åŠ¨å®Œä¹‹åŽçš„éŸ³ä¹çŠ¶æ€
 		if (!__is_music)
-		{//µ±Ç°ÒôÐ§×´Ì¬ÊÇ¹Ø×ÅµÄ£¬ÄÇ¾Í°ÑÕýÔÚ²¥·ÅµÄÒôÀÖÔÝÍ£
+		{//å½“å‰éŸ³æ•ˆçŠ¶æ€æ˜¯å…³ç€çš„ï¼Œé‚£å°±æŠŠæ­£åœ¨æ’­æ”¾çš„éŸ³ä¹æš‚åœ
 			SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 		}
 		else
-		{//µ±Ç°ÒôÐ§×´Ì¬ÊÇ¿ª×ÅµÄ£¬ÄÇ¾Í°Ñ¼ÌÐø²¥·ÅÒôÀÖ
+		{//å½“å‰éŸ³æ•ˆçŠ¶æ€æ˜¯å¼€ç€çš„ï¼Œé‚£å°±æŠŠç»§ç»­æ’­æ”¾éŸ³ä¹
 			SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 		}
 	}
@@ -68,7 +68,7 @@ twbool TopwoAudio::getMusicState(twbool is_switch)
 	return __is_music;
 }
 
-//²¥·ÅÒôÐ§
+//æ’­æ”¾éŸ³æ•ˆ
 bool TopwoAudio::playEffect(const char* effect)
 {
 	if (!__is_effect)
@@ -80,7 +80,7 @@ bool TopwoAudio::playEffect(const char* effect)
 	return true;
 }
 
-//²¥·ÅÒôÀÖ
+//æ’­æ”¾éŸ³ä¹
 bool TopwoAudio::playMusic(const char* music)
 {
 	SimpleAudioEngine::sharedEngine()->playBackgroundMusic(music, true);

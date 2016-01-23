@@ -1,4 +1,4 @@
-#include "SceneMain.h"
+ï»¿#include "SceneMain.h"
 #include "SceneAction.h"
 #include "LayerMission.h"
 #include "LayerExercise.h"
@@ -35,7 +35,7 @@ bool SceneMain::init()
     return true;
 }
 
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool SceneMain::initUI()
 {
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
@@ -43,80 +43,80 @@ bool SceneMain::initUI()
 
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
-	//±³¾°
+	//èƒŒæ™¯
 	CCSprite* bg = CCSprite::create("images/SceneMain_bg_1.jpg");
 	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 	this->addChild(bg);
 
-	//ÈÕÆÚ
+	//æ—¥æœŸ
 	CCSprite* sprite = CCSprite::create("images/SceneMain_date.png");
 	sprite->setAnchorPoint(ccp(0.5f, 1.0f));
 	sprite->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height));
 	this->addChild(sprite, 0 ,0);
 	CCSize size_date = sprite->getContentSize();
 
-	//ÔÂÊı
+	//æœˆæ•°
 	CCLabelAtlas* atlas = CCLabelAtlas::create("9", RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 0);
 	atlas->setAnchorPoint(ccp(0.5f, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 6.75f, size_date.height * 0.556f));
 
-	//ÈÕÊı
+	//æ—¥æ•°
 	atlas = CCLabelAtlas::create("1", RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 1);
 	atlas->setAnchorPoint(ccp(0.5f, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 3.2f, size_date.height * 0.556f));
 
-	//ÌåÁ¦Êı
+	//ä½“åŠ›æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString(), RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width / 1.96f, size_date.height * 0.526f));
 
-	//½ğ±ÒÊı
+	//é‡‘å¸æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString(), RES_number_style_1, 20, 20, '0');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_date.width * 0.77f, size_date.height * 0.526f));
 
-	//Íæ¼ÒÊôĞÔ
+	//ç©å®¶å±æ€§
 	sprite = CCSprite::create("images/SenceMain_user_attributes.png");
 	sprite->setAnchorPoint(ccp(0, 1.0f));
 	sprite->setPosition(ccp(vo.x, vo.y + vs.height));
 	this->addChild(sprite, 0 ,1);
 	CCSize size_attribute = sprite->getContentSize();
 
-	//ÌåÆÇÊı
+	//ä½“é­„æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 1);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.625f));
 
-	//÷ÈÁ¦Êı
+	//é­…åŠ›æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.5f));
 
-	//ÖÇÁ¦Êı
+	//æ™ºåŠ›æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.375f));
 
-	//ÇéÉÌÊı
+	//æƒ…å•†æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 4);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.248f));
 
-	//¸ĞĞÔÊı
+	//æ„Ÿæ€§æ•°
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 5);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.122f));
 
-	//ºÃ¸Ğ½ø¶ÈÌõ
+	//å¥½æ„Ÿè¿›åº¦æ¡
 	CCSprite *progress_favor_bg =CCSprite::create(RES_SceneMain_progress_favor_bg);
 	this->addChild(progress_favor_bg, 0, 2);
 	CCSize size_progress_favor_bg = progress_favor_bg->getContentSize();
@@ -126,7 +126,7 @@ bool SceneMain::initUI()
 	progress_favor_bg->addChild(progress_timer, 0 ,0);
 	progress_timer->setType(kCCProgressTimerTypeBar);
 	progress_timer->setAnchorPoint(ccp(0, 0.5f));
-	progress_timer->setPosition(ccp(size_progress_favor_bg.width * 0.125f, size_progress_favor_bg.height * 0.74f));
+	progress_timer->setPosition(ccp(size_progress_favor_bg.width * 0.125f, size_progress_favor_bg.height * 0.73f));
 	progress_timer->setMidpoint(ccp(0, 0.5));
 	progress_timer->setBarChangeRate(ccp(1, 0));
 	progress_timer->setPercentage(user_info->getCurrentFavor());
@@ -135,7 +135,7 @@ bool SceneMain::initUI()
 	CCSize size_la_favor = la_favor->getContentSize();
 	la_favor->setPosition(ccp(size_progress_favor_bg.width * 0.6f, size_progress_favor_bg.height * 0.04f));
 
-	//·µ»ØÏî
+	//è¿”å›é¡¹
 	CCMenuItemImage *item_back = CCMenuItemImage::create(
 		RES_btn_back_1_0,
 		RES_btn_back_1_1,
@@ -144,7 +144,7 @@ bool SceneMain::initUI()
 	CCSize size_item_back = item_back->getContentSize();
 	item_back->setPosition(ccp(vs.width - size_item_back.width * 0.5f, vs.height - size_item_back.height * 0.5f));
 
-	//Àñ°üÏî
+	//ç¤¼åŒ…é¡¹
 	CCMenuItemImage *item_gift = CCMenuItemImage::create(
 		RES_btn_gift_0,
 		RES_btn_gift_1,
@@ -153,7 +153,7 @@ bool SceneMain::initUI()
 	CCSize size_item_gift = item_gift->getContentSize();
 	item_gift->setPosition(ccp(vs.width - size_attribute.width * 0.5f, (vs.height - size_attribute.height) * 0.5f));
 
-	//±í°×Ïî
+	//è¡¨ç™½é¡¹
 	CCMenuItemImage *item_express = CCMenuItemImage::create(
 		RES_btn_express_0,
 		RES_btn_express_1,
@@ -162,7 +162,7 @@ bool SceneMain::initUI()
 	CCSize size_item_express = item_express->getContentSize();
 	item_express->setPosition(ccp((vs.width + size_progress_favor_bg.width + size_item_express.width) * 0.5f, progress_favor_bg->getPositionY() + size_progress_favor_bg.height * 0.18f));
 
-	//ÈÎÎñÏî
+	//ä»»åŠ¡é¡¹
 	CCMenuItemImage *item_task = CCMenuItemImage::create(
 		RES_btn_mission_0,
 		RES_btn_mission_1,
@@ -171,14 +171,14 @@ bool SceneMain::initUI()
 	CCSize size_item_task = item_task->getContentSize();
 	item_task->setPosition(ccp(vs.width - size_item_task.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height));
 
-	//ËÄÏîµÄ±³¾°
+	//å››é¡¹çš„èƒŒæ™¯
 	CCSprite* sp_four_items_bg = CCSprite::create("images/SceneMain_four_items_bg.png");
 	this->addChild(sp_four_items_bg);
 	CCSize size_sp_four_items_bg = sp_four_items_bg->getContentSize();
 	sp_four_items_bg->setPosition(ccp(vs.width - size_sp_four_items_bg.width * 0.5f, vs.height - size_date.height * 2.0f - size_item_task.height * 2.0f - size_sp_four_items_bg.height * 0.5f));
 	CCSize size_padding = ccp(size_sp_four_items_bg.width * 0.5f, size_sp_four_items_bg.height * 0.5f);
 
-	//¶ÍÁ¶Ïî
+	//é”»ç‚¼é¡¹
 	CCMenuItemImage *item_exercise = CCMenuItemImage::create(
 		RES_btn_exercise_0,
 		RES_btn_exercise_1,
@@ -187,7 +187,7 @@ bool SceneMain::initUI()
 	CCSize size_item_exercise = item_exercise->getContentSize();
 	item_exercise->setPosition(ccp(sp_four_items_bg->getPositionX() - size_padding.width * 0.5f, sp_four_items_bg->getPositionY() + size_padding.height * 0.5f));
 
-	//ÎïÆ·Ïî
+	//ç‰©å“é¡¹
 	CCMenuItemImage *item_goods = CCMenuItemImage::create(
 		RES_btn_goods_0,
 		RES_btn_goods_1,
@@ -196,7 +196,7 @@ bool SceneMain::initUI()
 	CCSize size_item_goods = item_goods->getContentSize();
 	item_goods->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() + size_padding.height * 0.5f));
 
-	//´ò¹¤Ïî
+	//æ‰“å·¥é¡¹
 	CCMenuItemImage *item_work = CCMenuItemImage::create(
 		RES_btn_work_0,
 		RES_btn_work_1,
@@ -205,7 +205,7 @@ bool SceneMain::initUI()
 	CCSize size_item_work = item_work->getContentSize();
 	item_work->setPosition(ccp(sp_four_items_bg->getPositionX() - size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 
-	//ĞİÏ¢Ïî
+	//ä¼‘æ¯é¡¹
 	CCMenuItemImage *item_rest = CCMenuItemImage::create(
 		RES_btn_rest_0,
 		RES_btn_rest_1,
@@ -214,10 +214,12 @@ bool SceneMain::initUI()
 	CCSize size_item_rest = item_rest->getContentSize();
 	item_rest->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 	
-	//²Ëµ¥
+	//èœå•
 	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, item_gift, item_exercise, item_work, item_task, NULL);
 	menu->setPosition(CCPointZero);
 	this->addChild(menu, 1);
+
+	updateMe();
 
 	return true;
 }
@@ -231,124 +233,123 @@ void SceneMain::menuMissionCallback(CCObject* pSender)
 {
 	this->addChild(LayerMission::create(), 10);
 }
-//¶ÍÁ¶²Ëµ¥Ïî
+//é”»ç‚¼èœå•é¡¹
 void SceneMain::menuExerciseCallback(CCObject* pSender)
 {
 	this->addChild(LayerExercise::create(), 10);
 }
-//ÎïÆ·²Ëµ¥Ïî
+//ç‰©å“èœå•é¡¹
 void SceneMain::menuGoodsCallback(CCObject* pSender)
 {
 	this->addChild(LayerGoods::create(), 10);
 }
-//´ò¹¤²Ëµ¥Ïî
+//æ‰“å·¥èœå•é¡¹
 void SceneMain::menuWorkCallback(CCObject* pSender)
 {
 	this->addChild(LayerWork::create(), 10);
 }
-//ĞİÏ¢²Ëµ¥Ïî
+//ä¼‘æ¯èœå•é¡¹
 void SceneMain::menuRestCallback(CCObject* pSender)
 {
 	this->addChild(LayerRest::create(), 10);
 }
-//¸üĞÂ×Ô¼º
+//æ›´æ–°è‡ªå·±
 void SceneMain::updateMe()
 {
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	int plaid_days = user_info->getPlaidDays();
+	int day = 1 + user_info->getPlaidDays();
 	int month = 9;
-	int day = 1;
-	if (plaid_days > 30 && plaid_days <= 61)
+	if (day > 30 && day <= 61)
 	{//10
 		month = 10;
-		day = plaid_days - 30;
+		day = day - 30;
 	}
-	else if (plaid_days > 61 && plaid_days <= 91)
+	else if (day > 61 && day <= 91)
 	{//11
 		month = 11;
-		day = plaid_days - 61;
+		day = day - 61;
 	}
-	else if (plaid_days > 91 && plaid_days <= 122)
+	else if (day > 91 && day <= 122)
 	{//12
 		month = 12;
-		day = plaid_days - 91;
+		day = day - 91;
 	}
-	else if (plaid_days > 122 && plaid_days <= 153)
+	else if (day > 122 && day <= 153)
 	{//1
 		month = 1;
-		day = plaid_days - 122;
+		day = day - 122;
 	}
-	else if (plaid_days > 153 && plaid_days <= 181)
+	else if (day > 153 && day <= 181)
 	{//2
 		month = 2;
-		day = plaid_days - 153;
+		day = day - 153;
 	}
-	else if (plaid_days > 181 && plaid_days <= 212)
+	else if (day > 181 && day <= 212)
 	{//3
 		month = 3;
-		day = plaid_days - 181;
+		day = day - 181;
 	}
-	else if (plaid_days > 212 && plaid_days <= 242)
+	else if (day > 212 && day <= 242)
 	{//4
 		month = 4;
-		day = plaid_days - 212;
+		day = day - 212;
 	}
-	else if (plaid_days > 242 && plaid_days <= 273)
+	else if (day > 242 && day <= 273)
 	{//5
 		month = 5;
-		day = plaid_days - 242;
+		day = day - 242;
 	}
-	else if (plaid_days > 273 && plaid_days <= 303)
+	else if (day > 273 && day <= 303)
 	{//6
 		month = 6;
-		day = plaid_days - 273;
+		day = day - 273;
 	}
-	else if (plaid_days > 303 && plaid_days <= 334)
+	else if (day > 303 && day <= 334)
 	{//7
 		month = 7;
-		day = plaid_days - 303;
+		day = day - 303;
 	}
-	else if (plaid_days > 334 && plaid_days <= 365)
+	else if (day > 334 && day <= 365)
 	{//8
 		month = 8;
-		day = plaid_days - 334;
+		day = day - 334;
 	}
 	CCNode *node = this->getChildByTag(0);
-	//ÔÂ
+	//æœˆ
 	CCLabelAtlas *atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(0));
 	atlas->setString(CCString::createWithFormat("%d", month)->getCString());
-	//ÈÕ
+	//æ—¥
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
 	atlas->setString(CCString::createWithFormat("%d", day)->getCString());
-	//ÌåÁ¦
+	//ä½“åŠ›
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(2));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
-	//½ğ±Ò
+	//é‡‘å¸
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(3));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentGold())->getCString());
 
 	node = this->getChildByTag(1);
-	//ÌåÆÇ
+	//ä½“é­„
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString());
-	//÷ÈÁ¦
+	//é­…åŠ›
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(2));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString());
-	//ÖÇÁ¦
+	//æ™ºåŠ›
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(3));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString());
-	//ÇéÉÌ
+	//æƒ…å•†
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(4));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString());
-	//¸ĞĞÔ
+	//æ„Ÿæ€§
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(5));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString());
 
 	node = this->getChildByTag(2);
-	//ºÃ¸Ğ¶È½ø¶ÈÌõ
+	//å¥½æ„Ÿåº¦è¿›åº¦æ¡
 	CCProgressTimer *progress_timer = static_cast<CCProgressTimer *>(node->getChildByTag(0));
 	progress_timer->setPercentage(user_info->getCurrentFavor());
-	//ºÃ¸Ğ¶ÈÊıÖµ
+	//å¥½æ„Ÿåº¦æ•°å€¼
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentFavor())->getCString());
 }

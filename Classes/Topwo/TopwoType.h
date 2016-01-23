@@ -1,52 +1,52 @@
-#ifndef __TOPWO_TYPE_H__
+ï»¿#ifndef __TOPWO_TYPE_H__
 #define __TOPWO_TYPE_H__
 #include "cocos2d.h"
 #include "TopwoDefine.h"
 #include "TopwoTools.h"
 USING_NS_CC;
 
-//´ò×ÖÀà
+//æ‰“å­—ç±»
 class TopwoType
 {
 public:
 	TopwoType();
 	virtual ~TopwoType();
 
-	//ÉèÖÃÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+	//è®¾ç½®è¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 	virtual void setTypeString(CCString *str);
-	//ÉèÖÃÏÔÊ¾ÇøÓò´óĞ¡
+	//è®¾ç½®æ˜¾ç¤ºåŒºåŸŸå¤§å°
 	void setTypeSize(CCSize size);
-	//ÉèÖÃ´ò×Ö¼ä¸ôÊ±¼ä
+	//è®¾ç½®æ‰“å­—é—´éš”æ—¶é—´
 	void setTypeInterval(twfloat interval);
-	//ÉèÖÃ´òÍêÒ»¾ä»°ºóµÄ»Øµ÷º¯Êı
+	//è®¾ç½®æ‰“å®Œä¸€å¥è¯åçš„å›è°ƒå‡½æ•°
 	void setTypeFinishCallback(CCObject* target, SEL_CallFunc callfun);
-	//Ö±½ÓÈ«²¿´ò³öÀ´
+	//ç›´æ¥å…¨éƒ¨æ‰“å‡ºæ¥
 	virtual void typeAll();
 
 protected:
-	//ÉèÖÃ´ò³öÀ´µÄ×Ö·û´®
+	//è®¾ç½®æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²
 	virtual void setTypedString(const char* typed_string) = 0;
-	//»ñÈ¡´ò³öÀ´µÄ×Ö·û´®ÄÚÈİµÄ´óĞ¡
+	//è·å–æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²å†…å®¹çš„å¤§å°
 	virtual CCSize getTypedStringContentSize() = 0;
-	//¿ªÆô½âÎö
+	//å¼€å¯è§£æ
 	virtual void openAnalyze(float delay) = 0;
-	//¿ªÆô´ò×ÖÑ­»·
+	//å¼€å¯æ‰“å­—å¾ªç¯
 	virtual void openTypeLoop(float interval, unsigned int repeat, float delay) = 0;
-	//¹Ø±Õ´ò×ÖÑ­»·
+	//å…³é—­æ‰“å­—å¾ªç¯
 	virtual void closeTypeLoop() = 0;
-	//»ñÈ¡×ÖÌåµÄ´óĞ¡
+	//è·å–å­—ä½“çš„å¤§å°
 	virtual float getTypedFontSize() = 0;
-	//½âÎöÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+	//è§£æè¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 	virtual void analyzeTypeString(float f);
-	//´ò×Ö»Øµ÷
+	//æ‰“å­—å›è°ƒ
 	virtual void typing(float f);
 
-	CCSize __type_size;//ÄÚÈİÇøÓò´óĞ¡
-	float __type_interval;//¼ä¸ôÊ±¼ä
+	CCSize __type_size;//å†…å®¹åŒºåŸŸå¤§å°
+	float __type_interval;//é—´éš”æ—¶é—´
 	CCString* __type_str;
-	twuint __type_char_sum;//´òÓ¡µÄ×Ö·ûÊı
-	twuint __type_char_num;//´òÓ¡µÄ×Ö·ûÊı
-	bool __is_type_all;//ÊÇ·ñÏÔÊ¾ËùÓĞÁË
+	twuint __type_char_sum;//æ‰“å°çš„å­—ç¬¦æ•°
+	twuint __type_char_num;//æ‰“å°çš„å­—ç¬¦æ•°
+	bool __is_type_all;//æ˜¯å¦æ˜¾ç¤ºæ‰€æœ‰äº†
 
 	CCObject* __callbackListener;
 	SEL_CallFunc __callbackfunc;
@@ -57,27 +57,27 @@ public:
 	TopwoTypeBMFont();
 	virtual ~TopwoTypeBMFont();
 
-	//³õÊ¼º¯Êı
+	//åˆå§‹å‡½æ•°
 	virtual bool init(const char* fntfile);
-	//´´Ôìº¯Êı
+	//åˆ›é€ å‡½æ•°
 	static TopwoTypeBMFont* create(const char* fntfile);
 
 protected:
-	//ÉèÖÃ´ò³öÀ´µÄ×Ö·û´®
+	//è®¾ç½®æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²
 	virtual void setTypedString(const char* typed_string) override;
-	//»ñÈ¡´ò³öÀ´µÄ×Ö·û´®ÄÚÈİµÄ´óĞ¡
+	//è·å–æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²å†…å®¹çš„å¤§å°
 	virtual CCSize getTypedStringContentSize() override;
-	//¿ªÆô½âÎö
+	//å¼€å¯è§£æ
 	virtual void openAnalyze(float delay) override;
-	//¿ªÆô´ò×ÖÑ­»·
+	//å¼€å¯æ‰“å­—å¾ªç¯
 	virtual void openTypeLoop(float interval, unsigned int repeat, float delay) override;
-	//¹Ø±Õ´ò×ÖÑ­»·
+	//å…³é—­æ‰“å­—å¾ªç¯
 	virtual void closeTypeLoop() override;
-	//»ñÈ¡×ÖÌåµÄ´óĞ¡
+	//è·å–å­—ä½“çš„å¤§å°
 	virtual float getTypedFontSize() override;
-	//½âÎöÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+	//è§£æè¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 	virtual void analyzeTypeStringSelf(float f);
-	//´ò×Ö»Øµ÷
+	//æ‰“å­—å›è°ƒ
 	virtual void typingSelf(float f);
 };
 
@@ -87,27 +87,27 @@ public:
 	TopwoTypeTTF();
 	virtual ~TopwoTypeTTF();
 
-	//³õÊ¼º¯Êı
+	//åˆå§‹å‡½æ•°
 	virtual bool init(const char* fntfile, float fontSize);
-	//´´Ôìº¯Êı
+	//åˆ›é€ å‡½æ•°
 	static TopwoTypeTTF* create(const char* fntfile, float fontSize);
 
 protected:
-	//ÉèÖÃ´ò³öÀ´µÄ×Ö·û´®
+	//è®¾ç½®æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²
 	virtual void setTypedString(const char* typed_string) override;
-	//»ñÈ¡´ò³öÀ´µÄ×Ö·û´®ÄÚÈİµÄ´óĞ¡
+	//è·å–æ‰“å‡ºæ¥çš„å­—ç¬¦ä¸²å†…å®¹çš„å¤§å°
 	virtual CCSize getTypedStringContentSize() override;
-	//¿ªÆô½âÎö
+	//å¼€å¯è§£æ
 	virtual void openAnalyze(float delay) override;
-	//¿ªÆô´ò×ÖÑ­»·
+	//å¼€å¯æ‰“å­—å¾ªç¯
 	virtual void openTypeLoop(float interval, unsigned int repeat, float delay) override;
-	//¹Ø±Õ´ò×ÖÑ­»·
+	//å…³é—­æ‰“å­—å¾ªç¯
 	virtual void closeTypeLoop() override;
-	//»ñÈ¡×ÖÌåµÄ´óĞ¡
+	//è·å–å­—ä½“çš„å¤§å°
 	virtual float getTypedFontSize() override;
-	//½âÎöÒª½øĞĞ´ò×ÖµÄ×Ö·û´®
+	//è§£æè¦è¿›è¡Œæ‰“å­—çš„å­—ç¬¦ä¸²
 	virtual void analyzeTypeStringSelf(float f);
-	//´ò×Ö»Øµ÷
+	//æ‰“å­—å›è°ƒ
 	virtual void typingSelf(float f);
 };
 #endif  //__TOPWO_TYPE_H__

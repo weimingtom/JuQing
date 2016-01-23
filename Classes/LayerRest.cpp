@@ -1,4 +1,4 @@
-#include "LayerRest.h"
+ï»¿#include "LayerRest.h"
 #include "LayerMission.h"
 #include "LayerExercise.h"
 #include "SceneMain.h"
@@ -21,7 +21,7 @@ bool LayerRest::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃşÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
     return true;
 }
@@ -29,7 +29,7 @@ void LayerRest::registerWithTouchDispatcher()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerRest::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
@@ -110,12 +110,12 @@ bool LayerRest::initUI()
 	__la_add_physical_3->setAnchorPoint(ccp(0, 0.5f));
 	__la_add_physical_3->setPosition(ccp(size_sp_add_physical_1.width, size_sp_add_physical_1.height * 0.5f));
 
-	//²Ëµ¥
+	//èœå•
 	CCMenu *pMenu = CCMenu::create(item_close, __item_rest1, __item_rest2, __item_rest3, NULL);
 	this->addChild(pMenu);
 	pMenu->setPosition(CCPointZero);
 
-	//½ø¶ÈÌõ
+	//è¿›åº¦æ¡
 	LayerProgress *layer_progress = LayerProgress::create();
 	this->addChild(layer_progress, 10, 0);
 	layer_progress->setVisible(false);
@@ -145,11 +145,11 @@ void LayerRest::menuCallbackRest(CCObject *pSender)
 {
 	int glod = 0;
 	if (pSender == __item_rest2)
-	{//ÖĞ¼¶ĞİÏ¢
+	{//ä¸­çº§ä¼‘æ¯
 		glod = 300;
 	}
 	else if (pSender == __item_rest3)
-	{//¸ß¼¶ĞİÏ¢
+	{//é«˜çº§ä¼‘æ¯
 		glod = 500;
 	}
 
@@ -171,25 +171,26 @@ void LayerRest::rest(CCObject *pSender)
 	int physical = 0;
 	int glod = 0;
 	if (pSender == __item_rest1)
-	{//ÆÕÍ¨ĞİÏ¢
+	{//æ™®é€šä¼‘æ¯
 		physical = atoi(static_cast<CCLabelAtlas*>(__la_add_physical_1)->getString());
 	}
 	else if (pSender == __item_rest2)
-	{//ÖĞ¼¶ĞİÏ¢
+	{//ä¸­çº§ä¼‘æ¯
 		physical = atoi(static_cast<CCLabelAtlas*>(__la_add_physical_2)->getString());
 		glod = 300;
 	}
 	else if (pSender == __item_rest3)
-	{//¸ß¼¶ĞİÏ¢
+	{//é«˜çº§ä¼‘æ¯
 		physical = atoi(static_cast<CCLabelAtlas*>(__la_add_physical_3)->getString());
 		glod = 500;
 	}
 
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	user_info->setPlaidDays(user_info->getPlaidDays() + 1);
 	user_info->setCurrentPhysical(user_info->getCurrentPhysical() + physical);
 	user_info->setCurrentGold(user_info->getCurrentGold() - glod);
 	if (user_info->getCurrentPhysical() > 100)
-	{//ÌåÁ¦ÉÏÏŞ100
+	{//ä½“åŠ›ä¸Šé™100
 		user_info->setCurrentPhysical(100);
 	}
 

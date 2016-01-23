@@ -1,4 +1,4 @@
-#ifndef __TOPWO_H__
+Ôªø#ifndef __TOPWO_H__
 #define __TOPWO_H__
 #include "Topwo/TopwoDefine.h"
 #include "Topwo/TopwoAudio.h"
@@ -22,7 +22,7 @@ private:
 	virtual ~Topwo();
 	bool __init();
 
-	static Topwo *__Topwo;//µ•¿˝
+	static Topwo *__Topwo;//Âçï‰æã
 
 	TopwoTools* __TopwoTools;
 	TopwoPlatform* __TopwoPlatform;

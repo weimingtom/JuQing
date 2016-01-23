@@ -1,4 +1,4 @@
-#ifndef __DATA_NPC_H__
+Ôªø#ifndef __DATA_NPC_H__
 #define __DATA_NPC_H__
 #include "cocos2d.h"
 
@@ -14,10 +14,10 @@ public:
 
 private:
 	CC_SYNTHESIZE(int, __id, Id);//Id
-	CC_SYNTHESIZE_RETAIN(CCString*, __name, Name);//√˚◊÷
-	CC_SYNTHESIZE_RETAIN(CCString*, __des, Des);//√Ë ˆ
-	CC_SYNTHESIZE(int, __favor_max, FavorMax);//◊‹∫√∏–∂»
-	CC_SYNTHESIZE(int, __favor_cur, FavorCur);//µ±«∞∫√∏–∂»
+	CC_SYNTHESIZE_RETAIN(CCString*, __name, Name);//ÂêçÂ≠ó
+	CC_SYNTHESIZE_RETAIN(CCString*, __des, Des);//ÊèèËø∞
+	CC_SYNTHESIZE(int, __favor_max, FavorMax);//ÊÄªÂ•ΩÊÑüÂ∫¶
+	CC_SYNTHESIZE(int, __favor_cur, FavorCur);//ÂΩìÂâçÂ•ΩÊÑüÂ∫¶
 };
 
 #endif  //__DATA_NPC_H__

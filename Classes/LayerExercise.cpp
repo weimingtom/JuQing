@@ -1,4 +1,4 @@
-#include "LayerExercise.h"
+ï»¿#include "LayerExercise.h"
 #include "LayerMission.h"
 #include "SceneMain.h"
 
@@ -20,7 +20,7 @@ bool LayerExercise::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃþÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
     return true;
 }
@@ -28,7 +28,7 @@ void LayerExercise::registerWithTouchDispatcher()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerExercise::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
@@ -40,7 +40,7 @@ bool LayerExercise::initUI()
 	CCSize size_sp_bg = sp_bg->getContentSize();
 	sp_bg->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
 
-	//¹Ø±ÕÏî
+	//å…³é—­é¡¹
 	CCMenuItemSprite *item_close = CCMenuItemSprite::create(
 		CCSprite::create(RES_btn_close_1_0),
 		CCSprite::create(RES_btn_close_1_0),
@@ -57,13 +57,13 @@ bool LayerExercise::initUI()
 	node->setScale(1.2f);
 	item_close->setPosition((vs.width + size_sp_bg.width - size_item_close.width) * 0.5f, (vs.height + size_sp_bg.height - size_item_close.height) * 0.5f);
 
-	//±êÌâ
+	//æ ‡é¢˜
 	__sp_title = CCSprite::create("images/LayerExercise_low_title.png");
 	this->addChild(__sp_title);
 	CCSize size_sp_title = __sp_title->getContentSize();
 	__sp_title->setPosition(ccp(vs.width * 0.5f, vs.height * 0.71f));
 
-	//Ïò×óÏî
+	//å‘å·¦é¡¹
 	__item_to_left = CCMenuItemSprite::create(
 		CCSprite::create("images/btn_arrow_green_0.png"),
 		CCSprite::create("images/btn_arrow_green_0.png"),
@@ -71,7 +71,7 @@ bool LayerExercise::initUI()
 		menu_selector(LayerExercise::menuCallbackToLeft));
 	__item_to_left->setPosition(ccp(vs.width * 0.5f - size_sp_title.width * 1.5f, vs.height * 0.71f));
 
-	//ÏòÓÒÏî
+	//å‘å³é¡¹
 	__item_to_right = CCMenuItemSprite::create(
 		CCSprite::create("images/btn_arrow_green_0.png"),
 		CCSprite::create("images/btn_arrow_green_0.png"),
@@ -79,7 +79,7 @@ bool LayerExercise::initUI()
 		menu_selector(LayerExercise::menuCallbackToRight));
 	__item_to_right->setPosition(ccp(vs.width * 0.5f + size_sp_title.width* 1.5f, vs.height * 0.71f));
 
-	//ÌåÆÇÏî
+	//ä½“é­„é¡¹
 	__item_tipo = CCMenuItemSprite::create(
 		CCSprite::create("images/LayerExercise_low_1_0.png"),
 		CCSprite::create("images/LayerExercise_low_1_1.png"),
@@ -114,7 +114,7 @@ bool LayerExercise::initUI()
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
 
 
-	//÷ÈÁ¦Ïî
+	//é­…åŠ›é¡¹
 	__item_meili = CCMenuItemSprite::create(
 		CCSprite::create("images/LayerExercise_low_2_0.png"),
 		CCSprite::create("images/LayerExercise_low_2_1.png"),
@@ -148,7 +148,7 @@ bool LayerExercise::initUI()
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
 
-	//ÖÇÁ¦Ïî
+	//æ™ºåŠ›é¡¹
 	__item_zhili = CCMenuItemSprite::create(
 		CCSprite::create("images/LayerExercise_low_3_0.png"),
 		CCSprite::create("images/LayerExercise_low_3_1.png"),
@@ -182,7 +182,7 @@ bool LayerExercise::initUI()
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
 
-	//ÇéÉÌÏî
+	//æƒ…å•†é¡¹
 	__item_eq = CCMenuItemSprite::create(
 		CCSprite::create("images/LayerExercise_low_4_0.png"),
 		CCSprite::create("images/LayerExercise_low_4_1.png"),
@@ -216,7 +216,7 @@ bool LayerExercise::initUI()
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
 
-	//¸ÐÐÔÏî
+	//æ„Ÿæ€§é¡¹
 	__item_ganxing = CCMenuItemSprite::create(
 		CCSprite::create("images/LayerExercise_low_5_0.png"),
 		CCSprite::create("images/LayerExercise_low_5_1.png"),
@@ -269,9 +269,9 @@ void LayerExercise::updateMe()
 	CCSprite* selected_sprite = NULL;
 	if (__level == 1)
 	{
-		//±êÌâ
+		//æ ‡é¢˜
 		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_low_title.png"));
-		//Ïò×óÏî
+		//å‘å·¦é¡¹
 		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_green_0.png"));
 		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_green_0.png"));
 		CCSize size_item_to_left = __item_to_left->getContentSize();
@@ -285,7 +285,7 @@ void LayerExercise::updateMe()
 		normal_sprite->setFlipX(true);
 		selected_sprite->setFlipX(true);
 
-		//ÏòÓÒÏî
+		//å‘å³é¡¹
 		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_green_0.png"));
 		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_green_0.png"));
 		CCSize size_item_to_right = __item_to_right->getContentSize();
@@ -297,31 +297,31 @@ void LayerExercise::updateMe()
 		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
 		selected_sprite->setScale(1.2f);
 
-		//ÌåÆÇÏî
+		//ä½“é­„é¡¹
 		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_low_1_0.png"));
 		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_low_1_1.png"));
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-500");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-15");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+2");
-		//÷ÈÁ¦Ïî
+		//é­…åŠ›é¡¹
 		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_low_2_0.png"));
 		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_low_2_1.png"));
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-500");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-15");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+2");
-		//ÖÇÁ¦Ïî
+		//æ™ºåŠ›é¡¹
 		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_low_3_0.png"));
 		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_low_3_1.png"));
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-500");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-15");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+2");
-		//ÇéÉÌÏî
+		//æƒ…å•†é¡¹
 		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_low_4_0.png"));
 		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_low_4_1.png"));
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-500");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-15");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+2");
-		//¸ÐÐÔÏî
+		//æ„Ÿæ€§é¡¹
 		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_low_5_0.png"));
 		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_low_5_1.png"));
 		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-500");
@@ -330,9 +330,9 @@ void LayerExercise::updateMe()
 	}
 	else if (__level == 2)
 	{
-		//±êÌâ
+		//æ ‡é¢˜
 		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_mid_title.png"));
-		//Ïò×óÏî
+		//å‘å·¦é¡¹
 		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_blue_0.png"));
 		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_blue_0.png"));
 		CCSize size_item_to_left = __item_to_left->getContentSize();
@@ -346,7 +346,7 @@ void LayerExercise::updateMe()
 		normal_sprite->setFlipX(true);
 		selected_sprite->setFlipX(true);
 
-		//ÏòÓÒÏî
+		//å‘å³é¡¹
 		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_blue_0.png"));
 		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_blue_0.png"));
 		CCSize size_item_to_right = __item_to_right->getContentSize();
@@ -358,31 +358,31 @@ void LayerExercise::updateMe()
 		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
 		selected_sprite->setScale(1.2f);
 
-		//ÌåÆÇÏî
+		//ä½“é­„é¡¹
 		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_mid_1_0.png"));
 		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_mid_1_1.png"));
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-1000");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-30");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+5");
-		//÷ÈÁ¦Ïî
+		//é­…åŠ›é¡¹
 		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_mid_2_0.png"));
 		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_mid_2_1.png"));
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-1000");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-30");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+5");
-		//ÖÇÁ¦Ïî
+		//æ™ºåŠ›é¡¹
 		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_mid_3_0.png"));
 		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_mid_3_1.png"));
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-1000");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-30");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+5");
-		//ÇéÉÌÏî
+		//æƒ…å•†é¡¹
 		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_mid_4_0.png"));
 		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_mid_4_1.png"));
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-1000");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-30");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+5");
-		//¸ÐÐÔÏî
+		//æ„Ÿæ€§é¡¹
 		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_mid_5_0.png"));
 		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_mid_5_1.png"));
 		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-1000");
@@ -391,9 +391,9 @@ void LayerExercise::updateMe()
 	}
 	else if (__level == 3)
 	{
-		//±êÌâ
+		//æ ‡é¢˜
 		__sp_title->setTexture(CCTextureCache::sharedTextureCache()->addImage("images/LayerExercise_high_title.png"));
-		//Ïò×óÏî
+		//å‘å·¦é¡¹
 		__item_to_left->setNormalImage(CCSprite::create("images/btn_arrow_orange_0.png"));
 		__item_to_left->setSelectedImage(CCSprite::create("images/btn_arrow_orange_0.png"));
 		CCSize size_item_to_left = __item_to_left->getContentSize();
@@ -407,7 +407,7 @@ void LayerExercise::updateMe()
 		normal_sprite->setFlipX(true);
 		selected_sprite->setFlipX(true);
 
-		//ÏòÓÒÏî
+		//å‘å³é¡¹
 		__item_to_right->setNormalImage(CCSprite::create("images/btn_arrow_orange_0.png"));
 		__item_to_right->setSelectedImage(CCSprite::create("images/btn_arrow_orange_0.png"));
 		CCSize size_item_to_right = __item_to_right->getContentSize();
@@ -419,31 +419,31 @@ void LayerExercise::updateMe()
 		selected_sprite->setPosition(ccp(size_item_to_left.width * 0.5f, size_item_to_left.height * 0.5f));
 		selected_sprite->setScale(1.2f);
 
-		//ÌåÆÇÏî
+		//ä½“é­„é¡¹
 		__item_tipo->setNormalImage(CCSprite::create("images/LayerExercise_high_1_0.png"));
 		__item_tipo->setSelectedImage(CCSprite::create("images/LayerExercise_high_1_1.png"));
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(100))->setString("-1500");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(101))->setString("-45");
 		static_cast<CCLabelAtlas*>(__item_tipo->getChildByTag(102))->setString("+10");
-		//÷ÈÁ¦Ïî
+		//é­…åŠ›é¡¹
 		__item_meili->setNormalImage(CCSprite::create("images/LayerExercise_high_2_0.png"));
 		__item_meili->setSelectedImage(CCSprite::create("images/LayerExercise_high_2_1.png"));
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(100))->setString("-1500");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(101))->setString("-45");
 		static_cast<CCLabelAtlas*>(__item_meili->getChildByTag(102))->setString("+10");
-		//ÖÇÁ¦Ïî
+		//æ™ºåŠ›é¡¹
 		__item_zhili->setNormalImage(CCSprite::create("images/LayerExercise_high_3_0.png"));
 		__item_zhili->setSelectedImage(CCSprite::create("images/LayerExercise_high_3_1.png"));
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(100))->setString("-1500");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(101))->setString("-45");
 		static_cast<CCLabelAtlas*>(__item_zhili->getChildByTag(102))->setString("+10");
-		//ÇéÉÌÏî
+		//æƒ…å•†é¡¹
 		__item_eq->setNormalImage(CCSprite::create("images/LayerExercise_high_4_0.png"));
 		__item_eq->setSelectedImage(CCSprite::create("images/LayerExercise_high_4_1.png"));
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(100))->setString("-1500");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(101))->setString("-45");
 		static_cast<CCLabelAtlas*>(__item_eq->getChildByTag(102))->setString("+10");
-		//¸ÐÐÔÏî
+		//æ„Ÿæ€§é¡¹
 		__item_ganxing->setNormalImage(CCSprite::create("images/LayerExercise_high_5_0.png"));
 		__item_ganxing->setSelectedImage(CCSprite::create("images/LayerExercise_high_5_1.png"));
 		static_cast<CCLabelAtlas*>(__item_ganxing->getChildByTag(100))->setString("-1500");

@@ -1,4 +1,4 @@
-#ifndef __LAYER_GOODS_H__
+Ôªø#ifndef __LAYER_GOODS_H__
 #define __LAYER_GOODS_H__
 
 #include "cocos2d.h"
@@ -22,7 +22,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerGoods);
 
-	//≥ı ºªØUI
+	//ÂàùÂßãÂåñUI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 
@@ -32,6 +32,12 @@ public:
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
 
 	void menuCallbackClose(CCObject* pSender);
+	void menuCallbackBuy(CCObject* pSender);
+
+	void updateMe();
+
+	int getGoodsPrice(int level);
+	int getGoodsBonus(int level);
 private:
 };
 

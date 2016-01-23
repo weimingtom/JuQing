@@ -1,4 +1,4 @@
-#include "UserInfo.h"
+﻿#include "UserInfo.h"
 
 UserInfo::UserInfo()
 :__plaid_days(0)
@@ -12,13 +12,14 @@ UserInfo::UserInfo()
 , __cur_mission_id(1)
 , __cur_section_id(1)
 , __cur_plot_id(0)
-, __cur_wooer(3)
 , __cur_goods_level_tipo(0)
 , __cur_goods_level_meili(0)
 , __cur_goods_level_zhili(0)
 , __cur_goods_level_eq(0)
 , __cur_goods_level_ganxing(0)
 , __cur_mission_is_consume(false)
+, __cur_chapter_id(1)
+, __cur_wooer(5)
 , __cur_favor(10)
 {
 	__arr_data_npc = CCArray::create();
@@ -37,7 +38,7 @@ UserInfo::~UserInfo()
 	__arr_data_mission->release();
 }
 
-//�����ʼ��ԭʼ0״̬
+//负责初始到原始0状态
 bool UserInfo::init()
 {
 	return true;

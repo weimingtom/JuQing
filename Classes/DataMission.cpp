@@ -1,4 +1,4 @@
-#include "DataMission.h"
+﻿#include "DataMission.h"
 
 DataMission::DataMission()
 :__id(0)
@@ -16,7 +16,7 @@ DataMission::~DataMission()
 {
 }
 
-//�����ʼ��ԭʼ0״̬
+//负责初始到原始0状态
 bool DataMission::init()
 {
 	return true;

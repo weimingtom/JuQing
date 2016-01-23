@@ -1,4 +1,4 @@
-#include "TopwoData.h"
+ï»¿#include "TopwoData.h"
 #include "Topwo.h"
 
 TopwoData::TopwoData()
@@ -14,7 +14,7 @@ TopwoData::~TopwoData()
 	__user_info->release();
 }
 
-//¸ºÔğ³õÊ¼µ½Ô­Ê¼0×´Ì¬
+//è´Ÿè´£åˆå§‹åˆ°åŸå§‹0çŠ¶æ€
 twbool TopwoData::init()
 {
 	Topwo::getInstance()->getTopwoTools()->readRapidJSON(&__doc_plot, "fonts/plot.json");
@@ -93,12 +93,12 @@ twbool TopwoData::isExistData()
 {
 	return CCUserDefault::sharedUserDefault()->getBoolForKey("existData");
 }
-//Çå³ıÊı¾İ
+//æ¸…é™¤æ•°æ®
 void TopwoData::purgeData()
 {
 }
 
-//´æµµÏà¹Ø
+//å­˜æ¡£ç›¸å…³
 twbool TopwoData::writeData()
 {
 	if (!isExistData())

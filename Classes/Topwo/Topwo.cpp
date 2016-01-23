@@ -1,4 +1,4 @@
-#include "Topwo.h"
+ï»¿#include "Topwo.h"
 
 Topwo* Topwo::__Topwo = 0;
 
@@ -39,7 +39,7 @@ bool Topwo::__init()
 
 const char* Topwo::getVersion()
 {
-	return "http://www.topwo.com(ÈËÎïÃæÏòÓÒµÄ µĞÈËÊÇÃæÏò×óµÄ)";
+	return "http://www.topwo.com(äººç‰©é¢å‘å³çš„ æ•Œäººæ˜¯é¢å‘å·¦çš„)";
 }
 TopwoTools* Topwo::getTopwoTools()
 {

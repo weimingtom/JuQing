@@ -1,4 +1,4 @@
-#include "LayerDialog.h"
+ï»¿#include "LayerDialog.h"
 #include "Topwo.h"
 
 LayerDialog::LayerDialog()
@@ -36,7 +36,7 @@ bool LayerDialog::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃşÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
 	return true;
 }
@@ -62,7 +62,7 @@ LayerDialog* LayerDialog::createWith(int start_id, int end_id, CCObject* target,
 	return me;
 }
 
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerDialog::initUI()
 {
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
@@ -73,34 +73,34 @@ bool LayerDialog::initUI()
 	__fork_menu->setPosition(CCPointZero);
 	__fork_menu->setVisible(false);
 
-	//±³¾°
+	//èƒŒæ™¯
 	__bg = CCSprite::create("images/bg_black.png");
 	__bg->setPosition(ccp(vo.x + vs.width / 2.0f, vo.y + vs.height / 2.0f));
 	this->addChild(__bg, 0);
 
-	//Á¢»æ
+	//ç«‹ç»˜
 	__vertical_drawing = CCSprite::create();
 	__vertical_drawing->setPosition(ccp(vo.x + vs.width / 2.0f, vo.y + vs.height - 50.0f));
 	this->addChild(__vertical_drawing, 2);
 
-	//¶Ô»°¿ò±³¾°
+	//å¯¹è¯æ¡†èƒŒæ™¯
 	CCSprite* bg_dialog = CCSprite::create("images/LayerDialog_bg_dialog.png");
 	CCSize bg_dialog_size = bg_dialog->getContentSize();
 	bg_dialog->setPosition(ccp(vo.x + vs.width / 2.0f, vo.y + bg_dialog_size.height / 2.0f));
 	this->addChild(bg_dialog, 5);
 
-	//ÈËÎïÃû×Ö±³¾°
+	//äººç‰©åå­—èƒŒæ™¯
 	CCSprite* bg_name = CCSprite::create("images/LayerDialog_bg_name.png");
 	CCSize bg_name_size = bg_name->getContentSize();
 	bg_name->setPosition(ccp(vo.x + bg_dialog->getPositionX() - bg_dialog_size.width / 2.0f + bg_name_size.width / 2.0f, vo.y + bg_dialog_size.height + bg_name_size.height / 2.0f + 5.0f));
 	this->addChild(bg_name, 5);
 
-	//Ãû×Ö
+	//åå­—
 	__name = CCLabelTTF::create("Name", "fonts/ttfs/MicrosoftYaHei.ttf", 32);
 	__name->setPosition(ccp(bg_name_size.width / 2.0f, bg_name_size.height / 2.0f));
 	bg_name->addChild(__name, 0, 0);
 
-	//¶Ô»°
+	//å¯¹è¯
 	CCSize type_size = bg_dialog_size - CCSizeMake(80.0f, 40.0f);
 	__dialog = TopwoTypeTTF::create("fonts/ttfs/MicrosoftYaHei.ttf", 28);
 	__dialog->setTypeSize(type_size);
@@ -186,8 +186,15 @@ void LayerDialog::typedCallBack()
 				{
 					if (doc[i].HasMember("npc") && doc[i]["npc"].IsNumber() && doc[i].HasMember("favor") && doc[i]["favor"].IsNumber())
 					{
-						DataNpc* npc_data = Topwo::getInstance()->getTopwoData()->getUserInfo()->getDataNpcFromArray((int)doc[i]["npc"].GetDouble());
-						npc_data->setFavorCur(npc_data->getFavorCur() + (int)doc[i]["favor"].GetDouble());
+						UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+						int npc_id = (int)doc[i]["npc"].GetDouble();
+						int npc_favor = (int)doc[i]["favor"].GetDouble();
+						DataNpc* npc_data = user_info->getDataNpcFromArray(npc_id);
+						npc_data->setFavorCur(npc_data->getFavorCur() + npc_favor);
+						if (npc_id == user_info->getCurrentWooer())
+						{
+							user_info->setCurrentFavor(user_info->getCurrentFavor() + npc_favor);
+						}
 						CCLOG("getFavorCur:%d", npc_data->getFavorCur());
 						CCLOG("getFavorMax:%d", npc_data->getFavorMax());
 					}
@@ -196,7 +203,7 @@ void LayerDialog::typedCallBack()
 		} while (0);
 	}
 }
-//½âÎöÒ»¾ä¶Ô»°
+//è§£æä¸€å¥å¯¹è¯
 void LayerDialog::analyzeDialog(int index)
 {
 	__current_id = index;
@@ -292,7 +299,7 @@ void LayerDialog::analyzeDialog(int index)
 	}
 
 
-	//¶Ô»°
+	//å¯¹è¯
 	if (json_value.HasMember("DG") && json_value["DG"].IsString())
 	{
 		if (json_value.HasMember("NA") && json_value["NA"].IsNumber())

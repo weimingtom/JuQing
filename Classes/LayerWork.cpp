@@ -1,4 +1,4 @@
-#include "LayerWork.h"
+ï»¿#include "LayerWork.h"
 #include "LayerExercise.h"
 #include "LayerMission.h"
 #include "LayerProgress.h"
@@ -21,7 +21,7 @@ bool LayerWork::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃþÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
     return true;
 }
@@ -29,26 +29,26 @@ void LayerWork::registerWithTouchDispatcher()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerWork::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 
-	//±³¾°
+	//èƒŒæ™¯
 	CCScale9Sprite* sp_bg = CCScale9Sprite::create(RES_white_dialog);
 	this->addChild(sp_bg);
 	sp_bg->setContentSize(CCSizeMake(600.0f, 320.0f));
 	CCSize size_sp_bg = sp_bg->getContentSize();
 	sp_bg->setPosition(ccp(vs.width * 0.5f, vs.height * 0.5f));
 
-	//±êÌâ
+	//æ ‡é¢˜
 	CCSprite *sp_title = CCSprite::create(RES_LayerWork_title);
 	this->addChild(sp_title);
 	CCSize size_sp_title = sp_title->getContentSize();
 	sp_title->setPosition(ccp(vs.width * 0.5f, (vs.height + size_sp_bg.height) * 0.5f - size_sp_title.height * 0.7f));
 
-	//¹Ø±ÕÏî
+	//å…³é—­é¡¹
 	CCMenuItemSprite *item_close = CCMenuItemSprite::create(
 		CCSprite::create(RES_btn_close_1_0),
 		CCSprite::create(RES_btn_close_1_0),
@@ -65,7 +65,7 @@ bool LayerWork::initUI()
 	node->setScale(1.2f);
 	item_close->setPosition(ccp((vs.width + size_sp_bg.width - size_item_close.width) * 0.5f, (vs.height + size_sp_bg.height - size_item_close.height) * 0.5f));
 
-	//³õ¼¶´ò¹¤Ïî
+	//åˆçº§æ‰“å·¥é¡¹
 	CCMenuItemSprite *item_job_low = CCMenuItemSprite::create(
 		CCSprite::create(RES_LayerWork_job_1_0),
 		CCSprite::create(RES_LayerWork_job_1_1),
@@ -76,7 +76,7 @@ bool LayerWork::initUI()
 	item_job_low->setPosition(vs.width * 0.5f - size_item_job_low.width * 1.3f, vs.height * 0.45f);
 	item_job_low->setTag(0);
 
-	//ÖÐ¼¶´ò¹¤Ïî
+	//ä¸­çº§æ‰“å·¥é¡¹
 	CCMenuItemSprite *item_job_mid = CCMenuItemSprite::create(
 		CCSprite::create(RES_LayerWork_job_2_0),
 		CCSprite::create(RES_LayerWork_job_2_1),
@@ -86,7 +86,7 @@ bool LayerWork::initUI()
 	item_job_mid->setPosition(vs.width * 0.5f, vs.height * 0.45f);
 	item_job_mid->setTag(1);
 
-	//¸ß¼¶´ò¹¤Ïî
+	//é«˜çº§æ‰“å·¥é¡¹
 	CCMenuItemSprite *item_job_high = CCMenuItemSprite::create(
 		CCSprite::create(RES_LayerWork_job_3_0),
 		CCSprite::create(RES_LayerWork_job_3_1),
@@ -96,12 +96,12 @@ bool LayerWork::initUI()
 	item_job_high->setPosition(vs.width * 0.5f + size_item_job_low.width * 1.3f, vs.height * 0.45f);
 	item_job_high->setTag(2);
 
-	//²Ëµ¥
+	//èœå•
 	CCMenu *menu = CCMenu::create(item_close, item_job_low, item_job_mid, item_job_high, NULL);
 	this->addChild(menu);
 	menu->setPosition(CCPointZero);
 
-	//½ø¶ÈÌõ
+	//è¿›åº¦æ¡
 	LayerProgress *layer_progress = LayerProgress::create();
 	this->addChild(layer_progress, 10, 0);
 	layer_progress->setVisible(false);

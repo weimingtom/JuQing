@@ -1,4 +1,4 @@
-#ifndef __LAYER_PROGRESS_H__
+Ôªø#ifndef __LAYER_PROGRESS_H__
 #define __LAYER_PROGRESS_H__
 
 #include "cocos2d.h"
@@ -13,7 +13,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerProgress);
 
-	//≥ı ºªØUI
+	//ÂàùÂßãÂåñUI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 

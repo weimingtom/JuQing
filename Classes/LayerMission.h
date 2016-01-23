@@ -1,4 +1,4 @@
-#ifndef __LAYER_MISSION_H__
+ï»¿#ifndef __LAYER_MISSION_H__
 #define __LAYER_MISSION_H__
 
 #include "cocos2d.h"
@@ -15,7 +15,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerMission);
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 
@@ -30,7 +30,7 @@ public:
 	void menuCallbackMissionGuide(CCObject* pSender);
 	void menuCallbackGetReward(CCObject* pSender);
 
-	//¶Ô»°½áÊø»Øµ÷
+	//å¯¹è¯ç»“æŸå›è°ƒ
 	void callbackDialogOver();
 
 	void setMissionFinishState(bool is_finish);

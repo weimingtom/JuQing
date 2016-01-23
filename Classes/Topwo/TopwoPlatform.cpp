@@ -1,5 +1,5 @@
-/*
-ÀàÐÍ         ÏàÓ¦µÄÇ©Ãû
+ï»¿/*
+ç±»åž‹         ç›¸åº”çš„ç­¾å
 boolean        Z
 byte           B
 char           C
@@ -9,22 +9,22 @@ long           L
 float          F
 double         D
 void           V
-object         LÓÃ/·Ö¸ô°üµÄÍêÕûÀàÃû£º   Ljava/lang/String;
-Array          [Ç©Ãû          [I      [Ljava/lang/Object;
-Method         (²ÎÊý1ÀàÐÍÇ©Ãû ²ÎÊý2ÀàÐÍÇ©Ãû¡¤¡¤¡¤)·µ»ØÖµÀàÐÍÇ©Ãû
+object         Lç”¨/åˆ†éš”åŒ…çš„å®Œæ•´ç±»åï¼š   Ljava/lang/String;
+Array          [ç­¾å          [I      [Ljava/lang/Object;
+Method         (å‚æ•°1ç±»åž‹ç­¾å å‚æ•°2ç±»åž‹ç­¾åÂ·Â·Â·)è¿”å›žå€¼ç±»åž‹ç­¾å
 */
 
 /*
-JavaÀàÐÍ      ±ðÃû¡¡¡¡        ±¾µØÀàÐÍ¡¡¡¡                ×Ö½Ú(bit)
-boolean     jboolean      unsigned char¡¡¡¡          8, unsigned
-byte        jbyte         signed char¡¡¡¡¡¡¡¡        8
-char        jchar         unsigned short¡¡¡¡         16, unsigned
-short       jshort        short¡¡¡¡¡¡                16
-int         jint          long¡¡¡¡¡¡¡¡                32
-long        jlong         __int64¡¡¡¡¡¡¡¡           64
-float       jfloat        float¡¡¡¡¡¡                   32
-double      jdouble       double¡¡¡¡¡¡             64
-void        void        ¡¡¡¡¡¡¡¡                        n/a¡¡¡¡
+Javaç±»åž‹      åˆ«åã€€ã€€        æœ¬åœ°ç±»åž‹ã€€ã€€                å­—èŠ‚(bit)
+boolean     jboolean      unsigned charã€€ã€€          8, unsigned
+byte        jbyte         signed charã€€ã€€ã€€ã€€        8
+char        jchar         unsigned shortã€€ã€€         16, unsigned
+short       jshort        shortã€€ã€€ã€€                16
+int         jint          longã€€ã€€ã€€ã€€                32
+long        jlong         __int64ã€€ã€€ã€€ã€€           64
+float       jfloat        floatã€€ã€€ã€€                   32
+double      jdouble       doubleã€€ã€€ã€€             64
+void        void        ã€€ã€€ã€€ã€€                        n/aã€€ã€€
 Object      _jobject      *jobject
 */
 /*
@@ -34,35 +34,36 @@ Object      _jobject      *jobject
 */
 #include "TopwoPlatform.h"
 #include "Topwo.h"
-//°²×¿Æ½Ì¨
+//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "platform/android/jni/JniHelper.h"
 #endif
 
 #define CLASS_PATH "com/topwo/platform/TopwoAndroid"
 
-//ÒÔCµÄ·½Ê½±àÒë£¬°²×¿±¾µØ·½·¨²ÅÄÜÕÒµÃµ½
+//ä»¥Cçš„æ–¹å¼ç¼–è¯‘ï¼Œå®‰å“æœ¬åœ°æ–¹æ³•æ‰èƒ½æ‰¾å¾—åˆ°
 extern "C"
 {
 	// jint 
-	//      ±íÊ¾JAVAµÄ±¾µØ·½·¨·µ»ØÀàÐÍÎªint
+	//      è¡¨ç¤ºJAVAçš„æœ¬åœ°æ–¹æ³•è¿”å›žç±»åž‹ä¸ºint
 	// 
 	// Java_com_youmi_android_cocos2dx_demo_MainActivity_pointsBalanceChange
-	//      Java_¿ªÍ·ÊÇ±ØÐëµÄ
-	//      com_youmi_android_cocos2dx_demo_MainActivity ¶ÔÓ¦°üÃû:com.youmi.android.cocos2dx.demoÏÂµÄÀàMainActivity
-	//      pointsBalanceChange ÊÇÀàMainActivityÏÂ¶¨ÒåµÄ·½·¨Ãû
+	//      Java_å¼€å¤´æ˜¯å¿…é¡»çš„
+	//      com_youmi_android_cocos2dx_demo_MainActivity å¯¹åº”åŒ…å:com.youmi.android.cocos2dx.demoä¸‹çš„ç±»MainActivity
+	//      pointsBalanceChange æ˜¯ç±»MainActivityä¸‹å®šä¹‰çš„æ–¹æ³•å
 	//
 	// JNIEnv *env, jobject thiz 
-	//      ÊÇÁ½¸ö±ØÐëÒªÓÐ²ÎÊý
+	//      æ˜¯ä¸¤ä¸ªå¿…é¡»è¦æœ‰å‚æ•°
 	//
 	// jint points
-	//      ¶ÔÓ¦JAVA±¾µØ·½·¨µÄ²ÎÊýprivate native int pointsBalanceChang£¨int points£©
+	//      å¯¹åº”JAVAæœ¬åœ°æ–¹æ³•çš„å‚æ•°private native int pointsBalanceChangï¼ˆint pointsï¼‰
 	//
-	// Èç¿ª·¢ÕßµÄÒ»¸öÀàTestÔÚ°ücom.a.bÖÐ£¬¶øÇÒÀàÖÐµÄ¶¨ÒåÒ»¸ö±¾µØº¯Êýpublic native void doSomething(int p);
-	// ÄÇÃ´ÕâÀïÓ¦¸ÃÐ´void Java_com_a_b_Test_doSomething( JNIEnv *env, jobject thiz, jint p ) { //ÄÚ²¿Âß¼­}
+	// å¦‚å¼€å‘è€…çš„ä¸€ä¸ªç±»Teståœ¨åŒ…com.a.bä¸­ï¼Œè€Œä¸”ç±»ä¸­çš„å®šä¹‰ä¸€ä¸ªæœ¬åœ°å‡½æ•°public native void doSomething(int p);
+	// é‚£ä¹ˆè¿™é‡Œåº”è¯¥å†™void Java_com_a_b_Test_doSomething( JNIEnv *env, jobject thiz, jint p ) { //å†…éƒ¨é€»è¾‘}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	void Java_com_topwo_platform_TopwoAndroid_nativeGameOut(JNIEnv *env, jobject thiz)
 	{
+		Topwo::getInstance()->getTopwoPlatform()->exitCallback();
 	}
 	void Java_com_topwo_platform_TopwoAndroid_nativePayCallback(JNIEnv *env, jobject thiz, int status)
 	{
@@ -81,34 +82,34 @@ bool TopwoPlatform::init()
 
 void TopwoPlatform::callShowExitDialog()
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "callShowExitDialog", "()V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
 	}
 #endif
 
 }
 
-//´ò¿ªÍøÖ·
+//æ‰“å¼€ç½‘å€
 void TopwoPlatform::callOpenURL(const char* pszUrl)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "callOpenURL", "(Ljava/lang/String;)V");
 	if (isHave)
 	{
 		jstring StringArg1 = methodInfo.env->NewStringUTF(pszUrl);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, StringArg1);
 		methodInfo.env->DeleteLocalRef(StringArg1);
 	}
@@ -118,128 +119,140 @@ void TopwoPlatform::callPay(int id, CCObject* target, SEL_CallFuncI callfun)
 {
 	__callbackListener = target;
 	__callbackfunc = callfun;
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "callPay", "(I)V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, id);
 	}
 #endif
 }
 
-//Ö§¸¶»Øµ÷
+//æ”¯ä»˜å›žè°ƒ
 void TopwoPlatform::payCallback(int status)
 {
 	if (__callbackListener&&__callbackfunc)
 		(__callbackListener->*__callbackfunc)(status);
 }
+//é€€å‡ºå›žè°ƒ
+void TopwoPlatform::exitCallback()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
+#else
+	CCDirector::sharedDirector()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	exit(0);
+#endif
+#endif
+}
 
-//ÉèÖÃµ±Ç°Íæ¼ÒµÄµÈ¼¶
+//è®¾ç½®å½“å‰çŽ©å®¶çš„ç­‰çº§
 void TopwoPlatform::setLevel(int level)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "setLevel", "(I)V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,level);
 	}
 #endif
 }
-//ÓÎÏ·¹Ø¿¨¿ªÊ¼
+//æ¸¸æˆå…³å¡å¼€å§‹
 void TopwoPlatform::levelBegin(const char* levelId)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "levelBegin", "(Ljava/lang/String;)V");
 	if (isHave)
 	{
 		jstring jstr = methodInfo.env->NewStringUTF(levelId);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,jstr);
 	}
 #endif
 }
 
-//ÓÎÏ·¹Ø¿¨Í¨¹ý
+//æ¸¸æˆå…³å¡é€šè¿‡
 void TopwoPlatform::levelComplete(const char* levelId)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "levelComplete", "(Ljava/lang/String;)V");
 	if (isHave)
 	{
 		jstring jstr = methodInfo.env->NewStringUTF(levelId);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,jstr);
 	}
 #endif
 }
 
-//ÓÎÏ·¹Ø¿¨Í¨¹ØÊ§°Ü
+//æ¸¸æˆå…³å¡é€šå…³å¤±è´¥
 void TopwoPlatform::levelIdFail(const char* levelId)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "levelIdFail", "(Ljava/lang/String;)V");
 	if (isHave)
 	{
 		jstring jstr = methodInfo.env->NewStringUTF(levelId);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,jstr);
 	}
 #endif
 }
 
-//¼ÇÂ¼Íæ¼ÒÐéÄâ±ÒÁô´æ×ÜÁ¿
+//è®°å½•çŽ©å®¶è™šæ‹Ÿå¸ç•™å­˜æ€»é‡
 void TopwoPlatform::setCoinNum(int coinNum, const char* coinType)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "setCoinNum", "(ILjava/lang/String;)V");
 	if (isHave)
 	{
 		jstring jstr = methodInfo.env->NewStringUTF(coinType);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,coinNum,jstr);
 	}
 #endif
 }
 
-//×Ô¶¨ÒåÊÂ¼þ
+//è‡ªå®šä¹‰äº‹ä»¶
 void TopwoPlatform::onEvent(const char* eventId)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "onEvent", "(Ljava/lang/String;)V");
 	if (isHave)
 	{
 		jstring jstr = methodInfo.env->NewStringUTF(eventId);
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,jstr);
 	}
 #endif
@@ -247,85 +260,85 @@ void TopwoPlatform::onEvent(const char* eventId)
 
 
 
-//Õ¹Ê¾¶Ô»°¿ò»ý·ÖÇ½
+//å±•ç¤ºå¯¹è¯æ¡†ç§¯åˆ†å¢™
 void TopwoPlatform::showOffersWallDialog()
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "showOffersWallDialog", "()V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
 	}
 #endif
 }
 
-//Õ¹Ê¾¶Ô»°¿ò·ÖÏí
+//å±•ç¤ºå¯¹è¯æ¡†åˆ†äº«
 void TopwoPlatform::showShareWallDialog()
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "showShareWallDialog", "()V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
 	}
 #endif
 }
 
-//½±Àø
+//å¥–åŠ±
 void TopwoPlatform::awardPoints(float f)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = false;//JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "awardPoints", "(F)V");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,f);
 	}
 #endif
 }
-//Ïû·Ñ
+//æ¶ˆè´¹
 void TopwoPlatform::spendPoints(float f)
 {
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
-	bool isHave = false;//JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "spendPoints", "(F)V");
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
+	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "spendPoints", "(F)V");//false;//
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID,f);
 	}
 #endif
 }
-//²éÑ¯»ý·Ö
+//æŸ¥è¯¢ç§¯åˆ†
 float TopwoPlatform::queryPoints()
 {
 	float ret = 0.0f;
-	//°²×¿Æ½Ì¨
+	//å®‰å“å¹³å°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏÂÃæÊÇÀûÓÃjnihelperÀàÀ´µ÷ÓÃAndroid Static  
-	JniMethodInfo methodInfo;  //jniº¯ÊýÐÅÏ¢½á¹¹Ìå  
-	/*getStaticMethodInfo»ñÈ¡µ½MethodIdºÍClassId,ClassIDÍ¨¹ý´©½øÈ¥µÄActivity¼´ÀàÃû»ñÈ¡£¬MethodIdÍ¨¹ýº¯ÊýÃû»ñÈ¡*/
+	//ä¸‹é¢æ˜¯åˆ©ç”¨jnihelperç±»æ¥è°ƒç”¨Android Static  
+	JniMethodInfo methodInfo;  //jniå‡½æ•°ä¿¡æ¯ç»“æž„ä½“  
+	/*getStaticMethodInfoèŽ·å–åˆ°MethodIdå’ŒClassId,ClassIDé€šè¿‡ç©¿è¿›åŽ»çš„Activityå³ç±»åèŽ·å–ï¼ŒMethodIdé€šè¿‡å‡½æ•°åèŽ·å–*/
 	bool isHave = false;//JniHelper::getStaticMethodInfo(methodInfo, CLASS_PATH, "queryPoints", "()F");
 	if (isHave)
 	{
-		/*µ÷ÓÃÕâ¸öº¯Êý*/
+		/*è°ƒç”¨è¿™ä¸ªå‡½æ•°*/
 		ret=methodInfo.env->CallStaticFloatMethod(methodInfo.classID, methodInfo.methodID);
 	}
 #endif

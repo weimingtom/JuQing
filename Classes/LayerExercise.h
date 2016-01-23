@@ -1,4 +1,4 @@
-#ifndef __LAYER_EXERCISE_H__
+ï»¿#ifndef __LAYER_EXERCISE_H__
 #define __LAYER_EXERCISE_H__
 
 #include "cocos2d.h"
@@ -16,7 +16,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerExercise);
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 
@@ -37,17 +37,17 @@ private:
 	CCSprite *__sp_title;
 	CCMenuItemSprite *__item_to_left;
 	CCMenuItemSprite *__item_to_right;
-	//ÌåÆÇÏî
+	//ä½“é­„é¡¹
 	CCMenuItemSprite *__item_tipo;
-	//÷ÈÁ¦Ïî
+	//é­…åŠ›é¡¹
 	CCMenuItemSprite *__item_meili;
-	//ÖÇÁ¦Ïî
+	//æ™ºåŠ›é¡¹
 	CCMenuItemSprite *__item_zhili;
-	//ÇéÉÌÏî
+	//æƒ…å•†é¡¹
 	CCMenuItemSprite *__item_eq;
-	//¸ĞĞÔÏî
+	//æ„Ÿæ€§é¡¹
 	CCMenuItemSprite *__item_ganxing;
-	//½ø¶ÈÌõ
+	//è¿›åº¦æ¡
 	LayerProgress *__layer_progress;
 };
 

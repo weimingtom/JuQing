@@ -1,4 +1,4 @@
-#ifndef __LAYER_REST_H__
+ï»¿#ifndef __LAYER_REST_H__
 #define __LAYER_REST_H__
 
 #include "cocos2d.h"
@@ -21,7 +21,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerRest);
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 

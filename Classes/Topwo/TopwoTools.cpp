@@ -1,5 +1,5 @@
-#include "TopwoTools.h"
-//utf8×Ö·û³¤¶È1-6£¬¿ÉÒÔ¸ù¾İÃ¿¸ö×Ö·ûµÚÒ»¸ö×Ö½ÚÅĞ¶ÏÕû¸ö×Ö·û³¤¶È
+ï»¿#include "TopwoTools.h"
+//utf8å­—ç¬¦é•¿åº¦1-6ï¼Œå¯ä»¥æ ¹æ®æ¯ä¸ªå­—ç¬¦ç¬¬ä¸€ä¸ªå­—èŠ‚åˆ¤æ–­æ•´ä¸ªå­—ç¬¦é•¿åº¦
 //0xxxxxxx
 //110xxxxx 10xxxxxx
 //1110xxxx 10xxxxxx 10xxxxxx
@@ -7,7 +7,7 @@
 //111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
 //1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
 //
-//¶¨Òå²éÕÒ±í£¬³¤¶È256£¬±íÖĞµÄÊıÖµ±íÊ¾ÒÔ´ËÎªÆğÊ¼×Ö½ÚµÄutf8×Ö·û³¤¶È
+//å®šä¹‰æŸ¥æ‰¾è¡¨ï¼Œé•¿åº¦256ï¼Œè¡¨ä¸­çš„æ•°å€¼è¡¨ç¤ºä»¥æ­¤ä¸ºèµ·å§‹å­—èŠ‚çš„utf8å­—ç¬¦é•¿åº¦
 unsigned char utf8_look_for_table[] =
 {
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -50,7 +50,7 @@ bool TopwoTools::init()
 
 	return true;
 }
-// ¼ÆËãstr×Ö·ûÊıÄ¿
+// è®¡ç®—strå­—ç¬¦æ•°ç›®
 int TopwoTools::getUtf8Length(char *str)
 {
 	int clen = strlen(str);
@@ -60,7 +60,7 @@ int TopwoTools::getUtf8Length(char *str)
 
 	return len;
 }
-//get×Ó´®
+//getå­ä¸²
 CCString* TopwoTools::subUtfString(char *str, unsigned int start, unsigned int end)
 {
 	int len = getUtf8Length(str);
@@ -116,7 +116,7 @@ twdword TopwoTools::getRandom(twdword max, twdword min)
 	random = min + (random % (max - min + 1));
 	return random;
 }
-//opengl×ø±ê×ªµØÍ¼×ø±ê positionÊÇÏà¶ÔÓÚµØÍ¼Ô­µãµÄ×ø±ê
+//openglåæ ‡è½¬åœ°å›¾åæ ‡ positionæ˜¯ç›¸å¯¹äºåœ°å›¾åŸç‚¹çš„åæ ‡
 CCPoint TopwoTools::toTileCoordinate(CCTMXTiledMap* tmx_tile_map, CCPoint position)
 {
 	CCSize tile_size = tmx_tile_map->getTileSize();
@@ -133,35 +133,39 @@ CCPoint TopwoTools::getTileCenterPoint(CCTMXTiledMap* tmx_tile_map, CCPoint posi
 	twint y =  position.y/ tile_size.height;
 	return ccp(x*tile_size.width + tile_size.width*0.5, y* tile_size.height + tile_size.height*0.5);
 }
-//Åö×²¼ì²â
+//ç¢°æ’æ£€æµ‹
 bool TopwoTools::isRectCollision(CCRect rect1, CCRect rect2)
 {
-	float x1 = rect1.origin.x;//¾ØĞÎ1ÖĞĞÄµãµÄºá×ø±ê  
-	float y1 = rect1.origin.y;//¾ØĞÎ1ÖĞĞÄµãµÄ×İ×ø±ê  
-	float w1 = rect1.size.width;//¾ØĞÎ1µÄ¿í¶È  
-	float h1 = rect1.size.height;//¾ØĞÎ1µÄ¸ß¶È  
+	float x1 = rect1.origin.x;//çŸ©å½¢1ä¸­å¿ƒç‚¹çš„æ¨ªåæ ‡  
+	float y1 = rect1.origin.y;//çŸ©å½¢1ä¸­å¿ƒç‚¹çš„çºµåæ ‡  
+	float w1 = rect1.size.width;//çŸ©å½¢1çš„å®½åº¦  
+	float h1 = rect1.size.height;//çŸ©å½¢1çš„é«˜åº¦  
 	float x2 = rect2.origin.x;
 	float y2 = rect2.origin.y;
 	float w2 = rect2.size.width;
 	float h2 = rect2.size.height;
 
 	if (x1 + w1*0.5<x2 - w2*0.5)
-		return false;//¾ØĞÎ1ÔÚ¾ØĞÎ2×ó·½£¬Á½ÕßÎŞÅö×²  
+		return false;//çŸ©å½¢1åœ¨çŸ©å½¢2å·¦æ–¹ï¼Œä¸¤è€…æ— ç¢°æ’  
 	else if (x1 - w1*0.5>x2 + w2*0.5)
-		return false;//¾ØĞÎ1ÔÚ¾ØĞÎ2ÓÒ·½£¬Á½ÕßÎŞÅö×²  
+		return false;//çŸ©å½¢1åœ¨çŸ©å½¢2å³æ–¹ï¼Œä¸¤è€…æ— ç¢°æ’  
 	else if (y1 + h1*0.5<y2 - h2*0.5)
-		return false;//¾ØĞÎ1ÔÚ¾ØĞÎ2ÏÂ·½£¬Á½ÕßÎŞÅö×²  
+		return false;//çŸ©å½¢1åœ¨çŸ©å½¢2ä¸‹æ–¹ï¼Œä¸¤è€…æ— ç¢°æ’  
 	else if (y1 - h1*0.5>y2 + h2*0.5)
-		return false;//¾ØĞÎ1ÔÚ¾ØĞÎ2ÉÏ·½£¬Á½ÕßÎŞÅö×²  
+		return false;//çŸ©å½¢1åœ¨çŸ©å½¢2ä¸Šæ–¹ï¼Œä¸¤è€…æ— ç¢°æ’  
 
 	return true;
 }
 
-//µãÊÇ·ñÔÚ½ÚµãÄÚ
+//ç‚¹æ˜¯å¦åœ¨èŠ‚ç‚¹å†…
 twbool TopwoTools::isInNode(CCPoint touch_point, CCNode* node)
 {
-	if (abs(touch_point.x - node->getPositionX()) <= node->getContentSize().width*node->getScaleX()*0.5f &&
-		abs(touch_point.y - node->getPositionY()) <= node->getContentSize().height*node->getScaleY()*0.5f)
+	float x = touch_point.x - node->getPositionX();
+	float y = touch_point.y - node->getPositionY();
+	x = x > 0 ? x : -x;
+	y = y > 0 ? y : -y;
+	if (x <= node->getContentSize().width*node->getScaleX()*0.5f &&
+		y <= node->getContentSize().height*node->getScaleY()*0.5f)
 	{
 		return true;
 	}
@@ -170,10 +174,11 @@ twbool TopwoTools::isInNode(CCPoint touch_point, CCNode* node)
 		return false;
 	}
 }
-//ÅĞ¶Ï¸¡µãÊıÊÇ·ñÏàµÈ
-bool TopwoTools::floatIsEquals(float f1, float f2)
+//åˆ¤æ–­æµ®ç‚¹æ•°æ˜¯å¦ç›¸ç­‰
+bool TopwoTools::doubleIsEquals(double d1, double d2)
 {
-	if (abs(f1 - f2) < 1e-6)
+	double d = d1 - d2;
+	if (d > -1e-8 && d < 1e-8)
 	{
 		return true;
 	}
@@ -197,38 +202,37 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 		CC_SAFE_DELETE_ARRAY(file_data);
 		CCLOG("doc HasParseError : %d", doc->HasParseError());
 		CC_BREAK_IF(doc->HasParseError());
-		CCLOG("doc Is Object : %d", doc->IsObject());
-		CCLOG("doc Is Array : %d", doc->IsArray());
+		CCLOG("doc Is Object : %d,doc Is Array : %d", doc->IsObject(), doc->IsArray());
 		break;
 	} while (0);
 
-		//Éú³ÉjsonÎÄµµ¶ÔÏñ
+		//ç”Ÿæˆjsonæ–‡æ¡£å¯¹åƒ
 		/*if (!m_doc.IsObject())
 		{
 			return;
 		}
 		for (unsigned int i = 1; i<doc->Size(); i++)
 		{
-			//Öğ¸öÌáÈ¡Êı×éÔªËØ£¨ÉùÃ÷µÄ±äÁ¿±ØĞëÎªÒıÓÃ£© 
+			//é€ä¸ªæå–æ•°ç»„å…ƒç´ ï¼ˆå£°æ˜çš„å˜é‡å¿…é¡»ä¸ºå¼•ç”¨ï¼‰ 
 			rapidjson::Value &v = (*doc)[i];
 			int id;//ID 
-			std::string name;//Ãû³Æ
-			int hp;//ÑªÁ¿ 
-			int Defense;//·ÀÓùÁ¦ 
-			int attack;//¹¥»÷Á¦ 
-			int passable;//ÊÇ·ñ¿É´©Í¸£¨Í¨ĞĞ£© 
-			//ÅĞ¶Ï¸÷ÊôĞÔÊÇ·ñ´æÔÚ£¨¿ÉÒÔÖ§³ÖÖĞÎÄ£¨UTF8¸ñÊ½£©£© 
-			//if (v.HasMember("ID") && v.HasMember(A2U("Ãû³Æ")) && v.HasMember(A2U("ÑªÁ¿"))
-			//	&& v.HasMember(A2U("·ÀÓùÁ¦")) && v.HasMember(A2U("¹¥»÷Á¦")) && v.HasMember(A2U("¿É´©Í¸")))
+			std::string name;//åç§°
+			int hp;//è¡€é‡ 
+			int Defense;//é˜²å¾¡åŠ› 
+			int attack;//æ”»å‡»åŠ› 
+			int passable;//æ˜¯å¦å¯ç©¿é€ï¼ˆé€šè¡Œï¼‰ 
+			//åˆ¤æ–­å„å±æ€§æ˜¯å¦å­˜åœ¨ï¼ˆå¯ä»¥æ”¯æŒä¸­æ–‡ï¼ˆUTF8æ ¼å¼ï¼‰ï¼‰ 
+			//if (v.HasMember("ID") && v.HasMember(A2U("åç§°")) && v.HasMember(A2U("è¡€é‡"))
+			//	&& v.HasMember(A2U("é˜²å¾¡åŠ›")) && v.HasMember(A2U("æ”»å‡»åŠ›")) && v.HasMember(A2U("å¯ç©¿é€")))
 			//{
-			//		//°´ÊôĞÔÌáÈ¡Êı¾İ 
+			//		//æŒ‰å±æ€§æå–æ•°æ® 
 			//		id = v["ID"].GetInt();
-			//		name = v[A2U("Ãû³Æ")].GetString();
-			//		hp = v[A2U("ÑªÁ¿")].GetInt();
-			//		Defense = v[A2U("·ÀÓùÁ¦")].GetInt();
-			//		attack = v[A2U("¹¥»÷Á¦")].GetInt();
-			//		passable = v[A2U("¿É´©Í¸")].GetInt();
-			//		log(A2U("ID:%d,Ãû³Æ:%s,ÑªÁ¿:%d,·ÀÓùÁ¦:%d,¹¥»÷Á¦:%d,¿É´©Í¸ĞÔ:%s"),
+			//		name = v[A2U("åç§°")].GetString();
+			//		hp = v[A2U("è¡€é‡")].GetInt();
+			//		Defense = v[A2U("é˜²å¾¡åŠ›")].GetInt();
+			//		attack = v[A2U("æ”»å‡»åŠ›")].GetInt();
+			//		passable = v[A2U("å¯ç©¿é€")].GetInt();
+			//		log(A2U("ID:%d,åç§°:%s,è¡€é‡:%d,é˜²å¾¡åŠ›:%d,æ”»å‡»åŠ›:%d,å¯ç©¿é€æ€§:%s"),
 			//		id, name.c_str(), hp, Defense, attack, (passable ? "true" : "false"));
 			//}
 			int a = 0;
@@ -238,15 +242,15 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 			Defense = v[a++].GetInt();
 			attack = v[a++].GetInt();
 			passable = v[a++].GetInt();
-			CCLOG("ID:%d,Ãû³Æ:%s,ÑªÁ¿:%d,·ÀÓùÁ¦:%d,¹¥»÷Á¦:%d,¿É´©Í¸ĞÔ:%s",
+			CCLOG("ID:%d,åç§°:%s,è¡€é‡:%d,é˜²å¾¡åŠ›:%d,æ”»å‡»åŠ›:%d,å¯ç©¿é€æ€§:%s",
 			id, name.c_str(), hp, Defense, attack, (passable ? "true" : "false");
 		}
 		*/
 
-		//»ñÈ¡JSonÖĞÊı×éµÄ·½·¨
+		//è·å–JSonä¸­æ•°ç»„çš„æ–¹æ³•
 		//const rapidjson::Value& v = m_doc["pets"];
 		//if (v.IsArray()) {
-		//	//ÕâÀïÒ»¶¨Òª×¢Òâ  ±äÁ¿i Ò»¶¨ÒªÊÇ   unsigned int  ²»È»»á±¨´í
+		//	//è¿™é‡Œä¸€å®šè¦æ³¨æ„  å˜é‡i ä¸€å®šè¦æ˜¯   unsigned int  ä¸ç„¶ä¼šæŠ¥é”™
 		//	for (unsigned int i = 0; i< v.Size(); ++i) {
 
 		//		const rapidjson::Value &val = v[i];

@@ -1,4 +1,4 @@
-#ifndef __USER_INFO_H__
+ï»¿#ifndef __USER_INFO_H__
 #define __USER_INFO_H__
 #include "cocos2d.h"
 #include "DataNpc.h"
@@ -23,48 +23,48 @@ public:
 	DataMission* getDataMissionFromArray(int id);
 
 private:
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_npc, ArrOfDataNpc);//npcµÄÊı¾İ
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataSection);//ÕÂ½ÚµÄÊı¾İ
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_mission, ArrOfDataMission);//ÕÂ½ÚµÄÊı¾İ
-	//Íæ¹ıµÃÌìÊı
+	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_npc, ArrOfDataNpc);//npcçš„æ•°æ®
+	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataSection);//ç« èŠ‚çš„æ•°æ®
+	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_mission, ArrOfDataMission);//ç« èŠ‚çš„æ•°æ®
+	//ç©è¿‡å¾—å¤©æ•°
 	CC_SYNTHESIZE(int, __plaid_days, PlaidDays);
-	//µ±Ç°µÄÌåÁ¦Öµ
+	//å½“å‰çš„ä½“åŠ›å€¼
 	CC_SYNTHESIZE(int, __cur_physical, CurrentPhysical);
-	//µ±Ç°µÄ½ğÇ®
+	//å½“å‰çš„é‡‘é’±
 	CC_SYNTHESIZE(int, __cur_gold, CurrentGold);
-	//µ±Ç°µÄÌåÆÇ1
+	//å½“å‰çš„ä½“é­„1
 	CC_SYNTHESIZE(int, __cur_tipo, CurrentTiPo);
-	//µ±Ç°µÄ÷ÈÁ¦2
+	//å½“å‰çš„é­…åŠ›2
 	CC_SYNTHESIZE(int, __cur_meili, CurrentMeiLi);
-	//µ±Ç°µÄÖÇÁ¦3
+	//å½“å‰çš„æ™ºåŠ›3
 	CC_SYNTHESIZE(int, __cur_zhili, CurrentZhiLi);
-	//µ±Ç°µÄÇéÉÌ4
+	//å½“å‰çš„æƒ…å•†4
 	CC_SYNTHESIZE(int, __cur_eq, CurrentEQ);
-	//µ±Ç°µÄ¸ĞĞÔ5
+	//å½“å‰çš„æ„Ÿæ€§5
 	CC_SYNTHESIZE(int, __cur_ganxing, CurrentGanXing);
-	//µ±Ç°ÈÎÎñID
+	//å½“å‰ä»»åŠ¡ID
 	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);
-	//µ±Ç°ÈÎÎñµÄÏûºÄÊÇ·ñ¿Û³ı
+	//å½“å‰ä»»åŠ¡çš„æ¶ˆè€—æ˜¯å¦æ‰£é™¤
 	CC_SYNTHESIZE(bool, __cur_mission_is_consume, CurrentMissionIsConsume);
-	//µ±Ç°Ğ¡½ÚID
+	//å½“å‰å°èŠ‚ID
 	CC_SYNTHESIZE(int, __cur_section_id, CurrentSectionId);
-	//µ±Ç°¾çÇéID
+	//å½“å‰å‰§æƒ…ID
 	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
-	//µ±Ç°×·ÇóÄ¿±ê
-	CC_SYNTHESIZE(int, __cur_wooer, CurrentWooer);
-	//µ±Ç°ÎïÆ·ÌåÆÇ
+	//å½“å‰ç‰©å“ä½“é­„çš„ç­‰çº§
 	CC_SYNTHESIZE(int, __cur_goods_level_tipo, CurrentGoodsLevelTiPo);
-	//µ±Ç°ÎïÆ·÷ÈÁ¦
+	//å½“å‰ç‰©å“é­…åŠ›çš„ç­‰çº§
 	CC_SYNTHESIZE(int, __cur_goods_level_meili, CurrentGoodsLevelMeiLi);
-	//µ±Ç°ÎïÆ·ÖÇÁ¦
+	//å½“å‰ç‰©å“æ™ºåŠ›çš„ç­‰çº§
 	CC_SYNTHESIZE(int, __cur_goods_level_zhili, CurrentGoodsLevelZhiLi);
-	//µ±Ç°ÎïÆ·ÇéÉÌ
+	//å½“å‰ç‰©å“æƒ…å•†çš„ç­‰çº§
 	CC_SYNTHESIZE(int, __cur_goods_level_eq, CurrentGoodsLevelEQ);
-	//µ±Ç°ÎïÆ·¸ĞĞÔ
+	//å½“å‰ç‰©å“æ„Ÿæ€§çš„ç­‰çº§
 	CC_SYNTHESIZE(int, __cur_goods_level_ganxing, CurrentGoodsLevelGanXing);
-	//µ±Ç°ÕÂ½ÚID
-	//CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
-	//µ±Ç°Å®Ö÷½ÇµÄºÃ¸Ğ¶È
+	//å½“å‰ç« èŠ‚ID
+	CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
+	//å½“å‰è¿½æ±‚ç›®æ ‡
+	CC_SYNTHESIZE(int, __cur_wooer, CurrentWooer);
+	//å½“å‰å¥³ä¸»è§’çš„å¥½æ„Ÿåº¦
 	CC_SYNTHESIZE(int, __cur_favor, CurrentFavor);
 };
 

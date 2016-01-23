@@ -1,4 +1,4 @@
-#ifndef __TOPWO_PLATFORM_H__
+ï»¿#ifndef __TOPWO_PLATFORM_H__
 #define __TOPWO_PLATFORM_H__
 
 #include "cocos2d.h"
@@ -19,40 +19,42 @@ public:
 	
 
 	// -------------------------------------------------------------
-	//ÏÔÊ¾ÍË³ö¿ò
+	//æ˜¾ç¤ºé€€å‡ºæ¡†
 	void callShowExitDialog();
-	//´ò¿ªÍøÖ·
+	//æ‰“å¼€ç½‘å€
 	void callOpenURL(const char* pszUrl);
-	//µ÷ÓÃÖ§¸¶
+	//è°ƒç”¨æ”¯ä»˜
 	void callPay(int id, CCObject* target, SEL_CallFuncI callfun);
-	//Ö§¸¶»Øµ÷
+	//æ”¯ä»˜å›è°ƒ
 	void payCallback(int status);
+	//é€€å‡ºå›è°ƒ
+	void exitCallback();
 
-	//ÉèÖÃµ±Ç°Íæ¼ÒµÄµÈ¼¶
+	//è®¾ç½®å½“å‰ç©å®¶çš„ç­‰çº§
 	void setLevel(int level);
-	//ÓÎÏ·¹Ø¿¨¿ªÊ¼
+	//æ¸¸æˆå…³å¡å¼€å§‹
 	void levelBegin(const char* levelId);
-	//ÓÎÏ·¹Ø¿¨Í¨¹ı
+	//æ¸¸æˆå…³å¡é€šè¿‡
 	void levelComplete(const char* levelId);
-	//ÓÎÏ·¹Ø¿¨Í¨¹ØÊ§°Ü
+	//æ¸¸æˆå…³å¡é€šå…³å¤±è´¥
 	void levelIdFail(const char* levelId);
-	//¼ÇÂ¼Íæ¼ÒĞéÄâ±ÒÁô´æ×ÜÁ¿
+	//è®°å½•ç©å®¶è™šæ‹Ÿå¸ç•™å­˜æ€»é‡
 	void setCoinNum(int coinNum, const char* coinType);
-	//×Ô¶¨ÒåÊÂ¼ş
+	//è‡ªå®šä¹‰äº‹ä»¶
 	void onEvent(const char* eventId);
 
 
-	//Õ¹Ê¾¶Ô»°¿ò»ı·ÖÇ½
+	//å±•ç¤ºå¯¹è¯æ¡†ç§¯åˆ†å¢™
 	void showOffersWallDialog();
 
-	//Õ¹Ê¾¶Ô»°¿ò·ÖÏí
+	//å±•ç¤ºå¯¹è¯æ¡†åˆ†äº«
 	void showShareWallDialog();
 
-	//½±Àø
+	//å¥–åŠ±
 	void awardPoints(float f);
-	//Ïû·Ñ
+	//æ¶ˆè´¹
 	void spendPoints(float f);
-	//²éÑ¯»ı·Ö
+	//æŸ¥è¯¢ç§¯åˆ†
 	float queryPoints();
 
 private:

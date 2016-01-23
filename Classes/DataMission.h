@@ -1,4 +1,4 @@
-#ifndef __DATA_MISSION_H__
+ï»¿#ifndef __DATA_MISSION_H__
 #define __DATA_MISSION_H__
 #include "cocos2d.h"
 
@@ -14,12 +14,12 @@ public:
 
 private:
 	CC_SYNTHESIZE(int, __id, Id);//Id
-	CC_SYNTHESIZE(int, __type, Type);//ÀàÐÍ
-	CC_SYNTHESIZE_RETAIN(CCString*, __title, Title);//±êÌâ
-	CC_SYNTHESIZE_RETAIN(CCString*, __content, Content);//ÄÚÈÝ
-	CC_SYNTHESIZE_RETAIN(CCString*, __mission, Mission);//ÈÎÎñ
-	CC_SYNTHESIZE(double, __target, Target);//Ä¿±ê
-	CC_SYNTHESIZE(int, __reward, Reward);//½±Àø
+	CC_SYNTHESIZE(int, __type, Type);//ç±»åž‹
+	CC_SYNTHESIZE_RETAIN(CCString*, __title, Title);//æ ‡é¢˜
+	CC_SYNTHESIZE_RETAIN(CCString*, __content, Content);//å†…å®¹
+	CC_SYNTHESIZE_RETAIN(CCString*, __mission, Mission);//ä»»åŠ¡
+	CC_SYNTHESIZE(double, __target, Target);//ç›®æ ‡
+	CC_SYNTHESIZE(int, __reward, Reward);//å¥–åŠ±
 };
 
 #endif  //__DATA_MISSION_H__

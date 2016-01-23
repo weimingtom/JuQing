@@ -1,4 +1,4 @@
-#ifndef __LAYER_WORK_H__
+ï»¿#ifndef __LAYER_WORK_H__
 #define __LAYER_WORK_H__
 
 #include "cocos2d.h"
@@ -21,7 +21,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LayerWork);
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
 	virtual void registerWithTouchDispatcher() override;
 

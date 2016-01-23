@@ -1,4 +1,4 @@
-#ifndef __DATA_SECTION_H__
+Ôªø#ifndef __DATA_SECTION_H__
 #define __DATA_SECTION_H__
 #include "cocos2d.h"
 
@@ -14,8 +14,8 @@ public:
 
 private:
 	CC_SYNTHESIZE(int, __id, Id);//Id
-	CC_SYNTHESIZE(int, __begin_id, BeginId);//ø™ ºID
-	CC_SYNTHESIZE(int, __end_id, EndId);//Ω· ¯ID
+	CC_SYNTHESIZE(int, __begin_id, BeginId);//ÂºÄÂßãID
+	CC_SYNTHESIZE(int, __end_id, EndId);//ÁªìÊùüID
 };
 
 #endif  //__DATA_SECTION_H__

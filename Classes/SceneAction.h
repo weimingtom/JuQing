@@ -1,4 +1,4 @@
-#ifndef __SCENE_ACTION_H__
+ï»¿#ifndef __SCENE_ACTION_H__
 #define __SCENE_ACTION_H__
 
 #include "cocos2d.h"
@@ -16,23 +16,24 @@ public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* creatScene();
 
-	//³õÊ¼»¯UI
+	//åˆå§‹åŒ–UI
 	bool initUI();
+	virtual void keyBackClicked() override;
 
-	//ĞÂµÄ¿ªÊ¼
+	//æ–°çš„å¼€å§‹
 	void menuNewCallback(CCObject* pSender);
-	//¾ÉµÄ»ØÒä
+	//æ—§çš„å›å¿†
 	void menuOldCallback(CCObject* pSender);
-	//ÉèÖÃ
+	//è®¾ç½®
 	void menuSetCallback(CCObject* pSender);
-	//°ïÖú
+	//å¸®åŠ©
 	void menuHelpCallback(CCObject* pSender);
-	//¹ØÓÚ
+	//å…³äº
 	void menuAboutCallback(CCObject* pSender);
-    //ÍË³ö
+    //é€€å‡º
 	void menuCloseCallback(CCObject* pSender);
 
-	//¶Ô»°½áÊø»Øµ÷
+	//å¯¹è¯ç»“æŸå›è°ƒ
 	void callbackDialogOver();
 };
 

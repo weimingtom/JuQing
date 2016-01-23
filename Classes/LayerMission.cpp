@@ -1,4 +1,4 @@
-#include "LayerMission.h"
+ï»¿#include "LayerMission.h"
 #include "Topwo.h"
 #include "UserInfo.h"
 #include "LayerDialog.h"
@@ -29,7 +29,7 @@ bool LayerMission::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃþÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
 	return true;
 }
@@ -37,60 +37,60 @@ void LayerMission::registerWithTouchDispatcher()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerMission::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();
 	CCSize vs = CCDirector::sharedDirector()->getVisibleSize();
 
-	//±³¾°
+	//èƒŒæ™¯
 	CCSprite* mission_bg = CCSprite::create("images/LayerMission_bg.png");
 	this->addChild(mission_bg);
 	CCSize size_mission_bg = mission_bg->getContentSize();
 	mission_bg->setPosition(ccp(vo.x + vs.width * 0.5f, vo.y + vs.height * 0.5f));
 
-	//ÌåÁ¦Öµ
+	//ä½“åŠ›å€¼
 	CCSprite* sp_physical = CCSprite::create("images/LayerMission_physical.png");
 	mission_bg->addChild(sp_physical);
 	CCSize size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_mission_bg.width * 0.52f, size_mission_bg.height * 0.78f));
 
-	//ÏûºÄµÄÌåÁ¦Öµ
+	//æ¶ˆè€—çš„ä½“åŠ›å€¼
 	CCLabelAtlas* atlas_need_physical = CCLabelAtlas::create("10", RES_number_style_1, 20, 20, '0');
 	sp_physical->addChild(atlas_need_physical);
 	atlas_need_physical->setAnchorPoint(ccp(0.5f, 0.5f));
 	CCSize size_atlas_need_physical = atlas_need_physical->getContentSize();
 	atlas_need_physical->setPosition(ccp(size_sp_physical.width * 0.28f, size_sp_physical.height * 0.45f));
 
-	//µ±Ç°ÓµÓÐµÄÌåÁ¦Öµ
+	//å½“å‰æ‹¥æœ‰çš„ä½“åŠ›å€¼
 	__atlas_total_physical = CCLabelAtlas::create("", RES_number_style_1, 20, 20, '0');
 	sp_physical->addChild(__atlas_total_physical);
 	__atlas_total_physical->setAnchorPoint(ccp(0, 0.5f));
 	CCSize size_atlas_total_physical = __atlas_total_physical->getContentSize();
 	__atlas_total_physical->setPosition(ccp(size_sp_physical.width * 0.95f, size_sp_physical.height * 0.45f));
 
-	//Ãû×Ö
+	//åå­—
 	__ttf_name = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 40.0f);
 	mission_bg->addChild(__ttf_name);
 	__ttf_name->setColor(ccc3(218, 69, 231));
 	CCSize size_ttf_name = __ttf_name->getContentSize();
 	__ttf_name->setPosition(ccp(size_mission_bg.width * 0.205f, size_mission_bg.height * 0.77f));
 
-	//±êÌâ
+	//æ ‡é¢˜
 	__ttf_title = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 36.0f);
 	mission_bg->addChild(__ttf_title);
 	__ttf_title->enableStroke(ccc3(0, 117, 146), 1.0f);
 	CCSize size_ttf_title = __ttf_title->getContentSize();
 	__ttf_title->setPosition(ccp(size_mission_bg.width * 0.5f, size_mission_bg.height - 32.0f));
 
-	//ÄÚÈÝ
+	//å†…å®¹
 	__ttf_content = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeMake(460.0f, 110.0f), kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_content);
 	__ttf_content->setAnchorPoint(ccp(0.5f, 1.0f));
 	CCSize size_ttf_content = __ttf_content->getContentSize();
 	__ttf_content->setPosition(ccp(size_mission_bg.width * 0.53f, size_mission_bg.height * 0.68f));
 
-	//Ä¿±ê
+	//ç›®æ ‡
 	__ttf_mission = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_mission);
 	__ttf_mission->setAnchorPoint(ccp(0, 0.5f));
@@ -98,7 +98,7 @@ bool LayerMission::initUI()
 	CCSize size_ttf_target = __ttf_mission->getContentSize();
 	__ttf_mission->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.32f));
 
-	//½±Àø
+	//å¥–åŠ±
 	__ttf_reward = CCLabelTTF::create("", "fonts/ttfs/MicrosoftYaHei.ttf", 24.0f, CCSizeZero, kCCTextAlignmentLeft);
 	mission_bg->addChild(__ttf_reward);
 	__ttf_reward->setAnchorPoint(ccp(0, 0.5f));
@@ -106,7 +106,7 @@ bool LayerMission::initUI()
 	CCSize size_ttf_reward = __ttf_reward->getContentSize();
 	__ttf_reward->setPosition(ccp(size_mission_bg.width * 0.13f, size_mission_bg.height * 0.24f));
 
-	//ÈÎÎñÖ¸ÒýÑ¡Ïî
+	//ä»»åŠ¡æŒ‡å¼•é€‰é¡¹
 	__item_mission_guide = CCMenuItemImage::create(
 		"images/btn_mission_guide_0.png",
 		"images/btn_mission_guide_1.png",
@@ -115,7 +115,7 @@ bool LayerMission::initUI()
 	CCSize size_item_mission_guide = __item_mission_guide->getContentSize();
 	__item_mission_guide->setPosition(ccp(size_mission_bg.width * 0.5f, size_item_mission_guide.height * 0.5f));
 
-	//»ñÈ¡½±ÀøÑ¡Ïî
+	//èŽ·å–å¥–åŠ±é€‰é¡¹
 	__item_get_reward = CCMenuItemImage::create(
 		"images/btn_get_reward_0.png",
 		"images/btn_get_reward_1.png",
@@ -124,7 +124,7 @@ bool LayerMission::initUI()
 	CCSize size_item_get_reward = __item_get_reward->getContentSize();
 	__item_get_reward->setPosition(ccp(size_mission_bg.width * 0.5f, size_item_mission_guide.height * 0.5f));
 
-	//¹Ø±ÕÏî
+	//å…³é—­é¡¹
 	CCMenuItemSprite *item_close = CCMenuItemSprite::create(
 		CCSprite::create(RES_btn_close_1_0),
 		CCSprite::create(RES_btn_close_1_0),
@@ -157,71 +157,71 @@ void LayerMission::updataMissionContent()
 	DataNpc * npc_data = user_info->getDataNpcFromArray(user_info->getCurrentWooer());
 	int cur_mission_id = user_info->getCurrentMissionId();
 	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
-	//Ê£ÓàÌåÁ¦Öµ
+	//å‰©ä½™ä½“åŠ›å€¼
 	__atlas_total_physical->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
-	//×·ÇóÕß
+	//è¿½æ±‚è€…
 	__ttf_name->setString(npc_data->getName()->getCString());
-	//±êÌâ
+	//æ ‡é¢˜
 	__ttf_title->setString(mission_data->getTitle()->getCString());
-	//ÄÚÈÝ
+	//å†…å®¹
 	__ttf_content->setString(mission_data->getContent()->getCString());
-	//ÈÎÎñ
+	//ä»»åŠ¡
 	__ttf_mission->setString(CCString::createWithFormat("%s%s", tl->getXmlString("Require")->getCString(), mission_data->getMission()->getCString())->getCString());
-	//½±Àø
+	//å¥–åŠ±
 	__ttf_reward->setString(CCString::createWithFormat("%s%d%s", tl->getXmlString("Reward")->getCString(), mission_data->getReward(), tl->getXmlString("Gold")->getCString())->getCString());
 
-	//Ä¿±êÖµ
+	//ç›®æ ‡å€¼
 	bool is_finish = false;
-	float mission_value = (float)mission_data->getTarget();
+	double mission_value = mission_data->getTarget();
 	int mission_type = mission_data->getType();
 	if (mission_type == 1)
-	{//¶Ô»°ÈÎÎñ
+	{//å¯¹è¯ä»»åŠ¡
 		if (user_info->getCurrentSectionId() == (int)mission_value)
 		{
 			is_finish = true;
 		}
 	}
 	else if (mission_type == 2)
-	{//¶ÍÁ¶ÈÎÎñ
+	{//é”»ç‚¼ä»»åŠ¡
 		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//ÌåÆÇ
+		double value_float = mission_value - value_int * 1.0;
+		if (tl->doubleIsEquals(value_float, 0.1))
+		{//ä½“é­„
 			if (user_info->getCurrentTiPo() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//÷ÈÁ¦
+		else if (tl->doubleIsEquals(value_float, 0.2))
+		{//é­…åŠ›
 			if (user_info->getCurrentMeiLi() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//ÖÇÁ¦
+		else if (tl->doubleIsEquals(value_float, 0.3))
+		{//æ™ºåŠ›
 			if (user_info->getCurrentZhiLi() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//ÇéÉÌ
+		else if (tl->doubleIsEquals(value_float, 0.4))
+		{//æƒ…å•†
 			if (user_info->getCurrentEQ() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//¸ÐÐÔ
+		else if (tl->doubleIsEquals(value_float, 0.5))
+		{//æ„Ÿæ€§
 			if (user_info->getCurrentGanXing() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.12345f))
-		{//È«Ãæ
+		else if (tl->doubleIsEquals(value_float, 0.12345))
+		{//å…¨é¢
 			if (user_info->getCurrentTiPo() >= value_int
 				&&user_info->getCurrentMeiLi() >= value_int
 				&&user_info->getCurrentZhiLi() >= value_int
@@ -233,25 +233,44 @@ void LayerMission::updataMissionContent()
 		}
 	}
 	else if (mission_type == 3)
-	{//¹ºÂòÈÎÎñ
+	{//è´­ä¹°ä»»åŠ¡
 		int value_int = (int)mission_value;
-		float value_float = mission_value - (float)value_int;
-		if (tl->floatIsEquals(value_float, 0.1f))
-		{//ÎïÆ·1
+		double value_float = mission_value - (double)value_int;
+		if (tl->doubleIsEquals(value_float, 0.1))
+		{//ä½“é­„ç‰©å“
+			if (user_info->getCurrentGoodsLevelTiPo() >= value_int)
+			{
+				is_finish = true;
+			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.2f))
-		{//ÎïÆ·2
+		else if (tl->doubleIsEquals(value_float, 0.2))
+		{//é­…åŠ›ç‰©å“
+			if (user_info->getCurrentGoodsLevelMeiLi() >= value_int)
+			{
+				is_finish = true;
+			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.3f))
-		{//ÎïÆ·3
+		else if (tl->doubleIsEquals(value_float, 0.3))
+		{//æ™ºåŠ›ç‰©å“
+			if (user_info->getCurrentGoodsLevelZhiLi() >= value_int)
+			{
+				is_finish = true;
+			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.4f))
-		{//ÎïÆ·4
+		else if (tl->doubleIsEquals(value_float, 0.4))
+		{//æƒ…å•†ç‰©å“
+			if (user_info->getCurrentGoodsLevelEQ() >= value_int)
+			{
+				is_finish = true;
+			}
 		}
-		else if (tl->floatIsEquals(value_float, 0.5f))
-		{//ÎïÆ·5
+		else if (tl->doubleIsEquals(value_float, 0.5))
+		{//æ„Ÿæ€§ç‰©å“
+			if (user_info->getCurrentGoodsLevelGanXing() >= value_int)
+			{
+				is_finish = true;
+			}
 		}
-		is_finish = true;
 	}
 
 	setMissionFinishState(is_finish);
@@ -266,7 +285,7 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	if (!user_info->getCurrentMissionIsConsume())
 	{
 		if (user_info->getCurrentPhysical() < 10)
-		{//ÌåÁ¦²»×ã
+		{//ä½“åŠ›ä¸è¶³
 			return;
 		}
 
@@ -277,16 +296,16 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	float mission_value = (float)data_mission->getTarget();
 	int mission_type = data_mission->getType();
 	if (mission_type == 1)
-	{//¶Ô»°ÈÎÎñ
+	{//å¯¹è¯ä»»åŠ¡
 		DataSection *data_section = user_info->getDataSectionFromArray((int)mission_value);
 		this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(LayerMission::callbackDialogOver)), 10);
 	}
 	else if (mission_type == 2)
-	{//¶ÍÁ¶ÈÎÎñ
+	{//é”»ç‚¼ä»»åŠ¡
 		this->addChild(LayerExercise::create(), 10);
 	}
 	else if (mission_type == 3)
-	{//¹ºÂòÈÎÎñ
+	{//è´­ä¹°ä»»åŠ¡
 		this->addChild(LayerGoods::create(), 10);
 	}
 
@@ -299,11 +318,11 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
 
-	//ÁìÈ¡½±Àø
+	//é¢†å–å¥–åŠ±
 	if (!user_info->getCurrentMissionIsConsume())
 	{
 		if (user_info->getCurrentPhysical() < 10)
-		{//ÌåÁ¦²»×ã
+		{//ä½“åŠ›ä¸è¶³
 			return;
 		}
 
@@ -315,7 +334,7 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
 	user_info->setCurrentGold(user_info->getCurrentGold() + mission_data->getReward());
 
-	//Ìøµ½ÏÂÒ»¸öÈÎÎñ
+	//è·³åˆ°ä¸‹ä¸€ä¸ªä»»åŠ¡
 	user_info->setCurrentMissionId(user_info->getCurrentMissionId() + 1);
 	user_info->setCurrentMissionIsConsume(false);
 

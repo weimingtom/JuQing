@@ -1,4 +1,4 @@
-#ifndef __TOPWO_DATA_H__
+ï»¿#ifndef __TOPWO_DATA_H__
 #define __TOPWO_DATA_H__
 #include "cocos2d.h"
 #include "TopwoDefine.h"
@@ -15,12 +15,12 @@ public:
 	bool init();
 	CREATE_FUNC(TopwoData);
 
-	//ÊÇ·ñ´æÔÚ´æµµ
+	//æ˜¯å¦å­˜åœ¨å­˜æ¡£
 	twbool isExistData();
-	//Çå³ıÊı¾İ
+	//æ¸…é™¤æ•°æ®
 	void purgeData();
 
-	//´æÈ¡
+	//å­˜å–
 	twbool writeData();
 	twbool readData();
 
@@ -34,7 +34,7 @@ public:
 	void analyzeDataMission(rapidjson::Document& doc);
 private:
 	rapidjson::Document __doc_plot;
-	//ÓÃ»§Êı¾İ
+	//ç”¨æˆ·æ•°æ®
 	CC_SYNTHESIZE_READONLY(UserInfo*, __user_info, UserInfo);
 };
 

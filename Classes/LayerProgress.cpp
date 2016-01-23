@@ -1,4 +1,4 @@
-#include "LayerProgress.h"
+ï»¿#include "LayerProgress.h"
 
 LayerProgress::LayerProgress()
 {
@@ -17,7 +17,7 @@ bool LayerProgress::init()
 
 	initUI();
 
-	setTouchEnabled(true);  //¿ªÆô´¥ÃþÏìÓ¦
+	setTouchEnabled(true);  //å¼€å¯è§¦æ‘¸å“åº”
 
     return true;
 }
@@ -25,7 +25,7 @@ void LayerProgress::registerWithTouchDispatcher()
 {
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
-//³õÊ¼»¯UI
+//åˆå§‹åŒ–UI
 bool LayerProgress::initUI()
 {
 	CCPoint vo = CCDirector::sharedDirector()->getVisibleOrigin();

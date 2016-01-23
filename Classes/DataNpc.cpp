@@ -1,4 +1,4 @@
-#include "DataNpc.h"
+﻿#include "DataNpc.h"
 
 DataNpc::DataNpc()
 :__id(0)
@@ -14,7 +14,7 @@ DataNpc::~DataNpc()
 {
 }
 
-//�����ʼ��ԭʼ0״̬
+//负责初始到原始0状态
 bool DataNpc::init()
 {
 	return true;
