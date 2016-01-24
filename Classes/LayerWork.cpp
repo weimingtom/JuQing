@@ -3,6 +3,8 @@
 #include "LayerMission.h"
 #include "LayerProgress.h"
 #include "SceneMain.h"
+#include "LayerRest.h"
+#include "LayerHint.h"
 
 LayerWork::LayerWork()
 {
@@ -128,6 +130,7 @@ void LayerWork::menuCallbackClose(CCObject* pSender)
 }
 void LayerWork::menuCallbackWork(CCObject* pSender)
 {
+	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 	CCMenuItemSprite *item = static_cast<CCMenuItemSprite*>(pSender);
 	int tag = item->getTag();
@@ -145,13 +148,15 @@ void LayerWork::menuCallbackWork(CCObject* pSender)
 		physical = 50;
 	}
 
-	if (user_info->getCurrentPhysical() - physical >= 0)
-	{
-		LayerProgress *layer_progress = static_cast<LayerProgress*>(this->getChildByTag(0));
-		layer_progress->setVisible(true);
-		layer_progress->setTouchEnabled(true);
-		layer_progress->setCallFunc(CCCallFuncO::create(this, callfuncO_selector(LayerWork::work), pSender));
+	if (physical > user_info->getCurrentPhysical())
+	{//体力不足
+		this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Physical")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerWork::hintCallbackRest)), 10);
+		return;
 	}
+	LayerProgress *layer_progress = static_cast<LayerProgress*>(this->getChildByTag(0));
+	layer_progress->setVisible(true);
+	layer_progress->setTouchEnabled(true);
+	layer_progress->setCallFunc(CCCallFuncO::create(this, callfuncO_selector(LayerWork::work), pSender));
 }
 void LayerWork::work(CCObject* pSender)
 {
@@ -184,4 +189,12 @@ void LayerWork::work(CCObject* pSender)
 
 	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
 	scene_main->updateMe();
+}
+void LayerWork::hintCallbackRest(CCNode *node)
+{
+	if (node->getTag() == 1)
+	{
+		this->getParent()->addChild(LayerRest::create(), 10);
+		this->removeFromParent();
+	}
 }

@@ -6,8 +6,6 @@
 #include "LayerProgress.h"
 USING_NS_CC;
 
-static const char RES_white_dialog[] = "images/white_dialog.png";
-
 class LayerExercise : public cocos2d::CCLayer
 {
 public:
@@ -32,6 +30,9 @@ public:
 	void progressCallbackExercise(CCObject* pSender);
 
 	void updateMe();
+
+	void hintCallbackRest(CCNode *node);
+	void hintCallbackWork(CCNode *node);
 private:
 	CC_SYNTHESIZE(int, __level, Level);
 	CCSprite *__sp_title;

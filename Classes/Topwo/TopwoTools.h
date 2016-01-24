@@ -45,6 +45,7 @@ public:
 	bool isInNode(CCPoint, CCNode* node);
 
 	//判断浮点数是否相等
+	bool floatIsEquals(float f1, float f2);
 	bool doubleIsEquals(double d1, double d2);
 
 private:

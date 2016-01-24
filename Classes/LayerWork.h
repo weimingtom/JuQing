@@ -33,6 +33,8 @@ public:
 	void menuCallbackClose(CCObject* pSender);
 	void menuCallbackWork(CCObject* pSender);
 	void work(CCObject* pSender);
+
+	void hintCallbackRest(CCNode *node);
 private:
 };
 

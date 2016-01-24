@@ -2,6 +2,8 @@
 #include "LayerExercise.h"
 #include "LayerMission.h"
 #include "SceneMain.h"
+#include "LayerHint.h"
+#include "LayerWork.h"
 
 LayerGoods::LayerGoods()
 {
@@ -72,13 +74,20 @@ bool LayerGoods::initUI()
 	CCSize size_sp_goods_1 = sp_goods_1->getContentSize();
 	sp_goods_1->setPosition(ccp(vs.width * 0.5f - size_sp_goods_1.width * 2.04f, vs.height * 0.43f));
 
-	CCLabelAtlas* la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(user_info->getCurrentGoodsLevelTiPo()))->getCString(), RES_number_style_2, 9, 15, '+');
-	sp_goods_1->addChild(la_value, 0, 0);
-	la_value->setAnchorPoint(ccp(0, 0.5f));
-	la_value->setPosition(ccp(size_sp_goods_1.width * 0.65f, size_sp_goods_1.height * 0.48f));
+	int goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelTiPo());
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(user_info->getCurrentGoodsLevelTiPo()))->getCString(), RES_number_style_2, 9, 15, '+');
+	CCLabelAtlas* la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", goods_level)->getCString(), RES_number_style_5, 9, 12, '0');
+	sp_goods_1->addChild(la_value, 0, 0);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.45f, size_sp_goods_1.height * 0.56f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
 	sp_goods_1->addChild(la_value, 0, 1);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.68f, size_sp_goods_1.height * 0.48f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
+	sp_goods_1->addChild(la_value, 0, 2);
 	la_value->setAnchorPoint(ccp(0, 0.5f));
 	la_value->setPosition(ccp(size_sp_goods_1.width * 0.56f, size_sp_goods_1.height * 0.35f));
 
@@ -96,13 +105,20 @@ bool LayerGoods::initUI()
 	this->addChild(sp_goods_2, 0, 2);
 	sp_goods_2->setPosition(ccp(vs.width * 0.5f - size_sp_goods_1.width * 1.02f, vs.height * 0.43f));
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(user_info->getCurrentGoodsLevelMeiLi()))->getCString(), RES_number_style_2, 9, 15, '+');
-	sp_goods_2->addChild(la_value, 0, 0);
-	la_value->setAnchorPoint(ccp(0, 0.5f));
-	la_value->setPosition(ccp(size_sp_goods_1.width * 0.65f, size_sp_goods_1.height * 0.48f));
+	goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelMeiLi());
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(user_info->getCurrentGoodsLevelMeiLi()))->getCString(), RES_number_style_2, 9, 15, '+');
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", goods_level)->getCString(), RES_number_style_5, 9, 12, '0');
+	sp_goods_2->addChild(la_value, 0, 0);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.45f, size_sp_goods_1.height * 0.56f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
 	sp_goods_2->addChild(la_value, 0, 1);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.68f, size_sp_goods_1.height * 0.48f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
+	sp_goods_2->addChild(la_value, 0, 2);
 	la_value->setAnchorPoint(ccp(0, 0.5f));
 	la_value->setPosition(ccp(size_sp_goods_1.width * 0.56f, size_sp_goods_1.height * 0.35f));
 
@@ -120,13 +136,20 @@ bool LayerGoods::initUI()
 	this->addChild(sp_goods_3, 0, 3);
 	sp_goods_3->setPosition(ccp(vs.width * 0.5f, vs.height * 0.43f));
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(user_info->getCurrentGoodsLevelZhiLi()))->getCString(), RES_number_style_2, 9, 15, '+');
-	sp_goods_3->addChild(la_value, 0, 0);
-	la_value->setAnchorPoint(ccp(0, 0.5f));
-	la_value->setPosition(ccp(size_sp_goods_1.width * 0.65f, size_sp_goods_1.height * 0.48f));
+	goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelZhiLi());
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(user_info->getCurrentGoodsLevelZhiLi()))->getCString(), RES_number_style_2, 9, 15, '+');
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", goods_level)->getCString(), RES_number_style_5, 9, 12, '0');
+	sp_goods_3->addChild(la_value, 0, 0);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.45f, size_sp_goods_1.height * 0.56f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
 	sp_goods_3->addChild(la_value, 0, 1);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.68f, size_sp_goods_1.height * 0.48f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
+	sp_goods_3->addChild(la_value, 0, 2);
 	la_value->setAnchorPoint(ccp(0, 0.5f));
 	la_value->setPosition(ccp(size_sp_goods_1.width * 0.56f, size_sp_goods_1.height * 0.35f));
 
@@ -144,13 +167,20 @@ bool LayerGoods::initUI()
 	this->addChild(sp_goods_4, 0, 4);
 	sp_goods_4->setPosition(ccp(vs.width * 0.5f + size_sp_goods_1.width * 1.02f, vs.height * 0.43f));
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(user_info->getCurrentGoodsLevelEQ()))->getCString(), RES_number_style_2, 9, 15, '+');
-	sp_goods_4->addChild(la_value, 0, 0);
-	la_value->setAnchorPoint(ccp(0, 0.5f));
-	la_value->setPosition(ccp(size_sp_goods_1.width * 0.65f, size_sp_goods_1.height * 0.48f));
+	goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelEQ());
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(user_info->getCurrentGoodsLevelEQ()))->getCString(), RES_number_style_2, 9, 15, '+');
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", goods_level)->getCString(), RES_number_style_5, 9, 12, '0');
+	sp_goods_4->addChild(la_value, 0, 0);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.45f, size_sp_goods_1.height * 0.56f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
 	sp_goods_4->addChild(la_value, 0, 1);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.68f, size_sp_goods_1.height * 0.48f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
+	sp_goods_4->addChild(la_value, 0, 2);
 	la_value->setAnchorPoint(ccp(0, 0.5f));
 	la_value->setPosition(ccp(size_sp_goods_1.width * 0.56f, size_sp_goods_1.height * 0.35f));
 
@@ -168,13 +198,20 @@ bool LayerGoods::initUI()
 	this->addChild(sp_goods_5, 0, 5);
 	sp_goods_5->setPosition(ccp(vs.width * 0.5f + size_sp_goods_1.width * 2.04f, vs.height * 0.43f));
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(user_info->getCurrentGoodsLevelGanXing()))->getCString(), RES_number_style_2, 9, 15, '+');
-	sp_goods_5->addChild(la_value, 0, 0);
-	la_value->setAnchorPoint(ccp(0, 0.5f));
-	la_value->setPosition(ccp(size_sp_goods_1.width * 0.65f, size_sp_goods_1.height * 0.48f));
+	goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelGanXing());
 
-	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(user_info->getCurrentGoodsLevelGanXing()))->getCString(), RES_number_style_2, 9, 15, '+');
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", goods_level)->getCString(), RES_number_style_5, 9, 12, '0');
+	sp_goods_5->addChild(la_value, 0, 0);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.45f, size_sp_goods_1.height * 0.56f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
 	sp_goods_5->addChild(la_value, 0, 1);
+	la_value->setAnchorPoint(ccp(0.5f, 0.5f));
+	la_value->setPosition(ccp(size_sp_goods_1.width * 0.68f, size_sp_goods_1.height * 0.48f));
+
+	la_value = CCLabelAtlas::create(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString(), RES_number_style_2, 9, 15, '+');
+	sp_goods_5->addChild(la_value, 0, 2);
 	la_value->setAnchorPoint(ccp(0, 0.5f));
 	la_value->setPosition(ccp(size_sp_goods_1.width * 0.56f, size_sp_goods_1.height * 0.35f));
 
@@ -219,38 +256,45 @@ void LayerGoods::menuCallbackBuy(CCObject* pSender)
 	{
 		return;
 	}
+	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
 	CCMenuItemSprite* item = static_cast<CCMenuItemSprite*>(pSender);
 	int tag = item->getTag();
 	CCSprite* sprite = static_cast<CCSprite*>(this->getChildByTag(tag));
-	CCLabelAtlas* la = static_cast<CCLabelAtlas*>(sprite->getChildByTag(1));
+	CCLabelAtlas* la = static_cast<CCLabelAtlas*>(sprite->getChildByTag(2));
 	int need_gold = atoi(la->getString());
 	int cur_gold = user_info->getCurrentGold();
 	if (need_gold > cur_gold)
-	{
+	{//金币不足
+		this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Gold")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerGoods::hintCallbackWork)), 10);
 		return;
 	}
 	user_info->setCurrentGold(cur_gold - need_gold);
 	if (tag == 1)
 	{
 		user_info->setCurrentGoodsLevelTiPo(user_info->getCurrentGoodsLevelTiPo() + 1);
+		user_info->setCurrentTiPoBonus(getGoodsBonus(user_info->getCurrentGoodsLevelTiPo()) * 0.01f);
 	}
 	else if (tag == 2)
 	{
 		user_info->setCurrentGoodsLevelMeiLi(user_info->getCurrentGoodsLevelMeiLi() + 1);
+		user_info->setCurrentMeiLiBonus(getGoodsBonus(user_info->getCurrentGoodsLevelMeiLi()) * 0.01f);
 	}
 	else if (tag == 3)
 	{
 		user_info->setCurrentGoodsLevelZhiLi(user_info->getCurrentGoodsLevelZhiLi() + 1);
+		user_info->setCurrentZhiLiBonus(getGoodsBonus(user_info->getCurrentGoodsLevelZhiLi()) * 0.01f);
 	}
 	else if (tag == 4)
 	{
 		user_info->setCurrentGoodsLevelEQ(user_info->getCurrentGoodsLevelEQ() + 1);
+		user_info->setCurrentEQBonus(getGoodsBonus(user_info->getCurrentGoodsLevelEQ()) * 0.01f);
 	}
 	else if (tag == 5)
 	{
 		user_info->setCurrentGoodsLevelGanXing(user_info->getCurrentGoodsLevelGanXing() + 1);
+		user_info->setCurrentGanXingBonus(getGoodsBonus(user_info->getCurrentGoodsLevelGanXing()) * 0.01f);
 	}
 
 	updateMe();
@@ -269,23 +313,23 @@ void LayerGoods::updateMe()
 	{
 		if (i == 1)
 		{
-			goods_level = user_info->getCurrentGoodsLevelTiPo();
+			goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelTiPo());
 		}
 		else if (i == 2)
 		{
-			goods_level = user_info->getCurrentGoodsLevelMeiLi();
+			goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelMeiLi());
 		}
 		else if (i == 3)
 		{
-			goods_level = user_info->getCurrentGoodsLevelZhiLi();
+			goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelZhiLi());
 		}
 		else if (i == 4)
 		{
-			goods_level = user_info->getCurrentGoodsLevelEQ();
+			goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelEQ());
 		}
 		else if (i == 5)
 		{
-			goods_level = user_info->getCurrentGoodsLevelGanXing();
+			goods_level = getGoodsLevel(user_info->getCurrentGoodsLevelGanXing());
 		}
 		item = static_cast<CCMenuItemSprite*>(menu->getChildByTag(i));
 		if (goods_level >= 9)
@@ -295,45 +339,50 @@ void LayerGoods::updateMe()
 		}
 		sprite = static_cast<CCSprite*>(this->getChildByTag(i));
 		la = static_cast<CCLabelAtlas*>(sprite->getChildByTag(0));
-		la->setString(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString());
+		la->setString(CCString::createWithFormat("%d", goods_level)->getCString());
 		la = static_cast<CCLabelAtlas*>(sprite->getChildByTag(1));
+		la->setString(CCString::createWithFormat("%d", getGoodsBonus(goods_level))->getCString());
+		la = static_cast<CCLabelAtlas*>(sprite->getChildByTag(2));
 		la->setString(CCString::createWithFormat("%d", getGoodsPrice(goods_level))->getCString());
 	}
 
 	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
 	scene_main->updateMe();
 }
+int LayerGoods::getGoodsLevel(int level)
+{
+	int iRet = level + 1;
+	return (iRet >= 9) ? 9 : iRet;
+}
 int LayerGoods::getGoodsPrice(int level)
 {
 	int iRet = 0;
 	switch (level)
 	{
-	case 0:
+	case 1:
 		iRet = 500;
 		break;
-	case 1:
+	case 2:
 		iRet = 1000;
 		break;
-	case 2:
+	case 3:
 		iRet = 1500;
 		break;
-	case 3:
+	case 4:
 		iRet = 2500;
 		break;
-	case 4:
+	case 5:
 		iRet = 3500;
 		break;
-	case 5:
+	case 6:
 		iRet = 4500;
 		break;
-	case 6:
+	case 7:
 		iRet = 6000;
 		break;
-	case 7:
+	case 8:
 		iRet = 7500;
 		break;
-	case 8:
-		iRet = 9000;
 	case 9:
 		iRet = 9000;
 		break;
@@ -345,35 +394,41 @@ int LayerGoods::getGoodsBonus(int level)
 	int iRet = 0;
 	switch (level)
 	{
-	case 0:
+	case 1:
 		iRet = 1;
 		break;
-	case 1:
+	case 2:
 		iRet = 2;
 		break;
-	case 2:
+	case 3:
 		iRet = 3;
 		break;
-	case 3:
+	case 4:
 		iRet = 5;
 		break;
-	case 4:
+	case 5:
 		iRet = 7;
 		break;
-	case 5:
+	case 6:
 		iRet = 9;
 		break;
-	case 6:
+	case 7:
 		iRet = 12;
 		break;
-	case 7:
+	case 8:
 		iRet = 15;
 		break;
-	case 8:
-		iRet = 18;
 	case 9:
 		iRet = 18;
 		break;
 	}
 	return iRet;
+}
+void LayerGoods::hintCallbackWork(CCNode *node)
+{
+	if (node->getTag() == 1)
+	{
+		this->getParent()->addChild(LayerWork::create(), 10);
+		this->removeFromParent();
+	}
 }

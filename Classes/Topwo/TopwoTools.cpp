@@ -184,6 +184,15 @@ bool TopwoTools::doubleIsEquals(double d1, double d2)
 	}
 	return false;
 }
+bool TopwoTools::floatIsEquals(float f1, float f2)
+{
+	float f = f1 - f2;
+	if (f> -1e-6 && f < 1e-6)
+	{
+		return true;
+	}
+	return false;
+}
 
 void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 {

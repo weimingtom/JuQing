@@ -1,6 +1,9 @@
 ﻿#include "LayerExercise.h"
 #include "LayerMission.h"
 #include "SceneMain.h"
+#include "LayerWork.h"
+#include "LayerRest.h"
+#include "LayerHint.h"
 
 LayerExercise::LayerExercise()
 :__level(1)
@@ -92,7 +95,7 @@ bool LayerExercise::initUI()
 	__item_tipo->addChild(sp_gold, 10);
 	CCSize size_sp_gold = sp_gold->getContentSize();
 	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
-	CCLabelAtlas *la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	CCLabelAtlas *la_gold = CCLabelAtlas::create("-500", RES_number_style_4, 12, 15, '+');
 	__item_tipo->addChild(la_gold, 10, 100);
 	la_gold->setAnchorPoint(ccp(0, 0.5f));
 	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
@@ -100,7 +103,7 @@ bool LayerExercise::initUI()
 	__item_tipo->addChild(sp_physical, 10);
 	CCSize size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
-	CCLabelAtlas *la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	CCLabelAtlas *la_physical = CCLabelAtlas::create("-15", RES_number_style_4, 12, 15, '+');
 	__item_tipo->addChild(la_physical, 10, 101);
 	la_physical->setAnchorPoint(ccp(0, 0.5f));
 	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
@@ -108,7 +111,7 @@ bool LayerExercise::initUI()
 	__item_tipo->addChild(sp_item_name, 10);
 	CCSize size_sp_item_name = sp_item_name->getContentSize();
 	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
-	CCLabelAtlas *la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	CCLabelAtlas *la_tipo = CCLabelAtlas::create("+2", RES_number_style_4, 12, 15, '+');
 	__item_tipo->addChild(la_tipo, 10, 102);
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
@@ -127,7 +130,7 @@ bool LayerExercise::initUI()
 	__item_meili->addChild(sp_gold, 10);
 	size_sp_gold = sp_gold->getContentSize();
 	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
-	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_gold = CCLabelAtlas::create("-500", RES_number_style_4, 12, 15, '+');
 	__item_meili->addChild(la_gold, 10, 100);
 	la_gold->setAnchorPoint(ccp(0, 0.5f));
 	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
@@ -135,7 +138,7 @@ bool LayerExercise::initUI()
 	__item_meili->addChild(sp_physical, 10);
 	size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
-	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_physical = CCLabelAtlas::create("-15", RES_number_style_4, 12, 15, '+');
 	__item_meili->addChild(la_physical, 10, 101);
 	la_physical->setAnchorPoint(ccp(0, 0.5f));
 	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
@@ -143,7 +146,7 @@ bool LayerExercise::initUI()
 	__item_meili->addChild(sp_item_name, 10);
 	size_sp_item_name = sp_item_name->getContentSize();
 	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
-	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_tipo = CCLabelAtlas::create("+2", RES_number_style_4, 12, 15, '+');
 	__item_meili->addChild(la_tipo, 10, 102);
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
@@ -161,7 +164,7 @@ bool LayerExercise::initUI()
 	__item_zhili->addChild(sp_gold, 10);
 	size_sp_gold = sp_gold->getContentSize();
 	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
-	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_gold = CCLabelAtlas::create("-500", RES_number_style_4, 12, 15, '+');
 	__item_zhili->addChild(la_gold, 10, 100);
 	la_gold->setAnchorPoint(ccp(0, 0.5f));
 	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
@@ -169,7 +172,7 @@ bool LayerExercise::initUI()
 	__item_zhili->addChild(sp_physical, 10);
 	size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
-	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_physical = CCLabelAtlas::create("-15", RES_number_style_4, 12, 15, '+');
 	__item_zhili->addChild(la_physical, 10, 101);
 	la_physical->setAnchorPoint(ccp(0, 0.5f));
 	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
@@ -177,7 +180,7 @@ bool LayerExercise::initUI()
 	__item_zhili->addChild(sp_item_name, 10);
 	size_sp_item_name = sp_item_name->getContentSize();
 	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
-	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_tipo = CCLabelAtlas::create("+2", RES_number_style_4, 12, 15, '+');
 	__item_zhili->addChild(la_tipo, 10, 102);
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
@@ -195,7 +198,7 @@ bool LayerExercise::initUI()
 	__item_eq->addChild(sp_gold, 10);
 	size_sp_gold = sp_gold->getContentSize();
 	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
-	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_gold = CCLabelAtlas::create("-500", RES_number_style_4, 12, 15, '+');
 	__item_eq->addChild(la_gold, 10, 100);
 	la_gold->setAnchorPoint(ccp(0, 0.5f));
 	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
@@ -203,7 +206,7 @@ bool LayerExercise::initUI()
 	__item_eq->addChild(sp_physical, 10);
 	size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
-	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_physical = CCLabelAtlas::create("-15", RES_number_style_4, 12, 15, '+');
 	__item_eq->addChild(la_physical, 10, 101);
 	la_physical->setAnchorPoint(ccp(0, 0.5f));
 	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
@@ -211,7 +214,7 @@ bool LayerExercise::initUI()
 	__item_eq->addChild(sp_item_name, 10);
 	size_sp_item_name = sp_item_name->getContentSize();
 	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
-	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_tipo = CCLabelAtlas::create("+2", RES_number_style_4, 12, 15, '+');
 	__item_eq->addChild(la_tipo, 10, 102);
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
@@ -229,7 +232,7 @@ bool LayerExercise::initUI()
 	__item_ganxing->addChild(sp_gold, 10);
 	size_sp_gold = sp_gold->getContentSize();
 	sp_gold->setPosition(ccp(size_item_tipo.width * 0.24f, size_item_tipo.height * 0.34f));
-	la_gold = CCLabelAtlas::create("-500", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_gold = CCLabelAtlas::create("-500", RES_number_style_4, 12, 15, '+');
 	__item_ganxing->addChild(la_gold, 10, 100);
 	la_gold->setAnchorPoint(ccp(0, 0.5f));
 	la_gold->setPosition(ccp(size_item_tipo.width * 0.24f + size_sp_gold.width * 0.6f, size_item_tipo.height * 0.34f));
@@ -237,7 +240,7 @@ bool LayerExercise::initUI()
 	__item_ganxing->addChild(sp_physical, 10);
 	size_sp_physical = sp_physical->getContentSize();
 	sp_physical->setPosition(ccp(size_item_tipo.width * 0.3f, size_item_tipo.height * 0.23f));
-	la_physical = CCLabelAtlas::create("-15", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_physical = CCLabelAtlas::create("-15", RES_number_style_4, 12, 15, '+');
 	__item_ganxing->addChild(la_physical, 10, 101);
 	la_physical->setAnchorPoint(ccp(0, 0.5f));
 	la_physical->setPosition(ccp(size_item_tipo.width * 0.3f + size_sp_physical.width * 0.6f, size_item_tipo.height * 0.23f));
@@ -245,7 +248,7 @@ bool LayerExercise::initUI()
 	__item_ganxing->addChild(sp_item_name, 10);
 	size_sp_item_name = sp_item_name->getContentSize();
 	sp_item_name->setPosition(ccp(size_item_tipo.width * 0.34f, size_item_tipo.height * 0.12f));
-	la_tipo = CCLabelAtlas::create("+2", "fonts/atlas/number_style_4.png", 12, 15, '+');
+	la_tipo = CCLabelAtlas::create("+2", RES_number_style_4, 12, 15, '+');
 	__item_ganxing->addChild(la_tipo, 10, 102);
 	la_tipo->setAnchorPoint(ccp(0, 0.5f));
 	la_tipo->setPosition(ccp(size_item_tipo.width * 0.34f + size_sp_item_name.width * 0.6f, size_item_tipo.height * 0.12f));
@@ -489,14 +492,16 @@ void LayerExercise::menuCallbackExercise(CCObject* pSender)
 	CCMenuItemSprite *menu_item = static_cast<CCMenuItemSprite*>(pSender);
 	int gold = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(100))->getString());
 	int physical = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(101))->getString());
+	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
-	if ((user_info->getCurrentGold() + gold) < 0)
-	{
+	if ((user_info->getCurrentPhysical() + physical) < 0)
+	{//体力不足
+		this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Physical")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerExercise::hintCallbackRest)), 10);
 	}
-	else if ((user_info->getCurrentPhysical() + physical) < 0)
-	{
-
+	else if((user_info->getCurrentGold() + gold) < 0)
+	{//金币不足
+		this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Gold")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerExercise::hintCallbackWork)), 10);
 	}
 	else
 	{
@@ -559,4 +564,21 @@ void LayerExercise::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 }
 void LayerExercise::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
+}
+
+void LayerExercise::hintCallbackWork(CCNode *node)
+{
+	if (node->getTag() == 1)
+	{
+		this->getParent()->addChild(LayerWork::create(), 10);
+		this->removeFromParent();
+	}
+}
+void LayerExercise::hintCallbackRest(CCNode *node)
+{
+	if (node->getTag() == 1)
+	{
+		this->getParent()->addChild(LayerRest::create(), 10);
+		this->removeFromParent();
+	}
 }

@@ -22,6 +22,8 @@ public:
 	void addDataMissionToArray(DataMission* mission_data);
 	DataMission* getDataMissionFromArray(int id);
 
+	int getBonusById(int id);
+
 private:
 	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_npc, ArrOfDataNpc);//npc的数据
 	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataSection);//章节的数据
@@ -42,6 +44,16 @@ private:
 	CC_SYNTHESIZE(int, __cur_eq, CurrentEQ);
 	//当前的感性5
 	CC_SYNTHESIZE(int, __cur_ganxing, CurrentGanXing);
+	//当前的体魄加成
+	CC_SYNTHESIZE(float, __cur_tipo_bonus, CurrentTiPoBonus);
+	//当前的魅力加成
+	CC_SYNTHESIZE(float, __cur_meili_bonus, CurrentMeiLiBonus);
+	//当前的智力加成
+	CC_SYNTHESIZE(float, __cur_zhili_bonus, CurrentZhiLiBonus);
+	//当前的情商加成
+	CC_SYNTHESIZE(float, __cur_eq_bonus, CurrentEQBonus);
+	//当前的感性加成
+	CC_SYNTHESIZE(float, __cur_ganxing_bonus, CurrentGanXingBonus);
 	//当前任务ID
 	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);
 	//当前任务的消耗是否扣除
@@ -50,15 +62,15 @@ private:
 	CC_SYNTHESIZE(int, __cur_section_id, CurrentSectionId);
 	//当前剧情ID
 	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
-	//当前物品体魄的等级
+	//当前拥有体魄物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_tipo, CurrentGoodsLevelTiPo);
-	//当前物品魅力的等级
+	//当前拥有魅力物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_meili, CurrentGoodsLevelMeiLi);
-	//当前物品智力的等级
+	//当前拥有智力物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_zhili, CurrentGoodsLevelZhiLi);
-	//当前物品情商的等级
+	//当前拥有情商物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_eq, CurrentGoodsLevelEQ);
-	//当前物品感性的等级
+	//当前拥有感性物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_ganxing, CurrentGoodsLevelGanXing);
 	//当前章节ID
 	CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);

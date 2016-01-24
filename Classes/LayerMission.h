@@ -30,6 +30,8 @@ public:
 	void menuCallbackMissionGuide(CCObject* pSender);
 	void menuCallbackGetReward(CCObject* pSender);
 
+	void hintCallbackRest(CCNode *node);
+
 	//对话结束回调
 	void callbackDialogOver();
 

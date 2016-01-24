@@ -6,6 +6,8 @@ USING_NS_CC;
 
 static const char RES_number_style_1[] = "fonts/atlas/number_style_1.png";
 static const char RES_number_style_2[] = "fonts/atlas/number_style_2.png";
+static const char RES_number_style_3[] = "fonts/atlas/number_style_3.png";
+static const char RES_number_style_4[] = "fonts/atlas/number_style_4.png";
 static const char RES_number_style_5[] = "fonts/atlas/number_style_5.png";
 static const char RES_btn_back_1_0[] = "images/btn_back_1_0.png";
 static const char RES_btn_back_1_1[] = "images/btn_back_1_1.png";
@@ -23,6 +25,7 @@ static const char RES_btn_work_0[] = "images/btn_work_0.png";
 static const char RES_btn_work_1[] = "images/btn_work_1.png";
 static const char RES_btn_rest_0[] = "images/btn_rest_0.png";
 static const char RES_btn_rest_1[] = "images/btn_rest_1.png";
+static const char RES_white_dialog[] = "images/white_dialog.png";
 static const char RES_SceneMain_progress_favor_bg[] = "images/SceneMain_progress_favor_bg.png";
 static const char RES_SceneMain_progress_favor[] = "images/SceneMain_progress_favor.png";
 

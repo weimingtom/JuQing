@@ -5,6 +5,8 @@
 #include "SceneMain.h"
 #include "LayerExercise.h"
 #include "LayerGoods.h"
+#include "LayerHint.h"
+#include "LayerRest.h"
 
 LayerMission::LayerMission()
 :__atlas_total_physical(NULL)
@@ -184,43 +186,43 @@ void LayerMission::updataMissionContent()
 	else if (mission_type == 2)
 	{//锻炼任务
 		int value_int = (int)mission_value;
-		double value_float = mission_value - value_int * 1.0;
-		if (tl->doubleIsEquals(value_float, 0.1))
+		double value_double = mission_value - (double)value_int;
+		if (tl->doubleIsEquals(value_double, 0.1))
 		{//体魄
-			if (user_info->getCurrentTiPo() >= value_int)
+			if (user_info->getCurrentTiPo() + user_info->getBonusById(1) >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.2))
+		else if (tl->doubleIsEquals(value_double, 0.2))
 		{//魅力
-			if (user_info->getCurrentMeiLi() >= value_int)
+			if (user_info->getCurrentMeiLi() + user_info->getBonusById(2) >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.3))
+		else if (tl->doubleIsEquals(value_double, 0.3))
 		{//智力
-			if (user_info->getCurrentZhiLi() >= value_int)
+			if (user_info->getCurrentZhiLi() + user_info->getBonusById(3) >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.4))
+		else if (tl->doubleIsEquals(value_double, 0.4))
 		{//情商
-			if (user_info->getCurrentEQ() >= value_int)
+			if (user_info->getCurrentEQ() + user_info->getBonusById(4) >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.5))
+		else if (tl->doubleIsEquals(value_double, 0.5))
 		{//感性
-			if (user_info->getCurrentGanXing() >= value_int)
+			if (user_info->getCurrentGanXing() + user_info->getBonusById(5) >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.12345))
+		else if (tl->doubleIsEquals(value_double, 0.12345))
 		{//全面
 			if (user_info->getCurrentTiPo() >= value_int
 				&&user_info->getCurrentMeiLi() >= value_int
@@ -235,36 +237,36 @@ void LayerMission::updataMissionContent()
 	else if (mission_type == 3)
 	{//购买任务
 		int value_int = (int)mission_value;
-		double value_float = mission_value - (double)value_int;
-		if (tl->doubleIsEquals(value_float, 0.1))
+		double value_double = mission_value - (double)value_int;
+		if (tl->doubleIsEquals(value_double, 0.1))
 		{//体魄物品
 			if (user_info->getCurrentGoodsLevelTiPo() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.2))
+		else if (tl->doubleIsEquals(value_double, 0.2))
 		{//魅力物品
 			if (user_info->getCurrentGoodsLevelMeiLi() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.3))
+		else if (tl->doubleIsEquals(value_double, 0.3))
 		{//智力物品
 			if (user_info->getCurrentGoodsLevelZhiLi() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.4))
+		else if (tl->doubleIsEquals(value_double, 0.4))
 		{//情商物品
 			if (user_info->getCurrentGoodsLevelEQ() >= value_int)
 			{
 				is_finish = true;
 			}
 		}
-		else if (tl->doubleIsEquals(value_float, 0.5))
+		else if (tl->doubleIsEquals(value_double, 0.5))
 		{//感性物品
 			if (user_info->getCurrentGoodsLevelGanXing() >= value_int)
 			{
@@ -274,6 +276,9 @@ void LayerMission::updataMissionContent()
 	}
 
 	setMissionFinishState(is_finish);
+
+	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
+	scene_main->updateMe();
 }
 
 void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
@@ -286,6 +291,7 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	{
 		if (user_info->getCurrentPhysical() < 10)
 		{//体力不足
+			this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Physical")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerMission::hintCallbackRest)), 10);
 			return;
 		}
 
@@ -302,11 +308,13 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	}
 	else if (mission_type == 2)
 	{//锻炼任务
-		this->addChild(LayerExercise::create(), 10);
+		this->getParent()->addChild(LayerExercise::create(), 10);
+		this->removeFromParent();
 	}
 	else if (mission_type == 3)
 	{//购买任务
-		this->addChild(LayerGoods::create(), 10);
+		this->getParent()->addChild(LayerGoods::create(), 10);
+		this->removeFromParent();
 	}
 
 	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
@@ -315,6 +323,7 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 
 void LayerMission::menuCallbackGetReward(CCObject* pSender)
 {
+	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
 
@@ -323,6 +332,7 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	{
 		if (user_info->getCurrentPhysical() < 10)
 		{//体力不足
+			this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", tl->getXmlString("Physical")->getCString(), tl->getXmlString("HintNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(LayerMission::hintCallbackRest)), 10);
 			return;
 		}
 
@@ -339,9 +349,6 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	user_info->setCurrentMissionIsConsume(false);
 
 	updataMissionContent();
-
-	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
-	scene_main->updateMe();
 }
 void LayerMission::menuCallbackClose(CCObject* pSender)
 {
@@ -386,4 +393,12 @@ void LayerMission::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 }
 void LayerMission::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
+}
+void LayerMission::hintCallbackRest(CCNode *node)
+{
+	if (node->getTag() == 1)
+	{
+		this->getParent()->addChild(LayerRest::create(), 10);
+		this->removeFromParent();
+	}
 }

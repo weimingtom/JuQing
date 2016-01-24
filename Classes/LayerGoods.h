@@ -34,8 +34,11 @@ public:
 	void menuCallbackClose(CCObject* pSender);
 	void menuCallbackBuy(CCObject* pSender);
 
+	void hintCallbackWork(CCNode *node);
+
 	void updateMe();
 
+	int getGoodsLevel(int level);
 	int getGoodsPrice(int level);
 	int getGoodsBonus(int level);
 private:

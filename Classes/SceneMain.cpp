@@ -91,30 +91,55 @@ bool SceneMain::initUI()
 	sprite->addChild(atlas, 0, 1);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.625f));
+	//加成
+	CCSize size_atlas = atlas->getContentSize();
+	CCLabelAtlas *atlas_bonus = CCLabelAtlas::create(CCString::createWithFormat("(+%d)", user_info->getBonusById(1))->getCString(), RES_number_style_3, 10, 15, '(');
+	atlas->addChild(atlas_bonus, 0, 0);
+	atlas_bonus->setPosition(ccp(size_atlas.width, 0));
 
 	//魅力数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 2);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.5f));
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas_bonus = CCLabelAtlas::create(CCString::createWithFormat("(+%d)", user_info->getBonusById(2))->getCString(), RES_number_style_3, 10, 15, '(');
+	atlas->addChild(atlas_bonus, 0, 0);
+	atlas_bonus->setPosition(ccp(size_atlas.width, 0));
 
 	//智力数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 3);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.375f));
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas_bonus = CCLabelAtlas::create(CCString::createWithFormat("(+%d)", user_info->getBonusById(3))->getCString(), RES_number_style_3, 10, 15, '(');
+	atlas->addChild(atlas_bonus, 0, 0);
+	atlas_bonus->setPosition(ccp(size_atlas.width, 0));
 
 	//情商数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 4);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.248f));
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas_bonus = CCLabelAtlas::create(CCString::createWithFormat("(+%d)", user_info->getBonusById(4))->getCString(), RES_number_style_3, 10, 15, '(');
+	atlas->addChild(atlas_bonus, 0, 0);
+	atlas_bonus->setPosition(ccp(size_atlas.width, 0));
 
 	//感性数
 	atlas = CCLabelAtlas::create(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString(), RES_number_style_2, 9, 15, '+');
 	sprite->addChild(atlas, 0, 5);
 	atlas->setAnchorPoint(ccp(0, 0.5f));
 	atlas->setPosition(ccp(size_attribute.width * 0.4f, size_attribute.height * 0.122f));
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas_bonus = CCLabelAtlas::create(CCString::createWithFormat("(+%d)", user_info->getBonusById(5))->getCString(), RES_number_style_3, 10, 15, '(');
+	atlas->addChild(atlas_bonus, 0, 0);
+	atlas_bonus->setPosition(ccp(size_atlas.width, 0));
 
 	//好感进度条
 	CCSprite *progress_favor_bg =CCSprite::create(RES_SceneMain_progress_favor_bg);
@@ -332,18 +357,47 @@ void SceneMain::updateMe()
 	//体魄
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentTiPo())->getCString());
+	//加成
+	CCSize size_atlas = atlas->getContentSize();
+	atlas = static_cast<CCLabelAtlas *>(atlas->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("(+%d)", user_info->getBonusById(1))->getCString());
+	atlas->setPosition(ccp(size_atlas.width, 0));
+
 	//魅力
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(2));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentMeiLi())->getCString());
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas = static_cast<CCLabelAtlas *>(atlas->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("(+%d)", user_info->getBonusById(2))->getCString());
+	atlas->setPosition(ccp(size_atlas.width, 0));
+
 	//智力
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(3));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentZhiLi())->getCString());
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas = static_cast<CCLabelAtlas *>(atlas->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("(+%d)", user_info->getBonusById(3))->getCString());
+	atlas->setPosition(ccp(size_atlas.width, 0));
+
 	//情商
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(4));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentEQ())->getCString());
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas = static_cast<CCLabelAtlas *>(atlas->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("(+%d)", user_info->getBonusById(4))->getCString());
+	atlas->setPosition(ccp(size_atlas.width, 0));
+
 	//感性
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(5));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentGanXing())->getCString());
+	//加成
+	size_atlas = atlas->getContentSize();
+	atlas = static_cast<CCLabelAtlas *>(atlas->getChildByTag(0));
+	atlas->setString(CCString::createWithFormat("(+%d)", user_info->getBonusById(5))->getCString());
+	atlas->setPosition(ccp(size_atlas.width, 0));
 
 	node = this->getChildByTag(2);
 	//好感度进度条

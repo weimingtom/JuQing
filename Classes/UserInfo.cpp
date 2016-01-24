@@ -9,6 +9,11 @@ UserInfo::UserInfo()
 , __cur_zhili(10)
 , __cur_eq(10)
 , __cur_ganxing(10)
+, __cur_tipo_bonus(0)
+, __cur_meili_bonus(0)
+, __cur_zhili_bonus(0)
+, __cur_eq_bonus(0)
+, __cur_ganxing_bonus(0)
 , __cur_mission_id(1)
 , __cur_section_id(1)
 , __cur_plot_id(0)
@@ -67,4 +72,37 @@ void UserInfo::addDataMissionToArray(DataMission* mission_data)
 DataMission* UserInfo::getDataMissionFromArray(int id)
 {
 	return static_cast<DataMission*>(__arr_data_mission->objectAtIndex(id));
+}
+
+int UserInfo::getBonusById(int id)
+{
+	float fRet = 0;
+	if (id == 1)
+	{
+		fRet = __cur_tipo * __cur_tipo_bonus;
+	}
+	else if (id == 2)
+	{
+		fRet = __cur_meili * __cur_meili_bonus;
+	}
+	else if (id == 3)
+	{
+		fRet = __cur_zhili * __cur_zhili_bonus;
+	}
+	else if (id == 4)
+	{
+		fRet = __cur_eq *  __cur_eq_bonus;
+	}
+	else if (id == 5)
+	{
+		fRet = __cur_ganxing * __cur_ganxing_bonus;
+	}
+	int iRet = (int)fRet;
+	float temp_f = fRet - (float)iRet;
+	temp_f = temp_f - 1.0f;
+	if (temp_f> -1e-6 && temp_f < 1e-6)
+	{
+		iRet += 1;
+	}
+	return iRet;
 }

@@ -4,33 +4,25 @@
 <dict>
 	<key>GameName</key>
 		<string>剧情类</string>
-	<key>Require</key>
-		<string>任务要求：</string>
-	<key>Reward</key>
-		<string>任务奖励：</string>
-	<key>Gold</key>
-		<string>金币</string>
 	<key>More</key>
 		<string>更多
 		游戏</string>
-	<key>Font</key>
-		<string>迷你简粗圆.ttf</string>
+	<key>Require</key>
+		<string>要求：</string>
+	<key>Reward</key>
+		<string>奖励：</string>
+	<key>Gold</key>
+		<string>金币</string>
+	<key>Physical</key>
+		<string>体力</string>
+	<key>HintNotEnough</key>
+		<string>不足，是否去补充？</string>
+	<key>HintTimeNotEnough</key>
+		<string>对不起，您的追求时间已经全部用完，是否立即补充？</string>
 	<key>SquareName</key>
 		<array>
 		<string>方块名</string>
 		<string>白手起家</string>
-		<string>乞丐</string>
-		<string>捡破烂</string>
-		<string>搬砖</string>
-		<string>民工</string>
-		<string>包工头</string>
-		<string>厂长</string>
-		<string>老板</string>
-		<string>董事长</string>
-		<string>富翁</string>
-		<string>首富</string>
-		<string>富可敌国</string>
-		<string>财神</string>
 		</array>
 </dict>
 </plist>
