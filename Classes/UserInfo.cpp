@@ -27,51 +27,17 @@ UserInfo::UserInfo()
 , __cur_wooer(5)
 , __cur_favor(10)
 {
-	__arr_data_npc = CCArray::create();
-	__arr_data_npc->retain();
-	__arr_data_chapter = CCArray::create();
-	__arr_data_chapter->retain();
-	__arr_data_mission = CCArray::create();
-	__arr_data_mission->retain();
 }
 
 
 UserInfo::~UserInfo()
 {
-	__arr_data_npc->release();
-	__arr_data_chapter->release();
-	__arr_data_mission->release();
 }
 
 //负责初始到原始0状态
 bool UserInfo::init()
 {
 	return true;
-}
-
-void UserInfo::addDataNpcToArray(DataNpc* npc_data)
-{
-	__arr_data_npc->addObject(npc_data);
-}
-DataNpc* UserInfo::getDataNpcFromArray(int id)
-{
-	return static_cast<DataNpc*>(__arr_data_npc->objectAtIndex(id));
-}
-void UserInfo::addDataSectionToArray(DataSection* chapter_data)
-{
-	__arr_data_chapter->addObject(chapter_data);
-}
-DataSection* UserInfo::getDataSectionFromArray(int id)
-{
-	return static_cast<DataSection*>(__arr_data_chapter->objectAtIndex(id));
-}
-void UserInfo::addDataMissionToArray(DataMission* mission_data)
-{
-	__arr_data_mission->addObject(mission_data);
-}
-DataMission* UserInfo::getDataMissionFromArray(int id)
-{
-	return static_cast<DataMission*>(__arr_data_mission->objectAtIndex(id));
 }
 
 int UserInfo::getBonusById(int id)

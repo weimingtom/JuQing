@@ -44,6 +44,7 @@ void AppDelegate::applicationDidEnterBackground() {
 
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	Topwo::getInstance()->getTopwoData()->writeData();
 }
 
 // this function will be called when the app is active again

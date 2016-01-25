@@ -186,16 +186,15 @@ void LayerDialog::typedCallBack()
 				{
 					if (doc[i].HasMember("npc") && doc[i]["npc"].IsNumber() && doc[i].HasMember("favor") && doc[i]["favor"].IsNumber())
 					{
-						UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+						TopwoData* td = Topwo::getInstance()->getTopwoData();
+						UserInfo* user_info = td->getUserInfo();
 						int npc_id = (int)doc[i]["npc"].GetDouble();
 						int npc_favor = (int)doc[i]["favor"].GetDouble();
-						DataNpc* npc_data = user_info->getDataNpcFromArray(npc_id);
-						npc_data->setFavorCur(npc_data->getFavorCur() + npc_favor);
 						if (npc_id == user_info->getCurrentWooer())
 						{
 							user_info->setCurrentFavor(user_info->getCurrentFavor() + npc_favor);
 						}
-						CCLOG("getFavorCur:%d", npc_data->getFavorCur());
+						DataNpc* npc_data = td->getDataNpcFromArray(npc_id);
 						CCLOG("getFavorMax:%d", npc_data->getFavorMax());
 					}
 				}
@@ -305,7 +304,7 @@ void LayerDialog::analyzeDialog(int index)
 		if (json_value.HasMember("NA") && json_value["NA"].IsNumber())
 		{
 			int name_id = (int)json_value["NA"].GetDouble();
-			DataNpc* npc_data = Topwo::getInstance()->getTopwoData()->getUserInfo()->getDataNpcFromArray(name_id);
+			DataNpc* npc_data = Topwo::getInstance()->getTopwoData()->getDataNpcFromArray(name_id);
 			__name->setString(npc_data->getName()->getCString());
 			if (!__name->getParent()->isVisible())
 			{

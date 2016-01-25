@@ -138,8 +138,9 @@ bool SceneAction::initUI()
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
-	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	DataSection *data_section = user_info->getDataSectionFromArray(1);
+	TopwoData* td = Topwo::getInstance()->getTopwoData();
+	UserInfo* user_info = td->getUserInfo();
+	DataSection *data_section = td->getDataSectionFromArray(1);
 	this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
 	
 	user_info->setCurrentMissionId(1);
@@ -148,6 +149,7 @@ void SceneAction::menuNewCallback(CCObject* pSender)
 //旧的回忆
 void SceneAction::menuOldCallback(CCObject* pSender)
 {
+	Topwo::getInstance()->getTopwoData()->readData();
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneMain::creatScene()));
 }
 //设置

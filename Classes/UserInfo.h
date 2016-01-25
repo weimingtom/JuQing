@@ -15,19 +15,9 @@ public:
 	bool init();
 	CREATE_FUNC(UserInfo);
 
-	void addDataNpcToArray(DataNpc* npc_data);
-	DataNpc* getDataNpcFromArray(int id);
-	void addDataSectionToArray(DataSection* chapter_data);
-	DataSection* getDataSectionFromArray(int id);
-	void addDataMissionToArray(DataMission* mission_data);
-	DataMission* getDataMissionFromArray(int id);
-
 	int getBonusById(int id);
 
 private:
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_npc, ArrOfDataNpc);//npc的数据
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_chapter, ArrOfDataSection);//章节的数据
-	CC_SYNTHESIZE_READONLY(CCArray*, __arr_data_mission, ArrOfDataMission);//章节的数据
 	//玩过得天数
 	CC_SYNTHESIZE(int, __plaid_days, PlaidDays);
 	//当前的体力值
@@ -54,14 +44,6 @@ private:
 	CC_SYNTHESIZE(float, __cur_eq_bonus, CurrentEQBonus);
 	//当前的感性加成
 	CC_SYNTHESIZE(float, __cur_ganxing_bonus, CurrentGanXingBonus);
-	//当前任务ID
-	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);
-	//当前任务的消耗是否扣除
-	CC_SYNTHESIZE(bool, __cur_mission_is_consume, CurrentMissionIsConsume);
-	//当前小节ID
-	CC_SYNTHESIZE(int, __cur_section_id, CurrentSectionId);
-	//当前剧情ID
-	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
 	//当前拥有体魄物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_tipo, CurrentGoodsLevelTiPo);
 	//当前拥有魅力物品的等级
@@ -72,6 +54,14 @@ private:
 	CC_SYNTHESIZE(int, __cur_goods_level_eq, CurrentGoodsLevelEQ);
 	//当前拥有感性物品的等级
 	CC_SYNTHESIZE(int, __cur_goods_level_ganxing, CurrentGoodsLevelGanXing);
+	//当前任务ID
+	CC_SYNTHESIZE(int, __cur_mission_id, CurrentMissionId);
+	//当前任务的消耗是否扣除
+	CC_SYNTHESIZE(bool, __cur_mission_is_consume, CurrentMissionIsConsume);
+	//当前小节ID
+	CC_SYNTHESIZE(int, __cur_section_id, CurrentSectionId);
+	//当前剧情ID
+	CC_SYNTHESIZE(int, __cur_plot_id, CurrentPlotId);
 	//当前章节ID
 	CC_SYNTHESIZE(int, __cur_chapter_id, CurrentChapterId);
 	//当前追求目标

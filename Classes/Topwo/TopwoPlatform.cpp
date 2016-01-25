@@ -145,6 +145,7 @@ void TopwoPlatform::exitCallback()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
 #else
+	Topwo::getInstance()->getTopwoData()->writeData();
 	CCDirector::sharedDirector()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);

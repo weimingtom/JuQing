@@ -156,9 +156,9 @@ void LayerMission::updataMissionContent()
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
-	DataNpc * npc_data = user_info->getDataNpcFromArray(user_info->getCurrentWooer());
+	DataNpc * npc_data = td->getDataNpcFromArray(user_info->getCurrentWooer());
 	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
+	DataMission* mission_data = td->getDataMissionFromArray(cur_mission_id);
 	//剩余体力值
 	__atlas_total_physical->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
 	//追求者
@@ -284,8 +284,9 @@ void LayerMission::updataMissionContent()
 void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 {
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
-	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
-	DataMission *data_mission = user_info->getDataMissionFromArray(user_info->getCurrentMissionId());
+	TopwoData *td = Topwo::getInstance()->getTopwoData();
+	UserInfo* user_info = td->getUserInfo();
+	DataMission *data_mission = td->getDataMissionFromArray(user_info->getCurrentMissionId());
 
 	if (!user_info->getCurrentMissionIsConsume())
 	{
@@ -303,7 +304,7 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	int mission_type = data_mission->getType();
 	if (mission_type == 1)
 	{//对话任务
-		DataSection *data_section = user_info->getDataSectionFromArray((int)mission_value);
+		DataSection *data_section = td->getDataSectionFromArray((int)mission_value);
 		this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(LayerMission::callbackDialogOver)), 10);
 	}
 	else if (mission_type == 2)
@@ -341,7 +342,7 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 	}
 
 	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
+	DataMission* mission_data = td->getDataMissionFromArray(cur_mission_id);
 	user_info->setCurrentGold(user_info->getCurrentGold() + mission_data->getReward());
 
 	//跳到下一个任务
@@ -356,9 +357,10 @@ void LayerMission::menuCallbackClose(CCObject* pSender)
 }
 void LayerMission::callbackDialogOver()
 {
-	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
+	TopwoData *td = Topwo::getInstance()->getTopwoData();
+	UserInfo *user_info = td->getUserInfo();
 	int cur_mission_id = user_info->getCurrentMissionId();
-	DataMission* mission_data = user_info->getDataMissionFromArray(cur_mission_id);
+	DataMission* mission_data = td->getDataMissionFromArray(cur_mission_id);
 	float mission_value = (float)mission_data->getTarget();
 	user_info->setCurrentSectionId((int)mission_value);
 
