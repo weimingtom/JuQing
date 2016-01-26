@@ -19,10 +19,15 @@
 		<string>不足，是否去补充？</string>
 	<key>HintTimeNotEnough</key>
 		<string>对不起，您的追求时间已经全部用完，是否立即补充？</string>
-	<key>SquareName</key>
+	<key>HintFavorNotEnough</key>
+		<string>对你的好感还不够，无法成功表白，是否增加她对你的好感？</string>
+	<key>ExpressReward</key>
 		<array>
-		<string>方块名</string>
-		<string>白手起家</string>
+		<string>表白奖励</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
 		</array>
 </dict>
 </plist>

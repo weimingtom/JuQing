@@ -58,6 +58,11 @@ bool LayerHint::initUIWith(CCLabelTTF *content, int style)
 	content->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
 	content->setPosition(ccp(size_sp_bg.width * 0.5f, size_sp_bg.height * 0.65f));
 	content->setColor(ccRED);
+	if (content->getContentSize().width > size_sp_bg.width * 0.9f)
+	{
+		content->setHorizontalAlignment(kCCTextAlignmentLeft);
+		content->setDimensions(CCSizeMake(size_sp_bg.width * 0.85f, 0));
+	}
 
 	//菜单
 	CCMenu *pMenu = CCMenu::create();

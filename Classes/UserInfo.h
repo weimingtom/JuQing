@@ -15,6 +15,7 @@ public:
 	bool init();
 	CREATE_FUNC(UserInfo);
 
+	void resetData();
 	int getBonusById(int id);
 
 private:

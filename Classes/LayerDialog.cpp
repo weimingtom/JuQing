@@ -133,14 +133,15 @@ bool LayerDialog::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 		{
 			return true;
 		}
-		if (__current_id < __end_id)
-		{
-			analyzeDialog(__current_id + __offset);
-		}
-		else
+		int next_id = __current_id + __offset;
+		if (next_id > __end_id)
 		{
 			CCFadeOut* action_fade_out = CCFadeOut::create(0.5f);
 			this->runAction(CCSequence::createWithTwoActions(action_fade_out, CCCallFunc::create(this, callfunc_selector(LayerDialog::removeFromParent))));
+		}
+		else
+		{
+			analyzeDialog(next_id);
 		}
 	}
 	return true;
@@ -161,7 +162,16 @@ void LayerDialog::menuCallbackFork(CCObject* pSender)
 	__fork_menu->setVisible(false);
 	__fork_menu->removeAllChildren();
 	int fork_pos = static_cast<CCMenuItemImage*>(pSender)->getZOrder();
-	analyzeDialog(__current_id + fork_pos);
+	int next_id = __current_id + fork_pos;
+	if (next_id > __end_id)
+	{
+		CCFadeOut* action_fade_out = CCFadeOut::create(0.5f);
+		this->runAction(CCSequence::createWithTwoActions(action_fade_out, CCCallFunc::create(this, callfunc_selector(LayerDialog::removeFromParent))));
+	}
+	else
+	{
+		analyzeDialog(next_id);
+	}
 }
 void LayerDialog::typedCallBack()
 {

@@ -5,6 +5,8 @@
 #include "LayerGoods.h"
 #include "LayerWork.h"
 #include "LayerRest.h"
+#include "LayerDialog.h"
+#include "LayerHint.h"
 
 CCScene* SceneMain::creatScene()
 {
@@ -183,7 +185,7 @@ bool SceneMain::initUI()
 		RES_btn_express_0,
 		RES_btn_express_1,
 		this,
-		menu_selector(SceneMain::menuBackCallback));
+		menu_selector(SceneMain::menuExpressCallback));
 	CCSize size_item_express = item_express->getContentSize();
 	item_express->setPosition(ccp((vs.width + size_progress_favor_bg.width + size_item_express.width) * 0.5f, progress_favor_bg->getPositionY() + size_progress_favor_bg.height * 0.18f));
 
@@ -406,4 +408,56 @@ void SceneMain::updateMe()
 	//好感度数值
 	atlas = static_cast<CCLabelAtlas *>(node->getChildByTag(1));
 	atlas->setString(CCString::createWithFormat("%d", user_info->getCurrentFavor())->getCString());
+}
+
+//补充好感度
+void SceneMain::callbackBuyFavor(CCNode* pSender)
+{
+	if (pSender->getTag() == 1)
+	{
+		callbackBuiedFavor();
+	}
+}
+//购买后的回调
+void SceneMain::callbackBuiedFavor()
+{
+	TopwoData *td = Topwo::getInstance()->getTopwoData();
+	UserInfo *user_info = td->getUserInfo();
+	user_info->setCurrentFavor(100);
+	updateMe();
+}
+//表白
+void SceneMain::menuExpressCallback(CCObject* pSender)
+{
+	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
+	TopwoData *td = Topwo::getInstance()->getTopwoData();
+	UserInfo *user_info = td->getUserInfo();
+	DataNpc* data_npc = td->getDataNpcFromArray(user_info->getCurrentWooer());
+	if (user_info->getCurrentFavor() < 100)
+	{
+		this->addChild(LayerHint::createWith(CCLabelTTF::create(CCString::createWithFormat("%s%s", data_npc->getName()->getCString(), tl->getXmlString("HintFavorNotEnough")->getCString())->getCString(), "", 30), 2, this, callfuncN_selector(SceneMain::callbackBuyFavor)));
+		return;
+	}
+	DataMission* mission_data = td->getDataMissionFromArray(data_npc->getExpressMissionId());
+	if (mission_data->getType() == 4)
+	{
+		double mission_value = mission_data->getTarget();
+		DataSection* data_section = td->getDataSectionFromArray((int)mission_value);
+		this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneMain::callbackExpressOver)), 10);
+	}
+}
+//表白结束回调
+void SceneMain::callbackExpressOver()
+{
+	TopwoData *td = Topwo::getInstance()->getTopwoData();
+	UserInfo *user_info = td->getUserInfo();
+	DataNpc* data_npc = td->getDataNpcFromArray(user_info->getCurrentWooer());
+	int mission_id = data_npc->getExpressMissionId() + 1;
+	DataMission* mission_data = td->getDataMissionFromArray(mission_id);
+	user_info->setCurrentWooer(mission_data->getWooer());
+	user_info->setCurrentFavor(10);
+	user_info->setPlaidDays(0);
+	user_info->setCurrentMissionId(mission_id);
+	user_info->setCurrentMissionIsConsume(false);
+	updateMe();
 }

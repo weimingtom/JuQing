@@ -2,6 +2,7 @@
 #include "SceneMain.h"
 #include "LayerDialog.h"
 #include "UserInfo.h"
+#include "LayerHint.h"
 
 CCScene* SceneAction::creatScene()
 {
@@ -49,29 +50,31 @@ bool SceneAction::initUI()
 
 	//新的开始项
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
-		"images/btn_common_1_0.png",
-		"images/btn_common_1_1.png",
+		"images/SceneAction_new_0.png",
+		"images/SceneAction_new_1.png",
 		this,
 		menu_selector(SceneAction::menuNewCallback));
 	CCSize size = item_new->getContentSize();
-	item_new->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 5.0f / 2.0f + 25.0f));
-
-	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
-	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
-	item_new->addChild(lbl, 1);
+	item_new->setPosition(ccp(vs.width * 0.5f - size.width * 1.6f, vs.height * 0.3f));
 
 	//旧的回忆项
 	CCMenuItemImage *item_old = CCMenuItemImage::create(
-		"images/btn_common_1_0.png",
-		"images/btn_common_1_1.png",
+		"images/SceneAction_old_0.png",
+		"images/SceneAction_old_1.png",
 		this,
 		menu_selector(SceneAction::menuOldCallback));
-	item_old->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height * 3.0f / 2.0f + 15.0f));
+	item_old->setPosition(ccp(vs.width * 0.5f, vs.height * 0.3f));
 
-	lbl = CCLabelTTF::create("old", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
-	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
-	item_old->addChild(lbl, 1);
+	//退出项
+	CCMenuItemImage *item_close = CCMenuItemImage::create(
+		"images/SceneAction_end_0.png",
+		"images/SceneAction_end_1.png",
+		this,
+		menu_selector(SceneAction::menuCloseCallback));
+	item_close->setPosition(ccp(vs.width * 0.5f + size.width * 1.6f, vs.height * 0.3f));
 
+
+	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	//设置项
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
@@ -108,19 +111,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
-	//退出项
-	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"images/btn_common_1_0.png",
-		"images/btn_common_1_1.png",
-		this,
-		menu_selector(SceneAction::menuCloseCallback));
-	item_close->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f - size.height * 5.0f / 2.0f - 25.0f));
-
-	lbl = CCLabelTTF::create("close", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
-	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
-	item_close->addChild(lbl, 1);
-
-	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_set, item_help, item_about, item_close, NULL);
+	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_close, /*item_set, item_help, item_about,*/ NULL);
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
 
@@ -143,8 +134,7 @@ void SceneAction::menuNewCallback(CCObject* pSender)
 	DataSection *data_section = td->getDataSectionFromArray(1);
 	this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
 	
-	user_info->setCurrentMissionId(1);
-	user_info->setCurrentSectionId(1);
+	user_info->resetData();
 }
 //旧的回忆
 void SceneAction::menuOldCallback(CCObject* pSender)

@@ -56,6 +56,8 @@ void TopwoData::analyzeDataNpc(rapidjson::Document& doc)
 			npc_data->setFavorMax((int)doc[i]["MF"].GetDouble());
 		if (doc[i].HasMember("IN") && doc[i]["IN"].IsString())
 			npc_data->setDes(CCString::create(doc[i]["IN"].GetString()));
+		if (doc[i].HasMember("EM") && doc[i]["EM"].IsDouble())
+			npc_data->setExpressMissionId((int)doc[i]["EM"].GetDouble());
 		addDataNpcToArray(npc_data);
 	}
 }
@@ -94,6 +96,8 @@ void TopwoData::analyzeDataMission(rapidjson::Document& doc)
 			mission_data->setMission(CCString::create(doc[i]["MI"].GetString()));
 		if (doc[i].HasMember("TA") && doc[i]["TA"].IsDouble())
 			mission_data->setTarget(doc[i]["TA"].GetDouble());
+		if (doc[i].HasMember("WO") && doc[i]["WO"].IsDouble())
+			mission_data->setWooer((int)doc[i]["WO"].GetDouble());
 		addDataMissionToArray(mission_data);
 	}
 }

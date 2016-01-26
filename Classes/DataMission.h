@@ -20,6 +20,7 @@ private:
 	CC_SYNTHESIZE_RETAIN(CCString*, __mission, Mission);//任务
 	CC_SYNTHESIZE(double, __target, Target);//目标
 	CC_SYNTHESIZE(int, __reward, Reward);//奖励
+	CC_SYNTHESIZE(int, __wooer, Wooer);//追求者
 };
 
 #endif  //__DATA_MISSION_H__

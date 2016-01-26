@@ -159,6 +159,8 @@ void LayerMission::updataMissionContent()
 	DataNpc * npc_data = td->getDataNpcFromArray(user_info->getCurrentWooer());
 	int cur_mission_id = user_info->getCurrentMissionId();
 	DataMission* mission_data = td->getDataMissionFromArray(cur_mission_id);
+	double mission_value = mission_data->getTarget();
+	int mission_type = mission_data->getType();
 	//剩余体力值
 	__atlas_total_physical->setString(CCString::createWithFormat("%d", user_info->getCurrentPhysical())->getCString());
 	//追求者
@@ -170,12 +172,18 @@ void LayerMission::updataMissionContent()
 	//任务
 	__ttf_mission->setString(CCString::createWithFormat("%s%s", tl->getXmlString("Require")->getCString(), mission_data->getMission()->getCString())->getCString());
 	//奖励
-	__ttf_reward->setString(CCString::createWithFormat("%s%d%s", tl->getXmlString("Reward")->getCString(), mission_data->getReward(), tl->getXmlString("Gold")->getCString())->getCString());
+	if (mission_type != 4)
+	{
+		__ttf_reward->setString(CCString::createWithFormat("%s%d%s", tl->getXmlString("Reward")->getCString(), mission_data->getReward(), tl->getXmlString("Gold")->getCString())->getCString());
+	}
+	else
+	{
+		__atlas_total_physical->getParent()->setVisible(false);
+		__ttf_reward->setString(CCString::createWithFormat("%s%s", tl->getXmlString("Reward")->getCString(),tl->getXmlArrayString("ExpressReward", 1)->getCString())->getCString());
+	}
 
 	//目标值
 	bool is_finish = false;
-	double mission_value = mission_data->getTarget();
-	int mission_type = mission_data->getType();
 	if (mission_type == 1)
 	{//对话任务
 		if (user_info->getCurrentSectionId() == (int)mission_value)
@@ -287,6 +295,12 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo* user_info = td->getUserInfo();
 	DataMission *data_mission = td->getDataMissionFromArray(user_info->getCurrentMissionId());
+	float mission_value = (float)data_mission->getTarget();
+	int mission_type = data_mission->getType();
+	if (mission_type == 4)
+	{//表白任务
+		this->removeFromParent();
+	}
 
 	if (!user_info->getCurrentMissionIsConsume())
 	{
@@ -300,8 +314,6 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 		user_info->setCurrentMissionIsConsume(true);
 	}
 
-	float mission_value = (float)data_mission->getTarget();
-	int mission_type = data_mission->getType();
 	if (mission_type == 1)
 	{//对话任务
 		DataSection *data_section = td->getDataSectionFromArray((int)mission_value);

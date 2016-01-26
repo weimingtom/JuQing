@@ -53,6 +53,14 @@ public:
 	void menuWorkCallback(CCObject* pSender);
 	//休息菜单项
 	void menuRestCallback(CCObject* pSender);
+	//表白菜单项
+	void menuExpressCallback(CCObject* pSender);
+	//表白结束回调
+	void callbackExpressOver();
+	//调用计费购买好感度
+	void callbackBuyFavor(CCNode* pSender);
+	//购买后的回调
+	void callbackBuiedFavor();
 };
 
 #endif // __SCENE_MAIN_H__

@@ -17,6 +17,7 @@ private:
 	CC_SYNTHESIZE_RETAIN(CCString*, __name, Name);//名字
 	CC_SYNTHESIZE_RETAIN(CCString*, __des, Des);//描述
 	CC_SYNTHESIZE(int, __favor_max, FavorMax);//总好感度
+	CC_SYNTHESIZE(int, __express_mission_id, ExpressMissionId);//表白任务ID
 };
 
 #endif  //__DATA_NPC_H__

@@ -5,6 +5,7 @@ DataNpc::DataNpc()
 , __name(CCString::create("name"))
 , __des(CCString::create("des"))
 , __favor_max(0)
+, __express_mission_id(0)
 {
 }
 
