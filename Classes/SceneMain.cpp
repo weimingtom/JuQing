@@ -46,7 +46,7 @@ bool SceneMain::initUI()
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
 	//背景
-	CCSprite* bg = CCSprite::create("images/SceneMain_bg_1.jpg");
+	CCSprite* bg = CCSprite::create("images/BG_1.jpg");
 	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 	this->addChild(bg);
 

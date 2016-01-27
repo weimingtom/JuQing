@@ -45,8 +45,8 @@ bool SceneAction::initUI()
 
 	//背景
 	CCSprite* bg = CCSprite::create("images/SceneAction_bg.jpg");
-	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 	this->addChild(bg, 0);
+	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 
 	//新的开始项
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
@@ -63,7 +63,7 @@ bool SceneAction::initUI()
 		"images/SceneAction_old_1.png",
 		this,
 		menu_selector(SceneAction::menuOldCallback));
-	item_old->setPosition(ccp(vs.width * 0.5f, vs.height * 0.3f));
+	item_old->setPosition(ccp(vs.width * 0.5f , vs.height * 0.3f));
 
 	//退出项
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
@@ -120,6 +120,23 @@ bool SceneAction::initUI()
 		item_old->setEnabled(false);
 		item_old->setColor(ccc3(128,128,128));
 	}*/
+
+	//logo
+	CCSprite* sp_logo = CCSprite::create("images/SceneAction_logo.png");
+	this->addChild(sp_logo, 0);
+	CCSize size_sp_logo = sp_logo->getContentSize();
+	sp_logo->setPosition(ccp(vs.width * 0.5f, vs.height - size_sp_logo.height * 0.6f));
+
+	//装饰
+	CCSprite* sp_decoration_1 = CCSprite::create("images/SceneAction_decoration_1.png");
+	this->addChild(sp_decoration_1, 0);
+	CCSize size_sp_decoration_1 = sp_decoration_1->getContentSize();
+	sp_decoration_1->setPosition(ccp(size_sp_decoration_1.width * 0.6f, size_sp_decoration_1.height * 0.5f));
+
+	CCSprite* sp_decoration_2 = CCSprite::create("images/SceneAction_decoration_2.png");
+	this->addChild(sp_decoration_2, 0);
+	CCSize size_sp_decoration_2 = sp_decoration_2->getContentSize();
+	sp_decoration_2->setPosition(ccp(vs.width - size_sp_decoration_1.width * 0.6f, size_sp_decoration_2.height * 0.5f));
 
 	return true;
 }
