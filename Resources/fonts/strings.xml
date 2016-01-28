@@ -7,6 +7,8 @@
 	<key>More</key>
 		<string>更多
 		游戏</string>
+	<key>HintRestart</key>
+		<string>重新开始将删除存档，是否继续？</string>
 	<key>Require</key>
 		<string>要求：</string>
 	<key>Reward</key>

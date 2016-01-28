@@ -145,13 +145,16 @@ bool SceneAction::initUI()
 //新的开始
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
-	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
+	TopwoTools* tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData* td = Topwo::getInstance()->getTopwoData();
-	UserInfo* user_info = td->getUserInfo();
-	DataSection *data_section = td->getDataSectionFromArray(1);
-	this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
-	
-	user_info->resetData();
+    if(td->isExistData())
+    {
+        this->addChild(LayerHint::createWith(CCLabelTTF::create(tl->getXmlString("HintRestart")->getCString(), "", 30), 2, this, callfuncN_selector(SceneAction::hintCallbackRestart)), 10);
+    }
+    else
+    {
+        newGame();
+    }
 }
 //旧的回忆
 void SceneAction::menuOldCallback(CCObject* pSender)
@@ -186,4 +189,21 @@ void SceneAction::keyBackClicked()
 void SceneAction::callbackDialogOver()
 {
 	CCDirector::sharedDirector()->replaceScene(SceneMain::creatScene());
+}
+void SceneAction::hintCallbackRestart(CCNode *node)
+{
+    if(node->getTag() == 1)
+    {
+        newGame();
+    }
+}
+void SceneAction::newGame()
+{
+	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile();
+	TopwoData* td = Topwo::getInstance()->getTopwoData();
+	UserInfo* user_info = td->getUserInfo();
+	DataSection *data_section = td->getDataSectionFromArray(1);
+	this->addChild(LayerDialog::createWith(data_section->getBeginId(), data_section->getEndId(), this, callfunc_selector(SceneAction::callbackDialogOver)), 10);
+	
+	user_info->resetData();
 }

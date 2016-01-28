@@ -24,14 +24,18 @@ public:
 	void menuNewCallback(CCObject* pSender);
 	//旧的回忆
 	void menuOldCallback(CCObject* pSender);
+    //退出
+	void menuCloseCallback(CCObject* pSender);
 	//设置
 	void menuSetCallback(CCObject* pSender);
 	//帮助
 	void menuHelpCallback(CCObject* pSender);
 	//关于
 	void menuAboutCallback(CCObject* pSender);
-    //退出
-	void menuCloseCallback(CCObject* pSender);
+	//重新开始
+	void hintCallbackRestart(CCNode *node);
+    //新的开始
+    void newGame();
 
 	//对话结束回调
 	void callbackDialogOver();
