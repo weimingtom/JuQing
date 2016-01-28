@@ -242,7 +242,7 @@ bool SceneMain::initUI()
 	item_rest->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 	
 	//菜单
-	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, item_gift, item_exercise, item_work, item_task, NULL);
+	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, /*item_gift,*/ item_exercise, item_work, item_task, NULL);
 	menu->setPosition(CCPointZero);
 	this->addChild(menu, 1);
 
