@@ -291,6 +291,11 @@ void LayerMission::updataMissionContent()
 
 void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo* user_info = td->getUserInfo();
@@ -336,6 +341,11 @@ void LayerMission::menuCallbackMissionGuide(CCObject* pSender)
 
 void LayerMission::menuCallbackGetReward(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
@@ -365,6 +375,11 @@ void LayerMission::menuCallbackGetReward(CCObject* pSender)
 }
 void LayerMission::menuCallbackClose(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->removeFromParent();
 }
 void LayerMission::callbackDialogOver()

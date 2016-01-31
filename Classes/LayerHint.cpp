@@ -73,7 +73,7 @@ bool LayerHint::initUIWith(CCLabelTTF *content, int style)
 		CCSprite::create(RES_btn_confirm_0),
 		CCSprite::create(RES_btn_confirm_1),
 		this,
-		menu_selector(LayerHint::buttonCallBack)
+		menu_selector(LayerHint::menuCallBack)
 		);
 	pMenu->addChild(item, 0, 1);
 	CCSize size_item = item->getContentSize();
@@ -90,7 +90,7 @@ bool LayerHint::initUIWith(CCLabelTTF *content, int style)
 			CCSprite::create(RES_btn_cancel_0),
 			CCSprite::create(RES_btn_cancel_1),
 			this,
-			menu_selector(LayerHint::buttonCallBack)
+			menu_selector(LayerHint::menuCallBack)
 			);
 		pMenu->addChild(item, 0, 2);
 
@@ -113,8 +113,13 @@ void LayerHint::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
 }
 
-void LayerHint::buttonCallBack(CCObject *pSender)
+void LayerHint::menuCallBack(CCObject *pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	CCNode* node = dynamic_cast<CCNode*>(pSender);
 	if (__callbackListener && __callbackfun)
 	{

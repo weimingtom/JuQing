@@ -165,10 +165,20 @@ void LayerRest::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 
 void LayerRest::menuCallbackClose(CCObject *pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->removeFromParent();
 }
 void LayerRest::menuCallbackRest(CCObject *pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	int glod = 0;
 	if (pSender == __item_rest2)

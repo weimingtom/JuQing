@@ -248,10 +248,20 @@ void LayerGoods::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 
 void LayerGoods::menuCallbackClose(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->removeFromParent();
 }
 void LayerGoods::menuCallbackBuy(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	if (!pSender)
 	{
 		return;

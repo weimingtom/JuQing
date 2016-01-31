@@ -1,11 +1,215 @@
-﻿<?php
+<?php
 
-//require_once('C:/Users/Administrator/Desktop/pack_files/lib/init.php');
-//require_once('C:/Users/Administrator/Desktop/pack_files/lib/xxtea.php');
+define('DS', DIRECTORY_SEPARATOR);
+define('BIN_DIR', rtrim(dirname(dirname(__DIR__)), '/\\'));
+ini_set("memory_limit", "512M");
+if (DS == '/')
+{
+    define('LUAJIT_BIN', 'luajit');
+}
+else
+{
+    define('LUAJIT_BIN', BIN_DIR . '\\win32\\luajit.exe');
+}
+define('XXTEA_PATH', dirname(__FILE__).DS);
+require_once(XXTEA_PATH.'/xxtea.php');
 
-include XXTEA_PATH.'/quick/init.php';
-include XXTEA_PATH.'/quick/xxtea.php';
+$options = array(
+    array('h',   'help',       0,      false,       'show help'),
+    array('i',   'src',        1,      null,        'source files directory'),
+    array('o',   'output',     1,      null,        'output filename | output directory'),
+    array('p',   'prefix',     1,      '',          'package prefix name'),
+    array('x',   'excludes',   1,      null,        'excluded packages'),
+    array('m',   'pack',    1,      'files',       'pack mode'),
+    #array('e',   'encrypt',    1,      null,        'encrypt mode'),
+    array('ek',  'key',        1,      null,        'encrypt key'),
+    array('es',  'sign',       1,      null,        'encrypt sign'),
+    #array('ex',  'extname',    1,      'pb',       'encrypted file extension name (default is "lua"), only valid for xxtea_chunk'),
+    array('c',   'config',     1,      null,        'load options from config file'),
+    array('q',   'quiet',      0,      false,       'quiet'),
+);
 
+function errorhelp()
+{
+    print("\nshow help:\n    pack_files -h\n\n");
+}
+function help()
+{
+    global $options;
+
+    echo <<<EOT
+
+usage: pack_files -i src -o output ...
+
+options:
+
+EOT;
+
+    for ($i = 0; $i < count($options); $i++)
+    {
+        $o = $options[$i];
+        printf("    -%s %s\n", $o[0], $o[4]);
+    }
+
+    echo <<<EOT
+
+pack mode:
+    -m zip                  package all files to a ZIP archive file and encrypt.
+    -m files (default)  save encrypted files to separate files. -o specifies output dir.
+                        * default encrypt sign is "XXTEA"
+
+config file format:
+
+    return array(
+        'src'      => source files directory,
+        'output'   => output filename or output directory,
+        'prefix'   => package prefix name,
+        'excludes' => excluded packages,
+        'pack'  => pack mode,
+        'key'      => encrypt key,
+        'sign'     => encrypt sign,
+    );
+
+examples:
+
+    # encrypt res/*.* to resnew/, with XXTEA, specifies sign
+    pack_files -i res -o resnew -ek XXTEA -es tsts
+
+    # package res/*.* to game.zip
+    pack_files -i res -o game.zip -m zip
+
+    # package scripts/*.* to game.zip, encrypt game.zip with XXTEA, specifies sign
+    pack_files -i scripts -o game.zip -m zip -ek XXTEA -es tsts
+
+    # load options from config file
+    pack_files -c my_config.lua
+
+
+EOT;
+}
+
+// helper functions
+function fetchCommandLineArguments($arg, $options, $minNumArgs = 0)
+{
+    if (!is_array($arg) || !is_array($options))
+    {
+        print("ERR: invalid command line arguments");
+        return false;
+    }
+
+    $config = array();
+    $newOptions = array();
+    for ($i = 0; $i < count($options); $i++)
+    {
+        $option = $options[$i];
+        $newOptions[$option[0]] = $option;
+        $config[$option[1]] = $option[3];
+    }
+    $options = $newOptions;
+
+    $i = 1;
+    while ($i < count($arg))
+    {
+        $a = $arg[$i];
+        if ($a{0} != '-')
+        {
+            printf("ERR: invalid argument %d: %s", $i, $a);
+            return false;
+        }
+
+        $a = substr($a, 1);
+        if (!isset($options[$a]))
+        {
+            printf("ERR: invalid argument %d: -%s", $i, $a);
+            return false;
+        }
+
+        $key = $options[$a][1];
+        $num = $options[$a][2];
+        $default = $options[$a][3];
+
+        if ($num == 0)
+        {
+            $config[$key] = true;
+        }
+        else
+        {
+            $values = array();
+            for ($n = 1; $n <= $num; $n++)
+            {
+                $values[] = $arg[$i + $n];
+            }
+            if (count($values) == 1)
+            {
+                $config[$key] = $values[0];
+            }
+            else
+            {
+                $config[$key] = $values;
+            }
+        }
+
+        $i = $i + $num + 1;
+    }
+
+    return $config;
+}
+
+
+function convertConfigValueToString($value)
+{
+    if (is_null($value))
+    {
+        return null;
+    }
+    else if (is_array($value))
+    {
+        foreach ($value as $k => $v)
+        {
+            $value[$k] = convertConfigValueToString($v);
+        }
+    }
+    else if (is_string($value))
+    {
+        return '"' . $value . '"';
+    }
+    else
+    {
+        return (string)$value;
+    }
+}
+
+function getScriptFileBytecodes($path, $tmpfile)
+{
+    if (!file_exists($path))
+    {
+        printf("ERR: cannot read Lua source file %s\n", $path);
+        return false;
+    }
+
+    if (file_exists($tmpfile))
+    {
+        if (!unlink($tmpfile))
+        {
+            printf("ERR: cannot remove tmp file %s\n", $tmpfile);
+            return false;
+        }
+    }
+
+    @mkdir(pathinfo($tmpfile, PATHINFO_DIRNAME), 0777, true);
+    $command = sprintf('%s -b -s "%s" "%s"', LUAJIT_BIN, $path, $tmpfile);
+    passthru($command);
+
+    if (!file_exists($tmpfile))
+    {
+        printf("ERR: cannot compile file %s\n", $path);
+        return false;
+    }
+
+    return file_get_contents($tmpfile);
+}
+
+//
 class FilesPacker
 {
     const COMPILE_ZIP = 'zip';
@@ -119,7 +323,7 @@ class FilesPacker
 
         if (!$this->config['quiet'])
         {
-            dumpConfig($this->config, $this->options);
+            $this->dumpConfig($this->config, $this->options);
         }
 
         // check src path
@@ -197,7 +401,7 @@ class FilesPacker
             printf("Pack source files in path %s\n", $this->config['srcpath']);
         }
         $files = array();
-        findFiles($this->config['srcpath'], $files);
+        $this->findFiles($this->config['srcpath'], $files);
         return $files;
     }
 
@@ -267,10 +471,16 @@ class FilesPacker
         foreach ($modules as $path => $module)
         {
             $bytes = file_get_contents($path);
-            if (!empty($key))
+			/*$contents_before = file_get_contents($path);
+			$code = mb_detect_encoding($contents_before, array('ASCII','GB2312','GBK','UTF-8'));
+			$contents_after = iconv($code,$output_encoding,$contents_before);
+			file_put_contents($filename, $contents_after);*/
+			//$code = mb_detect_encoding($bytes, array('ASCII','GB2312','GBK','UTF-8'));
+			//$bytes = iconv($code,'UTF-8',$bytes);
+            /*if (!empty($key))
             {
                 $bytes = $sign . $xxtea->encrypt($bytes);
-            }
+            }*/
             file_put_contents($module['tempFilePath'], $bytes);
             if (!$bytes)
             {
@@ -565,4 +775,94 @@ EOT;
         }
         return implode('', $output);
     }
+	
+	
+	function dumpConfig($config, $options)
+	{
+		print("config:\n");
+		for ($i = 0; $i < count($options); $i++)
+		{
+			$key = $options[$i][1];
+			$value = convertConfigValueToString($config[$key]);
+			if ($value != null)
+			{
+				printf("    %s = %s\n", $key, $value);
+			}
+		}
+		print("\n");
+	}
+	function findFiles($dir, array & $files)
+	{
+		$dir = rtrim($dir, "/\\") . DS;
+		$dh = opendir($dir);
+		if ($dh == false) return;
+
+		while (($file = readdir($dh)) !== false)
+		{
+			if ($file{0} == '.') { continue; }
+
+			$path = $dir . $file;
+			if (is_dir($path))
+			{
+				$this->findFiles($path, $files);
+			}
+			elseif (is_file($path))
+			{
+				$files[] = $path;
+			}
+		}
+		closedir($dh);
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+print("\n");
+if ($argc < 2)
+{
+    help();
+    return(1);
+}
+
+$config = fetchCommandLineArguments($argv, $options, 4);
+if (!$config)
+{
+    errorhelp();
+    return(1);
+}
+
+if ($config['help'])
+{
+    help();
+    return(0);
+}
+
+if ($config['config'])
+{
+    $configFilename = $config['config'];
+    if (file_exists($configFilename))
+    {
+        $config = @include($configFilename);
+    }
+    else
+    {
+        $config = null;
+    }
+
+    if (!is_array($config))
+    {
+        printf("ERR: invalid config file, %s\n", $configFilename);
+        errorhelp();
+        return(1);
+    }
+}
+
+$packer = new FilesPacker($config, $options);
+if ($packer->validateConfig())
+{
+    return($packer->run());
+}
+else
+{
+    errorhelp();
+    return(1);
 }

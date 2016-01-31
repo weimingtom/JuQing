@@ -161,6 +161,11 @@ void LayerDialog::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 
 void LayerDialog::menuCallbackFork(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	__fork_menu->setVisible(false);
 	__fork_menu->removeAllChildren();
 	int fork_pos = static_cast<CCMenuItemImage*>(pSender)->getZOrder();

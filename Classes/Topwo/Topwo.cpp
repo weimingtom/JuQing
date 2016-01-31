@@ -25,7 +25,7 @@ bool Topwo::__init()
 
 	XxteaHelper* xxtea_helper = XxteaHelper::create();
 	xxtea_helper->retain();
-	xxtea_helper->setXXTeaKey("topwo", 5, "topwo", 5);
+	xxtea_helper->setXXTeaKey("pyy2015", 7, "topwo", 5);
 	CCFileUtils::sharedFileUtils()->setXxteaHelper(xxtea_helper);
 
 	__TopwoTools = TopwoTools::create();

@@ -29,7 +29,7 @@ public:
 	virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) override;
 	virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) override;
 private:
-	void buttonCallBack(CCObject* pSender);
+	void menuCallBack(CCObject* pSender);
 	CCObject* __callbackListener;
 	SEL_CallFuncN __callbackfun;
 };

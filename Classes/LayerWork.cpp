@@ -126,10 +126,20 @@ void LayerWork::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 }
 void LayerWork::menuCallbackClose(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->removeFromParent();
 }
 void LayerWork::menuCallbackWork(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	UserInfo *user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 	CCMenuItemSprite *item = static_cast<CCMenuItemSprite*>(pSender);

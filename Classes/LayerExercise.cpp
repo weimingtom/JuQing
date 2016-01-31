@@ -456,6 +456,11 @@ void LayerExercise::updateMe()
 }
 void LayerExercise::menuCallbackToLeft(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	if (__level == 1)
 	{
 		__level = 3;
@@ -473,6 +478,11 @@ void LayerExercise::menuCallbackToLeft(CCObject* pSender)
 
 void LayerExercise::menuCallbackToRight(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	if (__level == 1)
 	{
 		__level = 2;
@@ -489,6 +499,11 @@ void LayerExercise::menuCallbackToRight(CCObject* pSender)
 }
 void LayerExercise::menuCallbackExercise(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	CCMenuItemSprite *menu_item = static_cast<CCMenuItemSprite*>(pSender);
 	int gold = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(100))->getString());
 	int physical = atoi(static_cast<CCLabelAtlas*>(menu_item->getChildByTag(101))->getString());
@@ -509,6 +524,15 @@ void LayerExercise::menuCallbackExercise(CCObject* pSender)
 		__layer_progress->setTouchEnabled(true);
 		__layer_progress->setCallFunc(CCCallFuncO::create(this, callfuncO_selector(LayerExercise::progressCallbackExercise), pSender));
 	}
+}
+void LayerExercise::menuCallbackClose(CCObject* pSender)
+{
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
+	this->removeFromParent();
 }
 void LayerExercise::progressCallbackExercise(CCObject* pSender)
 {
@@ -546,10 +570,6 @@ void LayerExercise::progressCallbackExercise(CCObject* pSender)
 
 	SceneMain* scene_main = static_cast<SceneMain*>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(0));
 	scene_main->updateMe();
-}
-void LayerExercise::menuCallbackClose(CCObject* pSender)
-{
-	this->removeFromParent();
 }
 
 bool LayerExercise::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)

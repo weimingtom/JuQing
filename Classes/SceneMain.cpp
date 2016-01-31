@@ -255,31 +255,61 @@ bool SceneMain::initUI()
 
 void SceneMain::menuBackCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneAction::creatScene()));
 }
 
 void SceneMain::menuMissionCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->addChild(LayerMission::create(), 10);
 }
 //锻炼菜单项
 void SceneMain::menuExerciseCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->addChild(LayerExercise::create(), 10);
 }
 //物品菜单项
 void SceneMain::menuGoodsCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->addChild(LayerGoods::create(), 10);
 }
 //打工菜单项
 void SceneMain::menuWorkCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->addChild(LayerWork::create(), 10);
 }
 //休息菜单项
 void SceneMain::menuRestCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	this->addChild(LayerRest::create(), 10);
 }
 //更新自己
@@ -431,6 +461,11 @@ void SceneMain::callbackBuiedFavor()
 //表白
 void SceneMain::menuExpressCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools *tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
@@ -451,6 +486,8 @@ void SceneMain::menuExpressCallback(CCObject* pSender)
 //表白结束回调
 void SceneMain::callbackExpressOver()
 {
+	Topwo::getInstance()->getTopwoAudio()->playMusic(1);
+
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
 	DataNpc* data_npc = td->getDataNpcFromArray(user_info->getCurrentWooer());

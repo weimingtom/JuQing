@@ -147,6 +147,11 @@ bool SceneAction::initUI()
 //新的开始
 void SceneAction::menuNewCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	TopwoTools* tl = Topwo::getInstance()->getTopwoTools();
 	TopwoData* td = Topwo::getInstance()->getTopwoData();
     if(td->isExistData())
@@ -161,6 +166,11 @@ void SceneAction::menuNewCallback(CCObject* pSender)
 //旧的回忆
 void SceneAction::menuOldCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	Topwo::getInstance()->getTopwoData()->readData();
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneMain::creatScene()));
 }
@@ -179,6 +189,11 @@ void SceneAction::menuAboutCallback(CCObject* pSender)
 //退出
 void SceneAction::menuCloseCallback(CCObject* pSender)
 {
+	if (pSender)
+	{
+		Topwo::getInstance()->getTopwoAudio()->playEffect(1);
+	}
+
 	Topwo::getInstance()->getTopwoPlatform()->callShowExitDialog();
 }
 

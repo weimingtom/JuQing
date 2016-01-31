@@ -2,9 +2,10 @@
 import os,sys,re
 import zipfile
 import time
-#pack_files.sh -i Resources0 -o Resources -ek topwo -es topwo
-#pack_files.py -i Resources0 -o Resources -ek topwo -es topwo
-#php "./lib/pack_files.php" -i Resources0 -o Resources -ek topwo -es topwo
+#xxtea_encrypt.bat -i 11 -o 22 -ek pyy2015 -es topwo
+#xxtea_encrypt.sh -i Resources0 -o Resources -ek pyy2015 -es topwo
+#xxtea_encrypt.py -i Resources0 -o Resources -ek pyy2015 -es topwo
+#php "./lib/FilesPacker.php" -i Resources0 -o Resources -ek topwo -es topwo
 ignoreFolders = ('Music','shaders','SoundEffect','Flash','Document\\Music','Document\\Equips\\audio',
 	'UI\\MusicBloom','Document\\flash','Document\\Audition','MusicPlayer\\project_for_background','MusicPlayer\\project_for_plist','MusicPlayer\\shaders')
 ignoreZips = ('ShopMusic',)
