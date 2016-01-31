@@ -33,6 +33,8 @@ bool SceneMain::init()
         return false;
     }
 	initUI();
+
+	Topwo::getInstance()->getTopwoAudio()->playMusic(1);
     
     return true;
 }

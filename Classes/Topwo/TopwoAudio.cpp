@@ -1,8 +1,12 @@
 ﻿#include "TopwoAudio.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 TopwoAudio::TopwoAudio()
 :__is_effect(true)
 , __is_music(true)
+, __playing_music_id(0)
 {
 }
 
@@ -13,10 +17,11 @@ TopwoAudio::~TopwoAudio()
 bool TopwoAudio::init()
 {
 	//预加载音乐
-	//SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(AUDIO_MUSIC_GAME_BJ);
+	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(getMusicById(1));
+	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(getMusicById(2));
 
 	//预加载音效
-	//SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_EFFECT_BUTTON);
+	SimpleAudioEngine::sharedEngine()->preloadEffect(getEffectById(1));
 
 	return true;
 }
@@ -69,21 +74,25 @@ twbool TopwoAudio::getMusicState(twbool is_switch)
 }
 
 //播放音效
-bool TopwoAudio::playEffect(const char* effect)
+bool TopwoAudio::playEffect(int effect_id)
 {
 	if (!__is_effect)
 	{
 		return false;
 	}
 
-	SimpleAudioEngine::sharedEngine()->playEffect(effect);
+	SimpleAudioEngine::sharedEngine()->playEffect(getEffectById(effect_id));
 	return true;
 }
 
 //播放音乐
-bool TopwoAudio::playMusic(const char* music)
+bool TopwoAudio::playMusic(int music_id)
 {
-	SimpleAudioEngine::sharedEngine()->playBackgroundMusic(music, true);
+	if (__playing_music_id != music_id)
+	{
+		__playing_music_id = music_id;
+		SimpleAudioEngine::sharedEngine()->playBackgroundMusic(getMusicById(music_id), true);
+	}
 
 	if (!__is_music)
 	{
@@ -91,4 +100,33 @@ bool TopwoAudio::playMusic(const char* music)
 		return false;
 	}
 	return true;
+}
+const char* TopwoAudio::getMusicById(int id)
+{
+	const char* ret = "";
+	switch (id)
+	{
+	case 1:
+		ret = "audios/music_bg_home.mp3";
+		break;
+	case 2:
+		ret = "audios/music_bg_dialog.mp3";
+		break;
+	default:
+		break;
+	}
+	return ret;
+}
+const char* TopwoAudio::getEffectById(int id)
+{
+	const char* ret = "";
+	switch (id)
+	{
+	case 1:
+		ret = "audios/effect_button.mp3";
+		break;
+	default:
+		break;
+	}
+	return ret;
 }

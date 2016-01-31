@@ -4,13 +4,6 @@
 using namespace cocos2d;
 #include "TopwoDefine.h"
 
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
-
-#define AUDIO_EFFECT_BUTTON "audio/button.mp3"
-#define AUDIO_EFFECT_WRONG "audio/wrong.mp3"
-#define AUDIO_MUSIC_GAME_BJ "audio/bj.mp3"
-
 //音频类
 class TopwoAudio : public CCObject
 {
@@ -25,12 +18,15 @@ public:
 	twbool getEffectState(twbool is_switch);
 	twbool getMusicState(twbool is_switch);
 
-	bool playEffect(const char* effect);
-	bool playMusic(const char* music);
+	bool playEffect(int effect_id);
+	bool playMusic(int music_id);
 private:
+	const char* getMusicById(int id);
+	const char* getEffectById(int id);
 
 	twbool __is_effect;//音效开关
 	twbool __is_music;//音乐开关
+	int __playing_music_id;
 };
 
 #endif  //__TOPWO_AUDIO_H__

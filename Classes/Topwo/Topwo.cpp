@@ -1,4 +1,5 @@
 ﻿#include "Topwo.h"
+#include "../../../external/xxtea/XxteaHelper.h"
 
 Topwo* Topwo::__Topwo = 0;
 
@@ -21,6 +22,11 @@ Topwo* Topwo::getInstance()
 bool Topwo::__init()
 {
 	std::srand((twuint)time(static_cast<time_t*>(0)));
+
+	XxteaHelper* xxtea_helper = XxteaHelper::create();
+	xxtea_helper->retain();
+	xxtea_helper->setXXTeaKey("topwo", 5, "topwo", 5);
+	CCFileUtils::sharedFileUtils()->setXxteaHelper(xxtea_helper);
 
 	__TopwoTools = TopwoTools::create();
 	__TopwoTools->retain();

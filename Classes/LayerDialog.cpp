@@ -38,6 +38,8 @@ bool LayerDialog::init()
 
 	setTouchEnabled(true);  //开启触摸响应
 
+	Topwo::getInstance()->getTopwoAudio()->playMusic(2);
+
 	return true;
 }
 void LayerDialog::registerWithTouchDispatcher()

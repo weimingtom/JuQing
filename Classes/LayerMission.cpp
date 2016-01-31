@@ -369,6 +369,8 @@ void LayerMission::menuCallbackClose(CCObject* pSender)
 }
 void LayerMission::callbackDialogOver()
 {
+	Topwo::getInstance()->getTopwoAudio()->playMusic(1);
+
 	TopwoData *td = Topwo::getInstance()->getTopwoData();
 	UserInfo *user_info = td->getUserInfo();
 	int cur_mission_id = user_info->getCurrentMissionId();

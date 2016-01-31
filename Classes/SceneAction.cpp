@@ -31,6 +31,8 @@ bool SceneAction::init()
 	initUI();
 
 	setKeypadEnabled(true);
+
+	Topwo::getInstance()->getTopwoAudio()->playMusic(2);
     
     return true;
 }
