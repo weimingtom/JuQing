@@ -1,5 +1,6 @@
 ﻿#include "Topwo.h"
-#include "../../../external/xxtea/XxteaHelper.h"
+#include "cocos2d.h"
+USING_NS_CC;
 
 Topwo* Topwo::__Topwo = 0;
 
