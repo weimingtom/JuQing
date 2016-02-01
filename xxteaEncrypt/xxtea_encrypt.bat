@@ -1,3 +1,3 @@
 @echo off
 set DIR=%~dp0
-php "%DIR%lib\FilesPacker.php" %*
+E:\php\php.exe "%DIR%lib\FilesPacker.php" %*

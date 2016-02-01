@@ -471,16 +471,10 @@ class FilesPacker
         foreach ($modules as $path => $module)
         {
             $bytes = file_get_contents($path);
-			/*$contents_before = file_get_contents($path);
-			$code = mb_detect_encoding($contents_before, array('ASCII','GB2312','GBK','UTF-8'));
-			$contents_after = iconv($code,$output_encoding,$contents_before);
-			file_put_contents($filename, $contents_after);*/
-			//$code = mb_detect_encoding($bytes, array('ASCII','GB2312','GBK','UTF-8'));
-			//$bytes = iconv($code,'UTF-8',$bytes);
-            /*if (!empty($key))
+            if (!empty($key))
             {
                 $bytes = $sign . $xxtea->encrypt($bytes);
-            }*/
+            }
             file_put_contents($module['tempFilePath'], $bytes);
             if (!$bytes)
             {

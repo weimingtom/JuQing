@@ -1,3 +1,3 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-php "$DIR/lib/FilesPacker.php" $*
+E:\php\php.exe "$DIR/lib/FilesPacker.php" $*

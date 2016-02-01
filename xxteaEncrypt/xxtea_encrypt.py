@@ -2,7 +2,7 @@
 import os,sys,re
 import zipfile
 import time
-#xxtea_encrypt.bat -i 11 -o 22 -ek pyy2015 -es topwo
+#xxtea_encrypt.bat -i Resources0 -o Resources -ek pyy2015 -es topwo
 #xxtea_encrypt.sh -i Resources0 -o Resources -ek pyy2015 -es topwo
 #xxtea_encrypt.py -i Resources0 -o Resources -ek pyy2015 -es topwo
 #php "./lib/FilesPacker.php" -i Resources0 -o Resources -ek topwo -es topwo

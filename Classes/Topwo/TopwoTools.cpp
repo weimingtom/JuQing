@@ -202,7 +202,7 @@ void TopwoTools::readRapidJSON(rapidjson::Document* doc, const char *file_name)
 		//CCData *data = new CCData(pBytes, size);
 		//DictionaryHelper::shareHelper()->getStringValue_json(rapidJsonData[i], "name");
 		CC_BREAK_IF(doc == NULL || !CCFileUtils::sharedFileUtils()->isFileExist(file_name));
-		const char* file_data = (char*)CCFileUtils::sharedFileUtils()->getFileData(file_name, "rt", &file_data_size);
+		const char* file_data = (char*)CCFileUtils::sharedFileUtils()->getFileData(file_name, "rb", &file_data_size);
 		CC_BREAK_IF(file_data == NULL || file_data_size == 0);
 		const char* file_data_skip_bom = skipBOM(file_data);
 		std::string file_str(file_data_skip_bom, file_data_size + file_data - file_data_skip_bom);
