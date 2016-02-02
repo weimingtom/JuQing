@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>GameName</key>
-		<string>������</string>
+		<string>剧情类</string>
 	<key>More</key>
-		<string>����
-		��Ϸ</string>
+		<string>更多
+		游戏</string>
 	<key>HintRestart</key>
-		<string>���¿�ʼ��ɾ���浵���Ƿ������</string>
+		<string>重新开始将删除存档，是否继续？</string>
 	<key>Require</key>
-		<string>Ҫ��</string>
+		<string>要求：</string>
 	<key>Reward</key>
-		<string>������</string>
+		<string>奖励：</string>
 	<key>Gold</key>
-		<string>���</string>
+		<string>金币</string>
 	<key>Physical</key>
-		<string>����</string>
+		<string>体力</string>
 	<key>HintNotEnough</key>
-		<string>���㣬�Ƿ�ȥ���䣿</string>
+		<string>不足，是否去补充？</string>
 	<key>HintTimeNotEnough</key>
-		<string>�Բ�������׷��ʱ���Ѿ�ȫ�����꣬�Ƿ��������䣿</string>
+		<string>对不起，您的追求时间已经全部用完，是否立即补充？</string>
 	<key>HintFavorNotEnough</key>
-		<string>����ĺøл��������޷��ɹ����ף��Ƿ�����������ĺøУ�</string>
+		<string>对你的好感还不够，无法成功表白，是否增加她对你的好感？</string>
 	<key>ExpressReward</key>
 		<array>
-		<string>���׽���</string>
-		<string>�׽��Ϊ���Ů����</string>
-		<string>�׽��Ϊ���Ů����</string>
-		<string>�׽��Ϊ���Ů����</string>
-		<string>�׽��Ϊ���Ů����</string>
+		<string>表白奖励</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
+		<string>白洁成为你的女朋友</string>
 		</array>
 </dict>
 </plist>
