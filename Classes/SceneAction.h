@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+static const char RES_SceneAction_bg[] = "images/SceneAction_bg.jpg";
 static const char RES_SceneAction_new_0[] = "images/SceneAction_new_0.png";
 static const char RES_SceneAction_new_1[] = "images/SceneAction_new_1.png";
 static const char RES_SceneAction_old_0[] = "images/SceneAction_old_0.png";
@@ -11,18 +12,12 @@ static const char RES_SceneAction_old_1[] = "images/SceneAction_old_1.png";
 static const char RES_SceneAction_end_0[] = "images/SceneAction_end_0.png";
 static const char RES_SceneAction_end_1[] = "images/SceneAction_end_1.png";
 static const char RES_btn_sound_on_0[] = "images/btn_sound_on_0.png";
-static const char RES_btn_sound_on_0[] = "images/btn_sound_on_1.png";
-static const char RES_btn_exercise_0[] = "images/btn_sound_on_0.png";
-static const char RES_btn_exercise_1[] = "images/btn_sound_on_0.png";
-static const char RES_btn_goods_0[] = "images/btn_goods_0.png";
-static const char RES_btn_goods_1[] = "images/btn_goods_1.png";
-static const char RES_btn_work_0[] = "images/btn_work_0.png";
-static const char RES_btn_work_1[] = "images/btn_work_1.png";
-static const char RES_btn_rest_0[] = "images/btn_rest_0.png";
-static const char RES_btn_rest_1[] = "images/btn_rest_1.png";
-static const char RES_white_dialog[] = "images/white_dialog.png";
-static const char RES_SceneMain_progress_favor_bg[] = "images/SceneMain_progress_favor_bg.png";
-static const char RES_SceneMain_progress_favor[] = "images/SceneMain_progress_favor.png";
+static const char RES_btn_sound_on_1[] = "images/btn_sound_on_1.png";
+static const char RES_btn_sound_off_0[] = "images/btn_sound_off_0.png";
+static const char RES_btn_sound_off_1[] = "images/btn_sound_off_1.png";
+static const char RES_SceneAction_logo[] = "images/SceneAction_logo.png";
+static const char RES_SceneAction_decoration_1[] = "images/SceneAction_decoration_1.png";
+static const char RES_SceneAction_decoration_2[] = "images/SceneAction_decoration_2.png";
 
 class SceneAction : public cocos2d::CCLayer
 {

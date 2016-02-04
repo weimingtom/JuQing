@@ -46,7 +46,7 @@ bool SceneAction::initUI()
 	UserInfo* user_info = Topwo::getInstance()->getTopwoData()->getUserInfo();
 
 	//背景
-	CCSprite* bg = CCSprite::create("images/SceneAction_bg.jpg");
+	CCSprite* bg = CCSprite::create(RES_SceneAction_bg);
 	this->addChild(bg, 0);
 	bg->setPosition(ccp(vo.x + vs.width / 2, vo.y + vs.height / 2));
 
@@ -78,8 +78,8 @@ bool SceneAction::initUI()
 
 	//设置项
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
-		"images/btn_sound_on_0.png",
-		"images/btn_sound_on_1.png",
+		RES_btn_sound_on_0,
+		RES_btn_sound_on_1,
 		this,
 		menu_selector(SceneAction::menuSetCallback));
 	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
@@ -109,7 +109,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
-	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_close, item_set, /*item_help, item_about,*/ NULL);
+	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_close, item_set, NULL);
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
 
@@ -120,18 +120,18 @@ bool SceneAction::initUI()
 	}*/
 
 	//logo
-	CCSprite* sp_logo = CCSprite::create("images/SceneAction_logo.png");
+	CCSprite* sp_logo = CCSprite::create(RES_SceneAction_logo);
 	this->addChild(sp_logo, 0);
 	CCSize size_sp_logo = sp_logo->getContentSize();
 	sp_logo->setPosition(ccp(vs.width * 0.5f, vs.height - size_sp_logo.height * 0.6f));
 
 	//装饰
-	CCSprite* sp_decoration_1 = CCSprite::create("images/SceneAction_decoration_1.png");
+	CCSprite* sp_decoration_1 = CCSprite::create(RES_SceneAction_decoration_1);
 	this->addChild(sp_decoration_1, 0);
 	CCSize size_sp_decoration_1 = sp_decoration_1->getContentSize();
 	sp_decoration_1->setPosition(ccp(size_sp_decoration_1.width * 0.6f, size_sp_decoration_1.height * 0.5f));
 
-	CCSprite* sp_decoration_2 = CCSprite::create("images/SceneAction_decoration_2.png");
+	CCSprite* sp_decoration_2 = CCSprite::create(RES_SceneAction_decoration_2);
 	this->addChild(sp_decoration_2, 0);
 	CCSize size_sp_decoration_2 = sp_decoration_2->getContentSize();
 	sp_decoration_2->setPosition(ccp(vs.width - size_sp_decoration_1.width * 0.6f, size_sp_decoration_2.height * 0.5f));
@@ -173,6 +173,23 @@ void SceneAction::menuOldCallback(CCObject* pSender)
 //设置
 void SceneAction::menuSetCallback(CCObject* pSender)
 {
+	TopwoAudio *ta = Topwo::getInstance()->getTopwoAudio();
+	if (pSender)
+	{
+		ta->playEffect(1);
+	}
+
+	CCMenuItemImage* item = static_cast<CCMenuItemImage*>(pSender);
+	if (ta->getSoundState(true))
+	{
+		item->setNormalImage(CCSprite::create(RES_btn_sound_on_0));
+		item->setSelectedImage(CCSprite::create(RES_btn_sound_on_1));
+	}
+	else
+	{
+		item->setNormalImage(CCSprite::create(RES_btn_sound_off_0));
+		item->setSelectedImage(CCSprite::create(RES_btn_sound_off_1));
+	}
 }
 //帮助
 void SceneAction::menuHelpCallback(CCObject* pSender)
