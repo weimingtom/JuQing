@@ -52,8 +52,8 @@ bool SceneAction::initUI()
 
 	//新的开始项
 	CCMenuItemImage *item_new = CCMenuItemImage::create(
-		"images/SceneAction_new_0.png",
-		"images/SceneAction_new_1.png",
+		RES_SceneAction_new_0,
+		RES_SceneAction_new_1,
 		this,
 		menu_selector(SceneAction::menuNewCallback));
 	CCSize size = item_new->getContentSize();
@@ -61,34 +61,30 @@ bool SceneAction::initUI()
 
 	//旧的回忆项
 	CCMenuItemImage *item_old = CCMenuItemImage::create(
-		"images/SceneAction_old_0.png",
-		"images/SceneAction_old_1.png",
+		RES_SceneAction_old_0,
+		RES_SceneAction_old_1,
 		this,
 		menu_selector(SceneAction::menuOldCallback));
 	item_old->setPosition(ccp(vs.width * 0.5f , vs.height * 0.3f));
 
 	//退出项
 	CCMenuItemImage *item_close = CCMenuItemImage::create(
-		"images/SceneAction_end_0.png",
-		"images/SceneAction_end_1.png",
+		RES_SceneAction_end_0,
+		RES_SceneAction_end_1,
 		this,
 		menu_selector(SceneAction::menuCloseCallback));
 	item_close->setPosition(ccp(vs.width * 0.5f + size.width * 1.6f, vs.height * 0.3f));
 
 
-	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	//设置项
 	CCMenuItemImage *item_set = CCMenuItemImage::create(
-		"images/btn_common_1_0.png",
-		"images/btn_common_1_1.png",
+		"images/btn_sound_on_0.png",
+		"images/btn_sound_on_1.png",
 		this,
 		menu_selector(SceneAction::menuSetCallback));
 	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
-
-	lbl = CCLabelTTF::create("set", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
-	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
-	item_set->addChild(lbl, 1);
-
+    
+	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	//帮助项
 	CCMenuItemImage *item_help = CCMenuItemImage::create(
 		"images/btn_common_1_0.png",
@@ -113,7 +109,7 @@ bool SceneAction::initUI()
 	lbl->setPosition(ccp(size.width / 2.0f, size.height / 2.0f));
 	item_about->addChild(lbl, 1);
 
-	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_close, /*item_set, item_help, item_about,*/ NULL);
+	CCMenu* pMenu = CCMenu::create(item_new, item_old, item_close, item_set, /*item_help, item_about,*/ NULL);
 	pMenu->setPosition(CCPointZero);
 	this->addChild(pMenu, 1);
 

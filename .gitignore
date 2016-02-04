@@ -26,3 +26,4 @@ proj.android/gen/
 proj.android/libs/
 proj.android/obj/
 资源/
+*.cproject
