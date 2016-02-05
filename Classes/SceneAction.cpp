@@ -82,7 +82,20 @@ bool SceneAction::initUI()
 		RES_btn_sound_on_1,
 		this,
 		menu_selector(SceneAction::menuSetCallback));
-	item_set->setPosition(ccp(vs.width / 2.0f, vs.height / 2.0f + size.height / 2.0f + 5));
+    CCSize size_item_set = item_set->getContentSize();
+	item_set->setPosition(ccp(vs.width - size_item_set.width * 0.5f, vs.height - size_item_set.height * 1.5f));
+    
+	TopwoAudio *ta = Topwo::getInstance()->getTopwoAudio();
+	if (ta->getSoundState(false))
+	{
+		item_set->setNormalImage(CCSprite::create(RES_btn_sound_on_0));
+		item_set->setSelectedImage(CCSprite::create(RES_btn_sound_on_1));
+	}
+	else
+	{
+		item_set->setNormalImage(CCSprite::create(RES_btn_sound_off_0));
+		item_set->setSelectedImage(CCSprite::create(RES_btn_sound_off_1));
+	}
     
 	CCLabelTTF* lbl = CCLabelTTF::create("new", "fonts/ttfs/MicrosoftYaHei.ttf", 36);
 	//帮助项
@@ -174,11 +187,6 @@ void SceneAction::menuOldCallback(CCObject* pSender)
 void SceneAction::menuSetCallback(CCObject* pSender)
 {
 	TopwoAudio *ta = Topwo::getInstance()->getTopwoAudio();
-	if (pSender)
-	{
-		ta->playEffect(1);
-	}
-
 	CCMenuItemImage* item = static_cast<CCMenuItemImage*>(pSender);
 	if (ta->getSoundState(true))
 	{
@@ -189,6 +197,10 @@ void SceneAction::menuSetCallback(CCObject* pSender)
 	{
 		item->setNormalImage(CCSprite::create(RES_btn_sound_off_0));
 		item->setSelectedImage(CCSprite::create(RES_btn_sound_off_1));
+	}
+	if (pSender)
+	{
+		ta->playEffect(1);
 	}
 }
 //帮助

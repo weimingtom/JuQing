@@ -243,8 +243,30 @@ bool SceneMain::initUI()
 	CCSize size_item_rest = item_rest->getContentSize();
 	item_rest->setPosition(ccp(sp_four_items_bg->getPositionX() + size_padding.width * 0.5f, sp_four_items_bg->getPositionY() - size_padding.height * 0.5f));
 	
+    
+	//设置项
+	CCMenuItemImage *item_set = CCMenuItemImage::create(
+		RES_btn_sound_on_0,
+		RES_btn_sound_on_1,
+		this,
+		menu_selector(SceneMain::menuSetCallback));
+    CCSize size_item_set = item_set->getContentSize();
+	item_set->setPosition(ccp(vs.width - size_item_set.width * 0.5f, vs.height - size_item_set.height * 1.5f));
+    
+	TopwoAudio *ta = Topwo::getInstance()->getTopwoAudio();
+	if (ta->getSoundState(false))
+	{
+		item_set->setNormalImage(CCSprite::create(RES_btn_sound_on_0));
+		item_set->setSelectedImage(CCSprite::create(RES_btn_sound_on_1));
+	}
+	else
+	{
+		item_set->setNormalImage(CCSprite::create(RES_btn_sound_off_0));
+		item_set->setSelectedImage(CCSprite::create(RES_btn_sound_off_1));
+	}
+
 	//菜单
-	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, /*item_gift,*/ item_exercise, item_work, item_task, NULL);
+	CCMenu* menu = CCMenu::create(item_back, item_rest, item_goods, item_express, /*item_gift,*/ item_exercise, item_work, item_task, item_set, NULL);
 	menu->setPosition(CCPointZero);
 	this->addChild(menu, 1);
 
@@ -253,6 +275,7 @@ bool SceneMain::initUI()
 	return true;
 }
 
+//返回项
 void SceneMain::menuBackCallback(CCObject* pSender)
 {
 	if (pSender)
@@ -261,6 +284,26 @@ void SceneMain::menuBackCallback(CCObject* pSender)
 	}
 
 	CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.5f, SceneAction::creatScene()));
+}
+//设置项
+void SceneMain::menuSetCallback(CCObject* pSender)
+{
+	TopwoAudio *ta = Topwo::getInstance()->getTopwoAudio();
+	CCMenuItemImage* item = static_cast<CCMenuItemImage*>(pSender);
+	if (ta->getSoundState(true))
+	{
+		item->setNormalImage(CCSprite::create(RES_btn_sound_on_0));
+		item->setSelectedImage(CCSprite::create(RES_btn_sound_on_1));
+	}
+	else
+	{
+		item->setNormalImage(CCSprite::create(RES_btn_sound_off_0));
+		item->setSelectedImage(CCSprite::create(RES_btn_sound_off_1));
+	}
+	if (pSender)
+	{
+		ta->playEffect(1);
+	}
 }
 
 void SceneMain::menuMissionCallback(CCObject* pSender)

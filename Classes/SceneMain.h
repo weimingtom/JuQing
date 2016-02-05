@@ -55,6 +55,8 @@ public:
 	void menuRestCallback(CCObject* pSender);
 	//表白菜单项
 	void menuExpressCallback(CCObject* pSender);
+	//设置
+	void menuSetCallback(CCObject* pSender);
 	//表白结束回调
 	void callbackExpressOver();
 	//调用计费购买好感度
